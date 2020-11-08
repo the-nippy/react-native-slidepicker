@@ -1,8 +1,8 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-08 18:30:10
- * @LastEditors: xuwei
+ * @LastEditTime: 2020-11-08 21:03:43
+ * @LastEditors: xuxiaowei
  * @Description:
  */
 import React, { PureComponent } from "react";
@@ -183,6 +183,36 @@ export class IndependentPicker extends PureComponent {
     cancel: () => {},
   };
 
+  constructor(props) {
+    super(props);
+    this.result = [];
+    this.initData();
+  }
+
+  initData = () => {
+    const { dataSource } = this.props;
+    dataSource.forEach((element, index) => {
+      this.result[index] = element[0];
+    });
+  };
+
+  componentDidMount() {
+    const { onceChange } = this.props;
+    onceChange && onceChange(this.result);
+  }
+
+  done = (dataindex, parindex) => {
+    const { dataSource, onceChange } = this.props;
+    const list = dataSource[parindex];
+    const data = list[dataindex];
+    this.result[parindex] = data;
+    // console.info('data', data);
+    onceChange && onceChange(this.result);
+  };
+
+  confirm = () => this.props.confirm && this.props.confirm(this.result);
+  cancel = () => this.props.cancel && this.props.cancel();
+
   render() {
     const { dataSource } = this.props;
     return (
@@ -205,25 +235,6 @@ export class IndependentPicker extends PureComponent {
               done={this.done}
             />
           ))}
-          {/* <SingleSlide
-            list={this.state.level1List}
-            done={this.doneL1}
-            ref={this.setLv1Ref}
-          />
-          {dataSource.length >= 2 && (
-            <SingleSlide
-              list={this.state.level2List}
-              done={this.doneL2}
-              ref={this.setLv2Ref}
-            />
-          )}
-          {dataSource.length >= 3 && (
-            <SingleSlide
-              list={this.state.level3List}
-              done={this.doneL3}
-              ref={this.setL3Ref}
-            />
-          )} */}
         </View>
       </View>
     );
