@@ -1,0 +1,25 @@
+{
+  "name": "react-native-slidepicker",
+  "version": "1.0.0",
+  "description": "a slide picker used in react native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lexguy/react-native-slidepicker.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "picker"
+  ],
+  "author": "xuxiaowei/lexguy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lexguy/react-native-slidepicker/issues"
+  },
+  "homepage": "https://github.com/lexguy/react-native-slidepicker#readme",
+  "dependencies": {}
+}
