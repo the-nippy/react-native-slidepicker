@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-08 18:00:28
+ * @LastEditTime: 2020-11-08 18:30:10
  * @LastEditors: xuwei
  * @Description:
  */
@@ -12,7 +12,7 @@ import { SingleSlide } from "./single";
 
 const INIT = [];
 
-export class Picker extends PureComponent {
+export class RelativedPicker extends PureComponent {
   static defaultProps = {
     dataSource: [], //data
     onceChange: (arr) => {}, // once change callback
@@ -169,6 +169,61 @@ export class Picker extends PureComponent {
               ref={this.setL3Ref}
             />
           )}
+        </View>
+      </View>
+    );
+  }
+}
+
+export class IndependentPicker extends PureComponent {
+  static defaultProps = {
+    dataSource: [], //data
+    onceChange: (arr) => {}, // once change callback
+    confirm: (arr) => {}, //confirm  send data back
+    cancel: () => {},
+  };
+
+  render() {
+    const { dataSource } = this.props;
+    return (
+      <View style={sts.com}>
+        <View style={sts.rest} />
+        <View style={sts.btns}>
+          <TouchableOpacity style={sts.btn} onPress={this.cancel}>
+            <Text style={sts.btn_text}>取消</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={sts.btn} onPress={this.confirm}>
+            <Text style={sts.btn_text}>确认</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={sts.all}>
+          {dataSource.map((list, index) => (
+            <SingleSlide
+              list={list}
+              key={index}
+              inparindex={index}
+              done={this.done}
+            />
+          ))}
+          {/* <SingleSlide
+            list={this.state.level1List}
+            done={this.doneL1}
+            ref={this.setLv1Ref}
+          />
+          {dataSource.length >= 2 && (
+            <SingleSlide
+              list={this.state.level2List}
+              done={this.doneL2}
+              ref={this.setLv2Ref}
+            />
+          )}
+          {dataSource.length >= 3 && (
+            <SingleSlide
+              list={this.state.level3List}
+              done={this.doneL3}
+              ref={this.setL3Ref}
+            />
+          )} */}
         </View>
       </View>
     );

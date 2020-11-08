@@ -23,6 +23,8 @@ export class SingleSlide extends PureComponent {
     normalBgOpacity: 0.4,
     normalFontSize: 16,
     normalFontColor: '#333',
+
+    inparindex:0 
   };
 
   transValue = new Animated.Value(0);
@@ -57,7 +59,7 @@ export class SingleSlide extends PureComponent {
   };
 
   sendBackData = () => {
-    const {itemHeight} = this.props;
+    const {done,inparindex,itemHeight} = this.props;
     const transvalue = this.transValue._value;
     const count = transvalue / itemHeight;
     // console.info('count', count);
