@@ -1,8 +1,8 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-08 18:00:28
- * @LastEditors: xuwei
+ * @LastEditTime: 2020-11-08 21:03:43
+ * @LastEditors: xuxiaowei
  * @Description:
  */
 import React, { PureComponent } from "react";
@@ -12,7 +12,7 @@ import { SingleSlide } from "./single";
 
 const INIT = [];
 
-export class Picker extends PureComponent {
+export class RelativedPicker extends PureComponent {
   static defaultProps = {
     dataSource: [], //data
     onceChange: (arr) => {}, // once change callback
@@ -169,6 +169,72 @@ export class Picker extends PureComponent {
               ref={this.setL3Ref}
             />
           )}
+        </View>
+      </View>
+    );
+  }
+}
+
+export class IndependentPicker extends PureComponent {
+  static defaultProps = {
+    dataSource: [], //data
+    onceChange: (arr) => {}, // once change callback
+    confirm: (arr) => {}, //confirm  send data back
+    cancel: () => {},
+  };
+
+  constructor(props) {
+    super(props);
+    this.result = [];
+    this.initData();
+  }
+
+  initData = () => {
+    const { dataSource } = this.props;
+    dataSource.forEach((element, index) => {
+      this.result[index] = element[0];
+    });
+  };
+
+  componentDidMount() {
+    const { onceChange } = this.props;
+    onceChange && onceChange(this.result);
+  }
+
+  done = (dataindex, parindex) => {
+    const { dataSource, onceChange } = this.props;
+    const list = dataSource[parindex];
+    const data = list[dataindex];
+    this.result[parindex] = data;
+    // console.info('data', data);
+    onceChange && onceChange(this.result);
+  };
+
+  confirm = () => this.props.confirm && this.props.confirm(this.result);
+  cancel = () => this.props.cancel && this.props.cancel();
+
+  render() {
+    const { dataSource } = this.props;
+    return (
+      <View style={sts.com}>
+        <View style={sts.rest} />
+        <View style={sts.btns}>
+          <TouchableOpacity style={sts.btn} onPress={this.cancel}>
+            <Text style={sts.btn_text}>取消</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={sts.btn} onPress={this.confirm}>
+            <Text style={sts.btn_text}>确认</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={sts.all}>
+          {dataSource.map((list, index) => (
+            <SingleSlide
+              list={list}
+              key={index}
+              inparindex={index}
+              done={this.done}
+            />
+          ))}
         </View>
       </View>
     );
