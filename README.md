@@ -10,7 +10,7 @@
 
 - 支持使用级联选择和平行选择两种方式
 
-### Usage
+## Usage
 
 安装库：
 
@@ -28,7 +28,7 @@ import { CascadePicker } from "react-native-slidepicker";
 import { ParallelPicker } from "react-native-slidepicker";
 ```
 
-### Example
+## Example
 
 使用例子：
 
@@ -59,11 +59,21 @@ export default class PickerTest extends Component {
 
 ```
 
-### props
+## props
 
 下面是该组件的各个属性
 
-#### dataSource
+- [`dataSource`](#dataSource)
+- [`confirm`](#confirm)
+- [`onceChange`](#oncechange)
+- [`cancel`](#cancel)
+- [`pickerStyle`](#pickerStyle)
+
+
+
+<hr id="dataSource"></hr>
+
+### `dataSource`
 
 必要的属性，数组类型，用于选择的数据源。
 
@@ -130,21 +140,35 @@ export default class PickerTest extends Component {
 ]
 ```
 
-#### confirm
+<hr id="confirm"></hr>
+
+### ``confirm``
 
 (dataArray) => { } , 函数类型，如果使用了默认的确认和取消按钮，则该函数是必要的，在确认时传回选择的数据。
 
 如果使用了自定义头部，自定义了「选择」按钮和操作，则非必要。
 
-#### onceChange
+
+
+<hr id="oncechange"/>
+
+### `onceChange`
 
 (dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
 
-#### cancel
 
-如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
 
-#### pickerStyle
+<hr id="cancel"/>
+
+### `cancel`
+
+() => { }，函数类型， 如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
+
+
+
+<hr id="pickerStyle"/>
+
+### `pickerStyle`
 
 一个样式对象，可以包含如下的属性：
 
@@ -160,13 +184,15 @@ export default class PickerTest extends Component {
 | normalFontSize  | number          | 16            | 未被选中条目字体颜色                             |
 | normalFontColor | string：(color) | "#333"        | 未被选中条目字体颜色                             |
 
-### Method
+
+
+## Method
 
 如果你使用了自定义头部，且包含了「确认」「取消」按钮，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到你的确事件上才能获取到选择结果。
 
-#### getResult()
+### getResult()
 
-除非你使用自定义头部，否则不应该使用这个方法。
+除非你使用自定义头部，否则都应该使用 [comfrim](#comfrim)， 而不是使用这个方法。
 
 通过设置 ref，可以实时获取到已选择的数据，但是触发时机并不好判定，因为已经有了 confirm 按钮和事件回调，应该优先使用 confirm 事件。
 
@@ -194,7 +220,7 @@ export default class PickerTest extends Component {
 }
 ```
 
-### illustration
+## illustration
 
 本组件并不处理弹出框的逻辑，因为弹出层的方案可能每个人采用的方案本身不同，目前还难以找到一种大多数人统一认同的方案，所以这一层的逻辑交由使用者处理 , 如果有更好的方案欢迎 issue.
 
