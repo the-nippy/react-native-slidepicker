@@ -68,8 +68,7 @@ export default class PickerTest extends Component {
 - [`onceChange`](#oncechange)
 - [`cancel`](#cancel)
 - [`pickerStyle`](#pickerStyle)
-
-
+- [`customHead`](#head)
 
 <hr id="dataSource"></hr>
 
@@ -142,13 +141,11 @@ export default class PickerTest extends Component {
 
 <hr id="confirm"></hr>
 
-### ``confirm``
+### `confirm`
 
 (dataArray) => { } , 函数类型，如果使用了默认的确认和取消按钮，则该函数是必要的，在确认时传回选择的数据。
 
 如果使用了自定义头部，自定义了「选择」按钮和操作，则非必要。
-
-
 
 <hr id="oncechange"/>
 
@@ -156,15 +153,11 @@ export default class PickerTest extends Component {
 
 (dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
 
-
-
 <hr id="cancel"/>
 
 ### `cancel`
 
 () => { }，函数类型， 如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
-
-
 
 <hr id="pickerStyle"/>
 
@@ -184,15 +177,25 @@ export default class PickerTest extends Component {
 | normalFontSize  | number          | 16            | 未被选中条目字体颜色                             |
 | normalFontColor | string：(color) | "#333"        | 未被选中条目字体颜色                             |
 
+<hr id="head"/>
+
+### `customHead`
+
+自定义头部，即滑动选择块上面的一部分内容，非必要参数。自定义头部会替换掉默认的包含「确认」，「取消」按钮的 View。
+
+如果你需要在自定义的头部 View 中通过点击事件获取到结果，即达到「确认」按钮的效果，那就需要给当前`picker`组件指定一个 Ref，再通过`getResult`方法得到结果，详情参考下面的[`getResult方法`](#getresult)。
+
 
 
 ## Method
 
 如果你使用了自定义头部，且包含了「确认」「取消」按钮，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到你的确事件上才能获取到选择结果。
 
+<span id="getresult"></span>
+
 ### getResult()
 
-除非你使用自定义头部，否则都应该使用 [comfrim](#comfrim)， 而不是使用这个方法。
+除非你使用自定义头部，否则都应该使用 [confirm 方法](#confirm) 表示选定， 而不是使用这个方法。
 
 通过设置 ref，可以实时获取到已选择的数据，但是触发时机并不好判定，因为已经有了 confirm 按钮和事件回调，应该优先使用 confirm 事件。
 
