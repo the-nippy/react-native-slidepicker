@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-08 21:03:43
+ * @LastEditTime: 2020-11-18 00:46:04
  * @LastEditors: xuxiaowei
  * @Description:
  */
@@ -18,6 +18,7 @@ export class RelativedPicker extends PureComponent {
     onceChange: (arr) => {}, // once change callback
     confirm: (arr) => {}, //confirm  send data back
     cancel: () => {},
+    customHead: null,
   };
 
   constructor(props) {
@@ -47,6 +48,10 @@ export class RelativedPicker extends PureComponent {
   confirm = () => this.props.confirm && this.props.confirm(this.result);
 
   cancel = () => this.props.cancel && this.props.cancel();
+
+  // called by ref
+  getResult = () => this.result;
+
   /**  props  -----------------------------------END */
 
   /** START init update  ----------------------------------*/
@@ -130,10 +135,11 @@ export class RelativedPicker extends PureComponent {
   setLv2Ref = (cityref) => (this.level2Ref = cityref);
   setL3Ref = (arearef) => (this.level3Ref = arearef);
 
-  render() {
-    return (
-      <View style={sts.com}>
-        <View style={sts.rest} />
+  renderHead = () => {
+    if (this.props.customHead) {
+      return this.props.customHead;
+    } else {
+      return (
         <View style={sts.btns}>
           <TouchableOpacity style={sts.btn} onPress={this.cancel}>
             <Text style={sts.btn_text}>取消</Text>
@@ -142,14 +148,16 @@ export class RelativedPicker extends PureComponent {
             <Text style={sts.btn_text}>确认</Text>
           </TouchableOpacity>
         </View>
+      );
+    }
+  };
+
+  render() {
+    return (
+      <View style={sts.com}>
+        <View style={sts.rest} />
+        {this.renderHead()}
         <View style={sts.all}>
-          {/* {this.state.level1List.map((item, index) => (
-            <SingleSlide
-              list={this.state.level1List}
-              done={this.doneL1}
-              ref={() => this.setProsRef(index)}
-            />
-          ))} */}
           <SingleSlide
             list={this.state.level1List}
             done={this.doneL1}
@@ -213,11 +221,13 @@ export class IndependentPicker extends PureComponent {
   confirm = () => this.props.confirm && this.props.confirm(this.result);
   cancel = () => this.props.cancel && this.props.cancel();
 
-  render() {
-    const { dataSource } = this.props;
-    return (
-      <View style={sts.com}>
-        <View style={sts.rest} />
+  getResult = () => this.result;
+
+  renderHead = () => {
+    if (this.props.customHead) {
+      return this.props.customHead;
+    } else {
+      return (
         <View style={sts.btns}>
           <TouchableOpacity style={sts.btn} onPress={this.cancel}>
             <Text style={sts.btn_text}>取消</Text>
@@ -226,6 +236,16 @@ export class IndependentPicker extends PureComponent {
             <Text style={sts.btn_text}>确认</Text>
           </TouchableOpacity>
         </View>
+      );
+    }
+  };
+
+  render() {
+    const { dataSource } = this.props;
+    return (
+      <View style={sts.com}>
+        <View style={sts.rest} />
+        {this.renderHead()}
         <View style={sts.all}>
           {dataSource.map((list, index) => (
             <SingleSlide
