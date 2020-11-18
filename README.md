@@ -1,24 +1,28 @@
 # react-native-slidepicker
 
-一个 React Native 上的选择器组件，使用时间，地址以及各种分类选择的场景上。
+<h3><a href="https://github.com/lexguy/react-native-slidepicker/blob/main/CN.md">简中文档</a><h3>
 
-为什么选择：
+A react native picker component，used in time picker，address picker and other picker scenes.
 
-- 使用 JavaScript 实现，兼容 Android 和 iOS 端。
+<img src="https://pic.downk.cc/item/5fb53f7fb18d6271136f2421.jpg" width=300>
 
-- 自定义条目高度，背景色，文字样式，自定义选择器头部
+why：
 
-- 支持使用级联选择和平行选择两种方式
+- archived by JavaScript，run on Android and iOS.
+
+- custom height,backgroundColor,fontSize,fontColor,or even picker header.
+
+- support parallel data and cascade data.
 
 ## Usage
 
-安装库：
+install:
 
 ```javascript
 npm install react-native-slidepicker
 ```
 
-引入使用：
+import:
 
 ```javascript
 //联动数据
@@ -29,8 +33,6 @@ import { ParallelPicker } from "react-native-slidepicker";
 ```
 
 ## Example
-
-使用例子：
 
 ```JSX
 import {ParallelPicker} from 'react-native-slidepicker';
@@ -61,8 +63,6 @@ export default class PickerTest extends Component {
 
 ## props
 
-下面是该组件的各个属性
-
 - [`dataSource`](#dataSource)
 - [`confirm`](#confirm)
 - [`onceChange`](#oncechange)
@@ -74,11 +74,9 @@ export default class PickerTest extends Component {
 
 ### `dataSource`
 
-必要的属性，数组类型，用于选择的数据源。
+required，array，it is the data source of the picker。
 
-对级联数据选择和平行数据选择应该分别这样穿参：
-
-**级联数据：**
+**for cascade data:**
 
 ```json
 [
@@ -94,23 +92,23 @@ export default class PickerTest extends Component {
             "name": "Beijing",
             "id": 1101
           }
-          ...
+          //...
         ]
       },
       {
         "name": "South Korea",
         "id": 200,
         "list": [
-          ...
+          //...
         ]
       }
     ]
   },
-  {....}
+  {//....}
 ]
 ```
 
-**平行数据：**
+**for parallel data:**
 
 ```json
 [
@@ -122,17 +120,17 @@ export default class PickerTest extends Component {
   ],
   [
     {
-      "name": "7月",
+      "name": "july",
       "id": 201
     },
     {
-      "name": "8月",
+      "name": "August",
       "id": 202
     }
   ],
   [
     {
-      "name": "1日",
+      "name": "1",
       "id": 2101
     }
   ]
@@ -143,73 +141,78 @@ export default class PickerTest extends Component {
 
 ### `confirm`
 
-(dataArray) => { } , 函数类型，如果使用了默认的确认和取消按钮，则该函数是必要的，在确认时传回选择的数据。
+(dataArray) => { } , funtion
 
-如果使用了自定义头部，自定义了「选择」按钮和操作，则非必要。
+if you won't use the customeHead, this function is required.
+called by confirm button, send the picker data back.
 
 <hr id="oncechange"/>
 
 ### `onceChange`
 
-(dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
+(dataArray) => { } , function
+
+not required.
+once  change the picker, it will be called and send current result back.
 
 <hr id="cancel"/>
 
 ### `cancel`
 
-() => { }，函数类型， 如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
+() => { }, function
+
+if you won't use the customeHead, this function is required.
+called by cancel button, you should close the picker in this function.
 
 <hr id="pickerStyle"/>
 
 ### `pickerStyle`
 
-一个样式对象，可以包含如下的属性：
+a custom style object, receives these props:
 
-| Key             | Type            | Default Value | Description                                      |
-| --------------- | --------------- | ------------- | ------------------------------------------------ |
-| itemHeight      | number          | 40            | 条目高度                                         |
-| visibleNum      | number          | 5             | 可见行数                                         |
-| activeBgColor   | string (color)  | "#ccc"        | 被选中条目背景色                                 |
-| activeFontSize  | Number          | 18            | 被选中条目字体大小                               |
-| activeFontColor | string (color)  | "\#a00"       | 被选中条目字体颜色                               |
-| normalBgColor   | string (color)  | "#fff"        | 未被选中条目背景色                               |
-| normalBgOpacity | number (0-1)    | 0.4           | 未被选中条目背景色透明度（底色是 activeBgColor） |
-| normalFontSize  | number          | 16            | 未被选中条目字体颜色                             |
-| normalFontColor | string：(color) | "#333"        | 未被选中条目字体颜色                             |
+| Key             | Type            | Default Value | Description                                  |
+| --------------- | --------------- | ------------- | -------------------------------------------- |
+| itemHeight      | number          | 40            | item's height                                |
+| visibleNum      | number          | 5             | Number of rows                               |
+| activeBgColor   | string (color)  | "#ccc"        | Background color of selected item            |
+| activeFontSize  | Number          | 18            | Font size of selected item                   |
+| activeFontColor | string (color)  | "\#a00"       | Font color of selected item                  |
+| normalBgColor   | string (color)  | "#fff"        | Unselected item background color             |
+| normalBgOpacity | number (0-1)    | 0.4           | Background color opacity of unselected items |
+| normalFontSize  | number          | 16            | Unselected item font color                   |
+| normalFontColor | string：(color) | "#333"        | Unselected item font color                   |
 
 <hr id="head"/>
 
 ### `customHead`
 
-自定义头部，即滑动选择块上面的一部分内容，非必要参数。自定义头部会替换掉默认的包含「确认」，「取消」按钮的 View。
+a rendered view, will replace the view that contains the [confirm]、[cancel] buttons.
 
-如果你需要在自定义的头部 View 中通过点击事件获取到结果，即达到「确认」按钮的效果，那就需要给当前`picker`组件指定一个 Ref，再通过`getResult`方法得到结果，详情参考下面的[`getResult方法`](#getresult)。
-
-
+you should bind the ref , and call `getResult` method to get the result of the picker.
+[`getResult method`](#getresult)
 
 ## Method
 
-如果你使用了自定义头部，且包含了「确认」「取消」按钮，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到你的确事件上才能获取到选择结果。
+if you custom the header,then you have to call `getResult` method by ref to get result.
 
 <span id="getresult"></span>
 
 ### getResult()
 
-除非你使用自定义头部，否则都应该使用 [confirm 方法](#confirm) 表示选定， 而不是使用这个方法。
-
-通过设置 ref，可以实时获取到已选择的数据，但是触发时机并不好判定，因为已经有了 confirm 按钮和事件回调，应该优先使用 confirm 事件。
+unless you custom header，or you should use `confirm` method.
+you can get the result by this function ,just like the following:
 
 ```JSX
 export default class PickerTest extends Component {
-  ...
+  //...
   setPickerRef=(ref) => this.pickerRef = ref;
+
 	getData=()=>{
     const data = this.pickerRef.getResult();
     console.info('data',data)
   }
   render() {
-    const CustomHead=
-          <View><Button onPress={this.getData}></Button></View>;
+    const CustomHead = <View><Button onPress={this.getData}></Button></View>;
     return (
       <View style={{flex: 1}}>
         <ParallelPicker
@@ -225,17 +228,17 @@ export default class PickerTest extends Component {
 
 ## illustration
 
-本组件并不处理弹出框的逻辑，因为弹出层的方案可能每个人采用的方案本身不同，目前还难以找到一种大多数人统一认同的方案，所以这一层的逻辑交由使用者处理 , 如果有更好的方案欢迎 issue.
+This component does not deal with the logic of pop-up boxes, because the scheme of the pop-up layer may be different from the scheme adopted by each person. At present, it is difficult to find a solution that most people agree with. Therefore, the logic of this layer is left to the user. If there is a better scheme, welcome to issue
 
-如果你需要使用在弹出层中，可以使用`Modal`或者绝对定位及 z-Index 手段，
+If you need to use it in the pop-up layer, you can use 'modal' or absolute positioning and z-Index.
 
-如：
+example:
 
 ```jsx
 
-//嵌入Modal
+//used in modal
 <Modal {...ModalProps}>
-	<ParallelPicker
+  <ParallelPicker
    dataSource={ParaData}
    onceChange={this.onceChange}
    confirm={this.confirm}
@@ -243,8 +246,8 @@ export default class PickerTest extends Component {
   />
 </Modal>
 
-//嵌入View。state控制
+//used in view with state
 <View>
-	{this.state.isPicker && <CascadePicker {...props}>}
+  {this.state.isPicker && <CascadePicker {...props}>}
 </View>
 ```
