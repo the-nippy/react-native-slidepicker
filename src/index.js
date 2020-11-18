@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-18 00:46:04
+ * @LastEditTime: 2020-11-19 00:51:39
  * @LastEditors: xuxiaowei
  * @Description:
  */
@@ -19,6 +19,7 @@ export class RelativedPicker extends PureComponent {
     confirm: (arr) => {}, //confirm  send data back
     cancel: () => {},
     customHead: null,
+    pickerStyle: {},
   };
 
   constructor(props) {
@@ -51,7 +52,6 @@ export class RelativedPicker extends PureComponent {
 
   // called by ref
   getResult = () => this.result;
-
   /**  props  -----------------------------------END */
 
   /** START init update  ----------------------------------*/
@@ -142,10 +142,10 @@ export class RelativedPicker extends PureComponent {
       return (
         <View style={sts.btns}>
           <TouchableOpacity style={sts.btn} onPress={this.cancel}>
-            <Text style={sts.btn_text}>取消</Text>
+            <Text style={sts.btn_text}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity style={sts.btn} onPress={this.confirm}>
-            <Text style={sts.btn_text}>确认</Text>
+            <Text style={sts.btn_text}>Confirm</Text>
           </TouchableOpacity>
         </View>
       );
@@ -155,19 +155,21 @@ export class RelativedPicker extends PureComponent {
   render() {
     return (
       <View style={sts.com}>
-        <View style={sts.rest} />
+        {/* <View style={sts.rest} /> */}
         {this.renderHead()}
         <View style={sts.all}>
           <SingleSlide
             list={this.state.level1List}
             done={this.doneL1}
             ref={this.setLv1Ref}
+            {...this.props.pickerStyle}
           />
           {this.state.level2List && (
             <SingleSlide
               list={this.state.level2List}
               done={this.doneL2}
               ref={this.setLv2Ref}
+              {...this.props.pickerStyle}
             />
           )}
           {this.state.level3List && (
@@ -175,6 +177,7 @@ export class RelativedPicker extends PureComponent {
               list={this.state.level3List}
               done={this.doneL3}
               ref={this.setL3Ref}
+              {...this.props.pickerStyle}
             />
           )}
         </View>
@@ -244,7 +247,7 @@ export class IndependentPicker extends PureComponent {
     const { dataSource } = this.props;
     return (
       <View style={sts.com}>
-        <View style={sts.rest} />
+        {/* <View style={sts.rest} /> */}
         {this.renderHead()}
         <View style={sts.all}>
           {dataSource.map((list, index) => (
@@ -270,6 +273,7 @@ const sts = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
+    // backgroundColor: "#aa0",
   },
   btn: {
     // backgroundColor: '#a00',

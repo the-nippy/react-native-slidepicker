@@ -2,6 +2,8 @@
 
 <h3><a href="https://github.com/lexguy/react-native-slidepicker/blob/main/CN.md">简中文档</a><h3>
 
+<hr/>
+
 A react native picker component，used in time picker，address picker and other picker scenes.
 
 <img src="https://pic.downk.cc/item/5fb53f7fb18d6271136f2421.jpg" width=300>
@@ -72,9 +74,9 @@ export default class PickerTest extends Component {
 
 <hr id="dataSource"></hr>
 
-### `dataSource`
+### `dataSource : array`
 
-required，array，it is the data source of the picker。
+required.  data source of the picker。
 
 **for cascade data:**
 
@@ -92,19 +94,16 @@ required，array，it is the data source of the picker。
             "name": "Beijing",
             "id": 1101
           }
-          //...
         ]
       },
       {
         "name": "South Korea",
         "id": 200,
         "list": [
-          //...
         ]
       }
     ]
   },
-  {//....}
 ]
 ```
 
@@ -139,16 +138,14 @@ required，array，it is the data source of the picker。
 
 <hr id="confirm"></hr>
 
-### `confirm`
-
-(dataArray) => { } , funtion
+### `confirm : (dataArray) => { }`
 
 if you won't use the customeHead, this function is required.
 called by confirm button, send the picker data back.
 
 <hr id="oncechange"/>
 
-### `onceChange`
+### `onceChange : (dataArray) => { }`
 
 (dataArray) => { } , function
 
@@ -157,16 +154,14 @@ once  change the picker, it will be called and send current result back.
 
 <hr id="cancel"/>
 
-### `cancel`
-
-() => { }, function
+### `cancel : () => { } `
 
 if you won't use the customeHead, this function is required.
 called by cancel button, you should close the picker in this function.
 
 <hr id="pickerStyle"/>
 
-### `pickerStyle`
+### `pickerStyle : object`
 
 a custom style object, receives these props:
 
@@ -184,7 +179,7 @@ a custom style object, receives these props:
 
 <hr id="head"/>
 
-### `customHead`
+### `customHead : view`
 
 a rendered view, will replace the view that contains the [confirm]、[cancel] buttons.
 
@@ -207,7 +202,7 @@ export default class PickerTest extends Component {
   //...
   setPickerRef=(ref) => this.pickerRef = ref;
 
-	getData=()=>{
+  getData=()=>{
     const data = this.pickerRef.getResult();
     console.info('data',data)
   }
