@@ -76,7 +76,7 @@ export default class PickerTest extends Component {
 
 ### `dataSource : array`
 
-required.  data source of the picker。
+required. data source of the picker。
 
 **for cascade data:**
 
@@ -99,11 +99,10 @@ required.  data source of the picker。
       {
         "name": "South Korea",
         "id": 200,
-        "list": [
-        ]
+        "list": []
       }
     ]
-  },
+  }
 ]
 ```
 
@@ -150,7 +149,7 @@ called by confirm button, send the picker data back.
 (dataArray) => { } , function
 
 not required.
-once  change the picker, it will be called and send current result back.
+once change the picker, it will be called and send current result back.
 
 <hr id="cancel"/>
 
