@@ -1,0 +1,173 @@
+[
+  {
+    "name": "Asia",
+    "id": 1,
+    "list": [
+      {
+        "name": "China",
+        "id": 100,
+        "list": [
+          {
+            "name": "Beijing",
+            "id": 1101
+          },
+          {
+            "name": "ShangHai",
+            "id": 1102
+          },
+          {
+            "name": "GuangZhou",
+            "id": 1103
+          },
+          {
+            "name": "ShenZhen",
+            "id": 1104
+          },
+          {
+            "name": "HangZhou",
+            "id": 1105
+          }
+        ]
+      },
+      {
+        "name": "South Korea",
+        "id": 200,
+        "list": [
+          {
+            "name": "Seoul",
+            "id": 1201
+          },
+          {
+            "name": "Pusan",
+            "id": 1202
+          },
+          {
+            "name": "Inchon",
+            "id": 1203
+          },
+          {
+            "name": "Kwangju",
+            "id": 1204
+          }
+        ]
+      },
+      {
+        "name": "Japan",
+        "id": 300,
+        "list": [
+          {
+            "name": "Tokyo",
+            "id": 1301
+          },
+          {
+            "name": "Yokohama",
+            "id": 1302
+          },
+          {
+            "name": "Fukuoka",
+            "id": 1303
+          },
+          {
+            "name": "Nara",
+            "id": 1304
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "North America",
+    "id": 2,
+    "list": [
+      {
+        "name": "USA",
+        "id": 100,
+        "list": [
+          {
+            "name": "New York",
+            "id": 2001
+          },
+          {
+            "name": "San Francisco",
+            "id": 2002
+          },
+          {
+            "name": "Boston",
+            "id": 2003
+          },
+          {
+            "name": "Las Vegas",
+            "id": 2004
+          }
+        ]
+      },
+      {"name": "Mexico", "id": 300, "list": []},
+      {
+        "name": "Canada",
+        "id": 200,
+        "list": [
+          {
+            "name": "Toronto",
+            "id": 2101
+          },
+          {
+            "name": "Vancouver",
+            "id": 2102
+          },
+          {
+            "name": "Edmonton",
+            "id": 2103
+          },
+          {
+            "name": "Montréal",
+            "id": 2104
+          },
+          {
+            "name": "Hamilton",
+            "id": 2105
+          }
+        ]
+      },
+      {"name": "Cuba", "id": 400, "list": []},
+      {"name": "jamaica", "id": 400, "list": []}
+    ]
+  },
+  {"name": "South America"},
+
+  {
+    "name": "Europe",
+    "id": 3,
+    "list": [
+      {
+        "name": "Russia",
+        "id": 300,
+        "list": [
+          {
+            "name": "Moscow",
+            "id": 3001
+          },
+          {
+            "name": "Saint Petersburg",
+            "id": 3002
+          },
+          {
+            "name": "volgoglad",
+            "id": 3003
+          },
+          {
+            "name": "yekaterinburg",
+            "id": 3004
+          },
+          {
+            "name": "kazan",
+            "id": 3005
+          },
+          {
+            "name": "novosibirsk",
+            "id": 3006
+          }
+        ]
+      }
+    ]
+  }
+]

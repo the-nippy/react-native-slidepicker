@@ -1,6 +1,10 @@
 {
   "name": "react-native-slidepicker",
+<<<<<<< HEAD
   "version": "1.0.3",
+=======
+  "version": "1.0.4",
+>>>>>>> 5af12df7473e581c3da530a1fba95d84d6e3773d
   "description": "a slide picker used in react native",
   "main": "index.js",
   "scripts": {
@@ -11,6 +15,9 @@
     "url": "git+https://github.com/lexguy/react-native-slidepicker.git"
   },
   "keywords": [
+    "RN",
+    "React Native",
+    "react native",
     "react",
     "native",
     "picker"

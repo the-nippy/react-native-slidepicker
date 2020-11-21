@@ -1,13 +1,12 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-19 00:51:39
- * @LastEditors: xuxiaowei
+ * @LastEditTime: 2020-11-21 17:36:11
+ * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-// import provinceMap from './province.json';
 import { SingleSlide } from "./single";
 
 const INIT = [];
@@ -58,33 +57,35 @@ export class RelativedPicker extends PureComponent {
   splitData = (pros) => {
     const level1List = pros.map(this.fliterProperty);
     this.setState({ level1List });
-    this.setL2List(level1List[0].id);
+    this.setL2List(0);
   };
 
   // update Level2
-  setL2List = (proId) => {
+  setL2List = (initIndex) => {
     this.level2Ref && this.level2Ref.resetTrans();
     const pros = this.props.dataSource;
-    const L1Target = pros.find((pro) => pro.id === proId);
+    const L1Target = pros[initIndex];
     this.addToLocal(L1Target, 0);
-
     if (L1Target && L1Target.list) {
       const l2List = L1Target.list;
       const level2List = l2List.map((item) => ({
         id: item.id,
-        // pid: item.pid,
         name: item.name,
         list: item.list,
       }));
-      this.setState({ level2List }, () => this.setL3List(level2List[0].id));
+      this.setState({ level2List }, () => this.setL3List(0));
+    } else {
+      this.addToLocal({}, 1);
+      this.addToLocal({}, 2);
+      this.setState({ level2List: [], level3List: [] });
     }
   };
 
   // update Level3
-  setL3List = (cityId) => {
+  setL3List = (initIndex) => {
     this.level3Ref && this.level3Ref.resetTrans();
     const level2List = this.state.level2List;
-    const L2Target = level2List.find((item) => item.id === cityId);
+    const L2Target = level2List[initIndex];
     this.addToLocal(L2Target, 1);
 
     if (L2Target && L2Target.list) {
@@ -92,6 +93,9 @@ export class RelativedPicker extends PureComponent {
       const list = l3List.map(this.fliterProperty);
       this.setState({ level3List: list });
       this.addToLocal(list[0], 2);
+    } else {
+      this.addToLocal({}, 2);
+      this.setState({ level3List: null });
     }
   };
 
@@ -104,9 +108,9 @@ export class RelativedPicker extends PureComponent {
 
   // add to this.result   /level index from zero
   addToLocal = (todoItem, level) => {
-    const { list, ...final } = todoItem;
-    this.result[level] = final;
-    // console.info('result', this.result);
+    const temp = { ...todoItem };
+    delete temp.list;
+    this.result[level] = temp;
     this.onceDataChange();
   };
 
@@ -114,13 +118,13 @@ export class RelativedPicker extends PureComponent {
 
   doneL1 = (proIndex) => {
     const target = this.state.level1List[proIndex];
-    this.setL2List(target.id);
+    this.setL2List(proIndex);
     this.addToLocal(target, 0);
   };
 
   doneL2 = (cityIndex) => {
     const target = this.state.level2List[cityIndex];
-    this.setL3List(target.id);
+    this.setL3List(cityIndex);
     this.addToLocal(target, 1);
   };
 
@@ -233,10 +237,10 @@ export class IndependentPicker extends PureComponent {
       return (
         <View style={sts.btns}>
           <TouchableOpacity style={sts.btn} onPress={this.cancel}>
-            <Text style={sts.btn_text}>取消</Text>
+            <Text style={sts.btn_text}>Cancel</Text>
           </TouchableOpacity>
           <TouchableOpacity style={sts.btn} onPress={this.confirm}>
-            <Text style={sts.btn_text}>确认</Text>
+            <Text style={sts.btn_text}>Confirm</Text>
           </TouchableOpacity>
         </View>
       );
@@ -244,7 +248,7 @@ export class IndependentPicker extends PureComponent {
   };
 
   render() {
-    const { dataSource } = this.props;
+    const { dataSource, pickerStyle } = this.props;
     return (
       <View style={sts.com}>
         {/* <View style={sts.rest} /> */}
@@ -256,6 +260,7 @@ export class IndependentPicker extends PureComponent {
               key={index}
               inparindex={index}
               done={this.done}
+              {...pickerStyle}
             />
           ))}
         </View>
@@ -266,6 +271,7 @@ export class IndependentPicker extends PureComponent {
 
 const sts = StyleSheet.create({
   com: {
+    // backgroundColor:'#00a'
     // flex: 1, paddingTop: 20
   },
   rest: { flex: 1, backgroundColor: "#fff" },
@@ -273,7 +279,8 @@ const sts = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
-    // backgroundColor: "#aa0",
+    // backgroundColor: "#888",
+    // backgroundColor: "#a00",
   },
   btn: {
     // backgroundColor: '#a00',
