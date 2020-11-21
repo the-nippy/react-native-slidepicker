@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-11-20 17:15:29
+ * @LastEditTime: 2020-11-21 17:35:15
  * @LastEditors: xuwei
  * @Description:
  */
@@ -9,10 +9,10 @@ import React, {Component, PureComponent} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
 import {AbsoContain, ModalContain} from './pickercontain';
 import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
-// import {CascadePicker, ParallelPicker} from '../../index';
-// import
+
 const specData = require('./testfiles/spec.json');
 const oneData = require('./testfiles/one.json');
+const twoData = require('./testfiles/two.json');
 const threeData = require('./testfiles/three.json');
 const ICON_DOG = require('./testfiles/dog.png');
 
@@ -42,7 +42,7 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'three'})}>
-          <Text>Show one wheel</Text>
+          <Text>Show three wheel</Text>
         </TouchableOpacity>
 
         {/* color size */}
@@ -65,7 +65,7 @@ export default class PickerDemo extends Component {
         {this.state.showType === 'one' && (
           <AbsoContain>
             <CascadePicker
-              dataSource={oneData}
+              dataSource={twoData}
               confirm={() => {}}
               cancel={this.close}
               pickerStyle={{
@@ -99,7 +99,7 @@ export default class PickerDemo extends Component {
           <AbsoContain>
             <CascadePicker
               dataSource={threeData}
-              confirm={() => {}}
+              confirm={(data) => console.info('data', JSON.stringify(data))}
               cancel={this.close}
               pickerStyle={{
                 activeFontColor: '#0aa',
