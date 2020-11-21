@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-11-21 17:35:15
+ * @LastEditTime: 2020-11-21 17:56:56
  * @LastEditors: xuwei
  * @Description:
  */
@@ -11,7 +11,9 @@ import {AbsoContain, ModalContain} from './pickercontain';
 import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 
 const specData = require('./testfiles/spec.json');
-const oneData = require('./testfiles/one.json');
+// const oneData = require('./testfiles/one.json');
+const oneData = require('./testfiles/onepara.json');
+
 const twoData = require('./testfiles/two.json');
 const threeData = require('./testfiles/three.json');
 const ICON_DOG = require('./testfiles/dog.png');
@@ -30,19 +32,19 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => this.setState({showType: 'spec'})}>
-          <Text>Show Time Picker</Text>
+          <Text style={{fontSize: 20}}>Show Spec Picker</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'one'})}>
-          <Text>Show one wheel</Text>
+          <Text style={{fontSize: 20}}>Show one wheel</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'three'})}>
-          <Text>Show three wheel</Text>
+          <Text style={{fontSize: 20}}>Show three wheel</Text>
         </TouchableOpacity>
 
         {/* color size */}
@@ -64,8 +66,8 @@ export default class PickerDemo extends Component {
 
         {this.state.showType === 'one' && (
           <AbsoContain>
-            <CascadePicker
-              dataSource={twoData}
+            <ParallelPicker
+              dataSource={oneData}
               confirm={() => {}}
               cancel={this.close}
               pickerStyle={{
