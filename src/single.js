@@ -1,8 +1,8 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2020-11-08 21:06:37
- * @LastEditors: xuxiaowei
+ * @LastEditTime: 2020-11-21 17:34:30
+ * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
@@ -12,10 +12,8 @@ export class SingleSlide extends PureComponent {
   static defaultProps = {
     itemHeight: 40, // per item height
     visibleNum: 5, // visible lins
-    // maskLines: 2, //
 
     activeBgColor: "#ccc",
-    // activeBgColor: '#EEE8AA',
     activeFontSize: 18,
     activeFontColor: "#a00",
 
@@ -39,10 +37,17 @@ export class SingleSlide extends PureComponent {
       onMoveShouldSetPanResponder: () => this.props.list.length > 1,
       onPanResponderGrant: () =>
         this.transValue.setOffset(this.transValue._value),
-      onPanResponderMove: Animated.event([null, { dy: this.transValue }]),
+      onPanResponderMove: this.panMove,
       onPanResponderRelease: this.panRelease,
     });
   }
+
+  panMove = ({ nativeEvent }, gestureState) => {
+    this.transValue.setValue(gestureState.dy);
+  };
+
+  // 当前 0.63.3 版本需要对 Animated.event  的第二个参数 config 实现，需要重写 move? 报错 config.onPanResponderMove is not a function..
+  // panMove=  Animated.event([null, { dy: this.transValue }],{useNativeDriver:true})
 
   panRelease = ({ nativeEvent }, gestureState) => {
     const { itemHeight } = this.props;
