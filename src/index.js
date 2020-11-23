@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-21 17:36:11
+ * @LastEditTime: 2020-11-23 10:26:13
  * @LastEditors: xuwei
  * @Description:
  */
@@ -14,6 +14,7 @@ const INIT = [];
 export class RelativedPicker extends PureComponent {
   static defaultProps = {
     dataSource: [], //data
+    pickerDeep: 3,
     onceChange: (arr) => {}, // once change callback
     confirm: (arr) => {}, //confirm  send data back
     cancel: () => {},
@@ -23,12 +24,14 @@ export class RelativedPicker extends PureComponent {
 
   constructor(props) {
     super(props);
+    this.result = [];
+    this.atleasttwo = this.props.pickerDeep >= 2;
+    this.atleastthree = this.props.pickerDeep >= 3;
     this.state = {
       level1List: INIT,
       level2List: null,
       level3List: null,
     };
-    this.result = [];
   }
 
   componentDidMount() {
@@ -57,7 +60,8 @@ export class RelativedPicker extends PureComponent {
   splitData = (pros) => {
     const level1List = pros.map(this.fliterProperty);
     this.setState({ level1List });
-    this.setL2List(0);
+    this.addToLocal(level1List[0], 0);
+    this.atleasttwo && this.setL2List(0);
   };
 
   // update Level2
@@ -65,7 +69,6 @@ export class RelativedPicker extends PureComponent {
     this.level2Ref && this.level2Ref.resetTrans();
     const pros = this.props.dataSource;
     const L1Target = pros[initIndex];
-    this.addToLocal(L1Target, 0);
     if (L1Target && L1Target.list) {
       const l2List = L1Target.list;
       const level2List = l2List.map((item) => ({
@@ -73,11 +76,18 @@ export class RelativedPicker extends PureComponent {
         name: item.name,
         list: item.list,
       }));
-      this.setState({ level2List }, () => this.setL3List(0));
+      this.addToLocal(level2List[0], 1);
+      this.setState(
+        { level2List },
+        () => this.atleastthree && this.setL3List(0)
+      );
     } else {
-      this.addToLocal({}, 1);
-      this.addToLocal({}, 2);
-      this.setState({ level2List: [], level3List: [] });
+      this.atleasttwo && this.addToLocal({}, 1);
+      this.atleastthree && this.addToLocal({}, 2);
+      this.setState({
+        level2List: this.atleasttwo ? [] : null,
+        level3List: this.atleastthree ? [] : null,
+      });
     }
   };
 
@@ -86,8 +96,6 @@ export class RelativedPicker extends PureComponent {
     this.level3Ref && this.level3Ref.resetTrans();
     const level2List = this.state.level2List;
     const L2Target = level2List[initIndex];
-    this.addToLocal(L2Target, 1);
-
     if (L2Target && L2Target.list) {
       const l3List = L2Target.list;
       const list = l3List.map(this.fliterProperty);
@@ -118,19 +126,19 @@ export class RelativedPicker extends PureComponent {
 
   doneL1 = (proIndex) => {
     const target = this.state.level1List[proIndex];
-    this.setL2List(proIndex);
+    this.atleasttwo && this.setL2List(proIndex);
     this.addToLocal(target, 0);
   };
 
   doneL2 = (cityIndex) => {
     const target = this.state.level2List[cityIndex];
-    this.setL3List(cityIndex);
+    this.atleastthree && this.setL3List(cityIndex);
     this.addToLocal(target, 1);
   };
 
   doneL3 = (areaIndex) => {
     const target = this.state.level3List[areaIndex];
-    this.addToLocal(target, 2);
+    this.atleastthree && this.addToLocal(target, 2);
   };
 
   /**  after choose ---------------------------------  END*/
@@ -157,28 +165,30 @@ export class RelativedPicker extends PureComponent {
   };
 
   render() {
+    const { level1List, level2List, level3List } = this.state;
+    const { pickerDeep } = this.props;
     return (
       <View style={sts.com}>
         {/* <View style={sts.rest} /> */}
         {this.renderHead()}
         <View style={sts.all}>
           <SingleSlide
-            list={this.state.level1List}
+            list={level1List}
             done={this.doneL1}
             ref={this.setLv1Ref}
             {...this.props.pickerStyle}
           />
-          {this.state.level2List && (
+          {level2List && pickerDeep >= 2 && (
             <SingleSlide
-              list={this.state.level2List}
+              list={level2List}
               done={this.doneL2}
               ref={this.setLv2Ref}
               {...this.props.pickerStyle}
             />
           )}
-          {this.state.level3List && (
+          {level3List && pickerDeep >= 3 && (
             <SingleSlide
-              list={this.state.level3List}
+              list={level3List}
               done={this.doneL3}
               ref={this.setL3Ref}
               {...this.props.pickerStyle}

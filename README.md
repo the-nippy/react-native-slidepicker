@@ -6,7 +6,7 @@
 
 A react native picker component，used in time picker，address picker and other picker scenes.
 
-<img src="https://pic.downk.cc/item/5fb53f7fb18d6271136f2421.jpg" width=300>
+<img src="https://pic.downk.cc/item/5fb93c6fb18d6271136c5d52.gif" width=360>
 
 why：
 
@@ -66,6 +66,7 @@ export default class PickerTest extends Component {
 ## props
 
 - [`dataSource`](#dataSource)
+- [`pickerDeep`](#deep)
 - [`confirm`](#confirm)
 - [`onceChange`](#oncechange)
 - [`cancel`](#cancel)
@@ -134,6 +135,12 @@ required. data source of the picker。
   ]
 ]
 ```
+
+<hr id="deep"></hr>
+
+### `pickerDeep : number`
+
+the num of sub pickers, required in CascadePicker Component.
 
 <hr id="confirm"></hr>
 

@@ -66,6 +66,7 @@ export default class PickerTest extends Component {
 下面是该组件的各个属性
 
 - [`dataSource`](#dataSource)
+- [`pickerDeep`](#deep)
 - [`confirm`](#confirm)
 - [`onceChange`](#oncechange)
 - [`cancel`](#cancel)
@@ -140,6 +141,12 @@ export default class PickerTest extends Component {
   ]
 ]
 ```
+
+<hr id="deep"></hr>
+
+### `pickerDeep : number`
+
+the num of sub pickers, required in CascadePicker Component.
 
 <hr id="confirm"></hr>
 
