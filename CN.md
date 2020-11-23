@@ -2,7 +2,7 @@
 
 一个 React Native 上的选择器组件，使用时间，地址以及各种分类选择的场景上。
 
-<img src="https://pic.downk.cc/item/5fb53f7fb18d6271136f2421.jpg" width=300>
+<img src="https://pic.downk.cc/item/5fb93c6fb18d6271136c5d52.gif" width=360>
 
 为什么选择：
 
@@ -12,7 +12,7 @@
 
 - 支持使用级联选择和平行选择两种方式
 
-## Usage
+## 使用
 
 安装库：
 
@@ -30,7 +30,7 @@ import { CascadePicker } from "react-native-slidepicker";
 import { ParallelPicker } from "react-native-slidepicker";
 ```
 
-## Example
+## 例子
 
 使用例子：
 
@@ -63,7 +63,7 @@ export default class PickerTest extends Component {
 
 ## props
 
-下面是该组件的各个属性
+组件的可用属性：
 
 - [`dataSource`](#dataSource)
 - [`pickerDeep`](#deep)
@@ -75,7 +75,7 @@ export default class PickerTest extends Component {
 
 <hr id="dataSource"></hr>
 
-### `dataSource`
+### `dataSource : array`
 
 必要的属性，数组类型，用于选择的数据源。
 
@@ -97,19 +97,15 @@ export default class PickerTest extends Component {
             "name": "Beijing",
             "id": 1101
           }
-          //...
         ]
       },
       {
         "name": "South Korea",
         "id": 200,
-        "list": [
-          //...
-        ]
+        "list": []
       }
     ]
-  },
-  {//....}
+  }
 ]
 ```
 
@@ -146,11 +142,11 @@ export default class PickerTest extends Component {
 
 ### `pickerDeep : number`
 
-the num of sub pickers, required in CascadePicker Component.
+选择轮盘的个数
 
 <hr id="confirm"></hr>
 
-### `confirm`
+### `confirm : (dataArray) => { }`
 
 (dataArray) => { } , 函数类型，如果使用了默认的确认和取消按钮，则该函数是必要的，在确认时传回选择的数据。
 
@@ -158,19 +154,19 @@ the num of sub pickers, required in CascadePicker Component.
 
 <hr id="oncechange"/>
 
-### `onceChange`
+### `onceChange : (dataArray) => { }`
 
 (dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
 
 <hr id="cancel"/>
 
-### `cancel`
+### `cancel : () => { } `
 
 () => { }，函数类型， 如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
 
 <hr id="pickerStyle"/>
 
-### `pickerStyle`
+### `pickerStyle : object`
 
 一个样式对象，可以包含如下的属性：
 
@@ -188,19 +184,19 @@ the num of sub pickers, required in CascadePicker Component.
 
 <hr id="head"/>
 
-### `customHead`
+### `customHead : view`
 
 自定义头部，即滑动选择块上面的一部分内容，非必要参数。自定义头部会替换掉默认的包含「确认」，「取消」按钮的 View。
 
 如果你需要在自定义的头部 View 中通过点击事件获取到结果，即达到「确认」按钮的效果，那就需要给当前`picker`组件指定一个 Ref，再通过`getResult`方法得到结果，详情参考下面的[`getResult方法`](#getresult)。
 
-## Method
+## 方法
 
 如果你使用了自定义头部，且包含了「确认」「取消」按钮，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到你的确事件上才能获取到选择结果。
 
 <span id="getresult"></span>
 
-### getResult()
+### `getResult()`
 
 除非你使用自定义头部，否则都应该使用 [confirm 方法](#confirm) 表示选定， 而不是使用这个方法。
 
@@ -211,7 +207,7 @@ export default class PickerTest extends Component {
   //...
   setPickerRef=(ref) => this.pickerRef = ref;
 
-	getData=()=>{
+  getData=()=>{
     const data = this.pickerRef.getResult();
     console.info('data',data)
   }
@@ -230,7 +226,7 @@ export default class PickerTest extends Component {
 }
 ```
 
-## illustration
+## 说明
 
 本组件并不处理弹出框的逻辑，因为弹出层的方案可能每个人采用的方案本身不同，目前还难以找到一种大多数人统一认同的方案，所以这一层的逻辑交由使用者处理 , 如果有更好的方案欢迎 issue.
 
@@ -240,18 +236,8 @@ export default class PickerTest extends Component {
 
 ```jsx
 
-//嵌入Modal
-<Modal {...ModalProps}>
-  <ParallelPicker
-   dataSource={ParaData}
-   onceChange={this.onceChange}
-   confirm={this.confirm}
-   ...
-  />
-</Modal>
-
-//嵌入View。state控制
-<View>
-  {this.state.isPicker && <CascadePicker {...props}>}
-</View>
+{this.state.isPicker &&
+  <View>
+    <CascadePicker {...props}>
+  </View>}
 ```
