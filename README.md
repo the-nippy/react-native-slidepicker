@@ -198,7 +198,7 @@ if you custom the header,then you have to call `getResult` method by ref to get 
 
 <span id="getresult"></span>
 
-### getResult()
+### `getResult()`
 
 unless you custom header，or you should use `confirm` method.
 you can get the result by this function ,just like the following:
@@ -237,18 +237,12 @@ example:
 
 ```jsx
 
-//used in modal
-<Modal {...ModalProps}>
-  <ParallelPicker
-   dataSource={ParaData}
-   onceChange={this.onceChange}
-   confirm={this.confirm}
-   ...
-  />
-</Modal>
 
 //used in view with state
-<View>
-  {this.state.isPicker && <CascadePicker {...props}>}
-</View>
+
+{this.state.isPicker &&
+  <View>
+    <CascadePicker {...props}>
+  </View>}
+
 ```
