@@ -1,0 +1,20 @@
+[
+  [
+    {"name": "red"},
+    {"name": "white"},
+    {"name": "green"},
+    {"name": "blue"},
+    {"name": "orange"},
+    {"name": "black"},
+    {"name": "gray"}
+  ],
+  [
+    {"name": 37},
+    {"name": 38},
+    {"name": 39},
+    {"name": 40},
+    {"name": 41},
+    {"name": 42},
+    {"name": 43}
+  ]
+]
