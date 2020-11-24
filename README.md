@@ -4,7 +4,7 @@
 
 <hr/>
 
-A react native picker component，used in time picker，address picker and other picker scenes.
+<span> A react native picker component，used in time picker，address picker and other picker scenes. </span>
 
 <img src="https://pic.downk.cc/item/5fb93c6fb18d6271136c5d52.gif" width=360>
 
@@ -27,10 +27,10 @@ npm install react-native-slidepicker
 import:
 
 ```javascript
-//联动数据
+//Cascade data
 import { CascadePicker } from "react-native-slidepicker";
 
-//平级数据
+//Parallel data
 import { ParallelPicker } from "react-native-slidepicker";
 ```
 
@@ -227,11 +227,11 @@ export default class PickerTest extends Component {
 }
 ```
 
-## illustration
+## Illustration
 
 This component does not deal with the logic of pop-up boxes, because the scheme of the pop-up layer may be different from the scheme adopted by each person. At present, it is difficult to find a solution that most people agree with. Therefore, the logic of this layer is left to the user. If there is a better scheme, welcome to issue
 
-If you need to use it in the pop-up layer, you can use 'modal' or absolute positioning and z-Index.
+If you need to use it in the pop-up layer, you can use absolute positioning and z-Index or 'modal'.
 
 example:
 
