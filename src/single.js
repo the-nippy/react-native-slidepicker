@@ -1,19 +1,26 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2020-11-21 17:34:30
+ * @LastEditTime: 2020-12-03 17:43:39
  * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, PanResponder, Animated } from "react-native";
+import {
+  PanGestureHandler,
+  State,
+  gestureHandlerRootHOC,
+} from "react-native-gesture-handler";
 
 export class SingleSlide extends PureComponent {
   static defaultProps = {
     itemHeight: 40, // per item height
     visibleNum: 5, // visible lins
+    // maskLines: 2, //
 
     activeBgColor: "#ccc",
+    // activeBgColor: '#EEE8AA',
     activeFontSize: 18,
     activeFontColor: "#a00",
 
@@ -29,41 +36,57 @@ export class SingleSlide extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { checkedIndex: 0 };
-    this.IOffSet =
-      (Math.floor(this.props.visibleNum / 2) - 1) * this.props.itemHeight;
-    this.transValue = new Animated.Value(0);
 
-    this._panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: () => this.props.list.length > 1,
-      onPanResponderGrant: () =>
-        this.transValue.setOffset(this.transValue._value),
-      onPanResponderMove: this.panMove,
-      onPanResponderRelease: this.panRelease,
-    });
+    this.transValue = new Animated.Value(0);
+    this._lastOffset = { x: 0, y: 0 };
+
+    // this._panResponder = PanResponder.create({
+    //   onMoveShouldSetPanResponder: () => this.props.list.length > 1,
+    //   onPanResponderGrant: () =>
+    //     this.transValue.setOffset(this.transValue._value),
+    //   onPanResponderMove: Animated.event([null, {dy: this.transValue}]),
+    //   onPanResponderRelease: this.panRelease,
+    // });
   }
 
-  panMove = ({ nativeEvent }, gestureState) => {
-    this.transValue.setValue(gestureState.dy);
+  _onPanGestureEvent = ({ nativeEvent }) => {
+    this.transValue.setValue(nativeEvent.translationY);
   };
 
-  // 当前 0.63.3 版本需要对 Animated.event  的第二个参数 config 实现，需要重写 move? 报错 config.onPanResponderMove is not a function..
-  // panMove=  Animated.event([null, { dy: this.transValue }],{useNativeDriver:true})
-
-  panRelease = ({ nativeEvent }, gestureState) => {
+  _onHandlerStateChange = ({ nativeEvent }) => {
     const { itemHeight } = this.props;
-    const gesdy = gestureState.dy;
-    const ABSDy = Math.abs(gesdy);
-    const total = Math.floor(ABSDy / itemHeight);
-    const leave = ABSDy - total * itemHeight;
-    const count = leave < itemHeight / 2 ? total : total + 1;
-    this.transValue.setValue(
-      gesdy > 0 ? itemHeight * count : -itemHeight * count
-    );
-    this.transValue.flattenOffset();
-    this.sendBackData();
+
+    if (nativeEvent.oldState === State.BEGAN) {
+      this.transValue.setOffset(this.transValue._value);
+    } else if (nativeEvent.oldState === State.ACTIVE) {
+      const gesdy = nativeEvent.translationY;
+      const ABSDy = Math.abs(gesdy);
+      const total = Math.floor(ABSDy / itemHeight);
+      const leave = ABSDy - total * itemHeight;
+      const count = leave < itemHeight / 2 ? total : total + 1;
+      this.transValue.setValue(
+        gesdy > 0 ? itemHeight * count : -itemHeight * count
+      );
+      this.transValue.flattenOffset();
+      this.adjustSendData();
+    }
   };
 
-  sendBackData = () => {
+  // panRelease = ({nativeEvent}, gestureState) => {
+  //   const {itemHeight} = this.props;
+  //   const gesdy = gestureState.dy;
+  //   const ABSDy = Math.abs(gesdy);
+  //   const total = Math.floor(ABSDy / itemHeight);
+  //   const leave = ABSDy - total * itemHeight;
+  //   const count = leave < itemHeight / 2 ? total : total + 1;
+  //   this.transValue.setValue(
+  //     gesdy > 0 ? itemHeight * count : -itemHeight * count,
+  //   );
+  //   this.transValue.flattenOffset();
+  //   this.sendBackData();
+  // };
+
+  adjustSendData = () => {
     const { done, inparindex, itemHeight, list } = this.props;
     const transvalue = this.transValue._value;
     const count = transvalue / itemHeight;
@@ -144,22 +167,31 @@ export class SingleSlide extends PureComponent {
 
     return (
       <View style={[sts.contain, { height: itemHeight * visibleNum }]}>
-        <View
-          style={{ flex: 1, backgroundColor: activeBgColor }}
-          {...this._panResponder.panHandlers}
+        <PanGestureHandler
+          onGestureEvent={this._onPanGestureEvent}
+          onHandlerStateChange={this._onHandlerStateChange}
         >
-          <Animated.View
-            style={[sts.f1, { transform: [{ translateY: this.transValue }] }]}
-          >
-            {finalList.map((item, index) =>
-              this.renderItem(item, index, offsetIndex)
-            )}
-          </Animated.View>
-          <View style={[sts.mask, maskBg, { height: itemHeight * half }]} />
           <View
-            style={[sts.mask, maskBg, { bottom: 0, height: itemHeight * half }]}
-          />
-        </View>
+            style={{ flex: 1, backgroundColor: activeBgColor }}
+            // {...this._panResponder.panHandlers}
+          >
+            <Animated.View
+              style={[sts.f1, { transform: [{ translateY: this.transValue }] }]}
+            >
+              {finalList.map((item, index) =>
+                this.renderItem(item, index, offsetIndex)
+              )}
+            </Animated.View>
+            <View style={[sts.mask, maskBg, { height: itemHeight * half }]} />
+            <View
+              style={[
+                sts.mask,
+                maskBg,
+                { bottom: 0, height: itemHeight * half },
+              ]}
+            />
+          </View>
+        </PanGestureHandler>
       </View>
     );
   }
