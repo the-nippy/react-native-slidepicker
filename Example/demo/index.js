@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-12-04 17:53:13
+ * @LastEditTime: 2020-12-04 18:12:16
  * @LastEditors: xuwei
  * @Description:
  */
@@ -64,7 +64,7 @@ export default class PickerDemo extends Component {
             confirm={this.showData}
             cancel={this.close}
             pickerStyle={{
-              itemHeight: 50,
+              itemHeight: 60,
               visibleNum: 3,
               activeBgColor: '#e2e2e2',
               normalBgColor: '#fdfdfd',
@@ -81,9 +81,9 @@ export default class PickerDemo extends Component {
             pickerDeep={1}
             pickerStyle={{
               visibleNum: 3,
+              itemHeight: 60,
               activeFontColor: '#F52D3A',
-              itemHeight: 50,
-              activeFontSize: 20,
+              activeFontSize: 21,
             }}
             customHead={
               <View style={styles.head}>
@@ -107,8 +107,10 @@ export default class PickerDemo extends Component {
               activeFontColor: '#0aa',
               activeBgColor: '#eee',
               normalBgColor: '#555',
+              itemHeight: 52,
             }}
             headOptions={{
+              headHeight: 60,
               backgroundColor: '#444',
               cancelText: '取消',
               confirmText: '确认',
