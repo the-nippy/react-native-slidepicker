@@ -1,12 +1,12 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2020-12-04 12:43:23
+ * @LastEditTime: 2020-12-04 17:55:41
  * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, Animated } from "react-native";
+import { View, Text, StyleSheet, PanResponder, Animated } from "react-native";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 
 export class SingleSlide extends PureComponent {
@@ -32,17 +32,27 @@ export class SingleSlide extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { checkedIndex: 0 };
-
     this.transValue = new Animated.Value(0);
   }
 
   _onPanGestureEvent = ({ nativeEvent }) => {
+    const { list, itemHeight } = this.props;
+    if (list.length <= 1) {
+      return;
+    }
+    // console.info('index', this.state.checkedIndex)
+    // if(nativeEvent.translationY>itemHeight*this.state.checkedIndex){
+    //  this.transValue.setValue(0)
+    //  return;
+    // }else if(nativeEvent.translateY<-itemHeight*this.state.checkedIndex){
+    //   this.transValue.setValue((1-list.length)*itemHeight)
+    // }
+    // console.info('tionY', nativeEvent.translationY)
     this.transValue.setValue(nativeEvent.translationY);
   };
 
   _onHandlerStateChange = ({ nativeEvent }) => {
     const { itemHeight } = this.props;
-
     if (nativeEvent.oldState === State.BEGAN) {
       this.transValue.setOffset(this.transValue._value);
     } else if (nativeEvent.oldState === State.ACTIVE) {
@@ -63,7 +73,6 @@ export class SingleSlide extends PureComponent {
     const { done, inparindex, itemHeight, list } = this.props;
     const transvalue = this.transValue._value;
     const count = transvalue / itemHeight;
-
     if (count > 0) {
       this.transValue.setValue(0);
       done(0, inparindex);

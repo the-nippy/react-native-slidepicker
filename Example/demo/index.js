@@ -1,20 +1,17 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-12-04 12:37:35
+ * @LastEditTime: 2020-12-04 17:53:13
  * @LastEditors: xuwei
  * @Description:
  */
 import React, {Component, PureComponent} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
-import {AbsoContain, ModalContain} from './pickercontain';
+import {ModalContain} from './pickercontain';
 import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 
 const specData = require('./testfiles/spec.json');
 const oneData = require('./testfiles/one.json');
-// const oneData = require('./testfiles/onepara.json');
-
-const twoData = require('./testfiles/two.json');
 const threeData = require('./testfiles/three.json');
 const ICON_DOG = require('./testfiles/dog.png');
 
@@ -61,55 +58,44 @@ export default class PickerDemo extends Component {
         </TouchableOpacity>
 
         {/* color size */}
-        {this.state.showType === 'spec' && (
-          <AbsoContain>
-            <ParallelPicker
-              dataSource={specData}
-              confirm={this.showData}
-              cancel={this.close}
-              pickerStyle={{
-                itemHeight: 50,
-                visibleNum: 3,
-                activeBgColor: '#f5f5f5',
-                normalBgColor: '#fdfdfd',
-              }}
-            />
-          </AbsoContain>
-        )}
+        <ModalContain isModalShow={this.state.showType === 'spec'}>
+          <ParallelPicker
+            dataSource={specData}
+            confirm={this.showData}
+            cancel={this.close}
+            pickerStyle={{
+              itemHeight: 50,
+              visibleNum: 3,
+              activeBgColor: '#e2e2e2',
+              normalBgColor: '#fdfdfd',
+            }}
+          />
+        </ModalContain>
 
-        {this.state.showType === 'one' && (
-          <AbsoContain>
-            <CascadePicker
-              ref={this.setOnePickerRef}
-              dataSource={oneData}
-              confirm={this.showData}
-              cancel={this.close}
-              pickerDeep={1}
-              pickerStyle={{
-                visibleNum: 3,
-                activeFontColor: '#F52D3A',
-                itemHeight: 50,
-                activeFontSize: 20,
-              }}
-              customHead={
-                <View
-                  style={{
-                    backgroundColor: '#fff',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: 10,
-                  }}>
-                  <Image source={ICON_DOG} style={{width: 36, height: 36}} />
-                  <Text style={{fontSize: 18}}>Choose Animals</Text>
-                  <TouchableOpacity onPress={this.showOneData}>
-                    <Text>Done</Text>
-                  </TouchableOpacity>
-                </View>
-              }
-            />
-          </AbsoContain>
-        )}
+        <ModalContain isModalShow={this.state.showType === 'one'}>
+          <CascadePicker
+            ref={this.setOnePickerRef}
+            dataSource={oneData}
+            confirm={this.showData}
+            cancel={this.close}
+            pickerDeep={1}
+            pickerStyle={{
+              visibleNum: 3,
+              activeFontColor: '#F52D3A',
+              itemHeight: 50,
+              activeFontSize: 20,
+            }}
+            customHead={
+              <View style={styles.head}>
+                <Image source={ICON_DOG} style={{width: 36, height: 36}} />
+                <Text style={{fontSize: 18}}>Choose Animals</Text>
+                <TouchableOpacity onPress={this.showOneData}>
+                  <Text>Done</Text>
+                </TouchableOpacity>
+              </View>
+            }
+          />
+        </ModalContain>
 
         <ModalContain isModalShow={this.state.showType === 'three'}>
           <CascadePicker
@@ -122,6 +108,13 @@ export default class PickerDemo extends Component {
               activeBgColor: '#eee',
               normalBgColor: '#555',
             }}
+            headOptions={{
+              backgroundColor: '#444',
+              cancelText: '取消',
+              confirmText: '确认',
+              confirmStyle: {fontSize: 20, color: '#fff', fontWeight: 'bold'},
+              cancelStyle: {color: '#fff'},
+            }}
           />
         </ModalContain>
       </View>
@@ -133,7 +126,8 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+    paddingTop: 50,
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   button: {
@@ -142,5 +136,12 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 5,
     backgroundColor: '#eee',
+  },
+  head: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
   },
 });
