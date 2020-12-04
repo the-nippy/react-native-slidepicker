@@ -1,13 +1,14 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-23 10:26:13
+ * @LastEditTime: 2020-12-04 12:41:47
  * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SingleSlide } from "./single";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const INIT = [];
 
@@ -168,34 +169,36 @@ export class RelativedPicker extends PureComponent {
     const { level1List, level2List, level3List } = this.state;
     const { pickerDeep } = this.props;
     return (
-      <View style={sts.com}>
-        {/* <View style={sts.rest} /> */}
-        {this.renderHead()}
-        <View style={sts.all}>
-          <SingleSlide
-            list={level1List}
-            done={this.doneL1}
-            ref={this.setLv1Ref}
-            {...this.props.pickerStyle}
-          />
-          {level2List && pickerDeep >= 2 && (
+      <GestureHandlerRootView>
+        <View style={sts.com}>
+          {/* <View style={sts.rest} /> */}
+          {this.renderHead()}
+          <View style={sts.all}>
             <SingleSlide
-              list={level2List}
-              done={this.doneL2}
-              ref={this.setLv2Ref}
+              list={level1List}
+              done={this.doneL1}
+              ref={this.setLv1Ref}
               {...this.props.pickerStyle}
             />
-          )}
-          {level3List && pickerDeep >= 3 && (
-            <SingleSlide
-              list={level3List}
-              done={this.doneL3}
-              ref={this.setL3Ref}
-              {...this.props.pickerStyle}
-            />
-          )}
+            {level2List && pickerDeep >= 2 && (
+              <SingleSlide
+                list={level2List}
+                done={this.doneL2}
+                ref={this.setLv2Ref}
+                {...this.props.pickerStyle}
+              />
+            )}
+            {level3List && pickerDeep >= 3 && (
+              <SingleSlide
+                list={level3List}
+                done={this.doneL3}
+                ref={this.setL3Ref}
+                {...this.props.pickerStyle}
+              />
+            )}
+          </View>
         </View>
-      </View>
+      </GestureHandlerRootView>
     );
   }
 }
@@ -260,21 +263,23 @@ export class IndependentPicker extends PureComponent {
   render() {
     const { dataSource, pickerStyle } = this.props;
     return (
-      <View style={sts.com}>
-        {/* <View style={sts.rest} /> */}
-        {this.renderHead()}
-        <View style={sts.all}>
-          {dataSource.map((list, index) => (
-            <SingleSlide
-              list={list}
-              key={index}
-              inparindex={index}
-              done={this.done}
-              {...pickerStyle}
-            />
-          ))}
+      <GestureHandlerRootView>
+        <View style={sts.com}>
+          {/* <View style={sts.rest} /> */}
+          {this.renderHead()}
+          <View style={sts.all}>
+            {dataSource.map((list, index) => (
+              <SingleSlide
+                list={list}
+                key={index}
+                inparindex={index}
+                done={this.done}
+                {...pickerStyle}
+              />
+            ))}
+          </View>
         </View>
-      </View>
+      </GestureHandlerRootView>
     );
   }
 }

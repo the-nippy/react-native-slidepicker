@@ -1,17 +1,13 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2020-12-03 17:43:39
+ * @LastEditTime: 2020-12-04 12:43:23
  * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, PanResponder, Animated } from "react-native";
-import {
-  PanGestureHandler,
-  State,
-  gestureHandlerRootHOC,
-} from "react-native-gesture-handler";
+import { View, Text, StyleSheet, Animated } from "react-native";
+import { PanGestureHandler, State } from "react-native-gesture-handler";
 
 export class SingleSlide extends PureComponent {
   static defaultProps = {
@@ -38,15 +34,6 @@ export class SingleSlide extends PureComponent {
     this.state = { checkedIndex: 0 };
 
     this.transValue = new Animated.Value(0);
-    this._lastOffset = { x: 0, y: 0 };
-
-    // this._panResponder = PanResponder.create({
-    //   onMoveShouldSetPanResponder: () => this.props.list.length > 1,
-    //   onPanResponderGrant: () =>
-    //     this.transValue.setOffset(this.transValue._value),
-    //   onPanResponderMove: Animated.event([null, {dy: this.transValue}]),
-    //   onPanResponderRelease: this.panRelease,
-    // });
   }
 
   _onPanGestureEvent = ({ nativeEvent }) => {
@@ -71,20 +58,6 @@ export class SingleSlide extends PureComponent {
       this.adjustSendData();
     }
   };
-
-  // panRelease = ({nativeEvent}, gestureState) => {
-  //   const {itemHeight} = this.props;
-  //   const gesdy = gestureState.dy;
-  //   const ABSDy = Math.abs(gesdy);
-  //   const total = Math.floor(ABSDy / itemHeight);
-  //   const leave = ABSDy - total * itemHeight;
-  //   const count = leave < itemHeight / 2 ? total : total + 1;
-  //   this.transValue.setValue(
-  //     gesdy > 0 ? itemHeight * count : -itemHeight * count,
-  //   );
-  //   this.transValue.flattenOffset();
-  //   this.sendBackData();
-  // };
 
   adjustSendData = () => {
     const { done, inparindex, itemHeight, list } = this.props;
@@ -171,10 +144,7 @@ export class SingleSlide extends PureComponent {
           onGestureEvent={this._onPanGestureEvent}
           onHandlerStateChange={this._onHandlerStateChange}
         >
-          <View
-            style={{ flex: 1, backgroundColor: activeBgColor }}
-            // {...this._panResponder.panHandlers}
-          >
+          <View style={{ flex: 1, backgroundColor: activeBgColor }}>
             <Animated.View
               style={[sts.f1, { transform: [{ translateY: this.transValue }] }]}
             >
