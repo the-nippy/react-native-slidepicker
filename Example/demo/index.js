@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-11-23 10:24:19
+ * @LastEditTime: 2020-12-04 12:37:35
  * @LastEditors: xuwei
  * @Description:
  */
@@ -111,21 +111,19 @@ export default class PickerDemo extends Component {
           </AbsoContain>
         )}
 
-        {this.state.showType === 'three' && (
-          <AbsoContain>
-            <CascadePicker
-              dataSource={threeData}
-              confirm={this.showData}
-              cancel={this.close}
-              pickerDeep={3}
-              pickerStyle={{
-                activeFontColor: '#0aa',
-                activeBgColor: '#eee',
-                normalBgColor: '#555',
-              }}
-            />
-          </AbsoContain>
-        )}
+        <ModalContain isModalShow={this.state.showType === 'three'}>
+          <CascadePicker
+            dataSource={threeData}
+            confirm={this.showData}
+            cancel={this.close}
+            pickerDeep={3}
+            pickerStyle={{
+              activeFontColor: '#0aa',
+              activeBgColor: '#eee',
+              normalBgColor: '#555',
+            }}
+          />
+        </ModalContain>
       </View>
     );
   }

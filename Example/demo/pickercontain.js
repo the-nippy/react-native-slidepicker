@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:37:11
- * @LastEditTime: 2020-11-20 15:47:44
+ * @LastEditTime: 2020-12-04 12:38:07
  * @LastEditors: xuwei
  * @Description:
  */
@@ -44,6 +44,7 @@ export const ModalContain = React.memo(({isModalShow, children}) => {
     <Modal
       backdropColor={'#000'}
       backdropOpacity={0.6}
+      backdropTransitionOutTiming={0}
       isVisible={isModalShow} //显示在外部控制
       style={{flex: 1, margin: 0, justifyContent: 'flex-end'}}>
       {children}
