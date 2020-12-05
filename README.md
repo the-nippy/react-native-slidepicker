@@ -6,7 +6,7 @@
 
 <span> A react native picker component，used in time picker，address picker and other picker scenes. </span>
 
-<img src="https://pic.downk.cc/item/5fb93c6fb18d6271136c5d52.gif" width=360>
+<img src="https://pic.downk.cc/item/5fca0ebf394ac52378391b0b.gif" width=360>
 
 why：
 
@@ -15,6 +15,8 @@ why：
 - custom height,backgroundColor,fontSize,fontColor,or even picker header.
 
 - support parallel data and cascade data.
+
+- can be used in modal.
 
 ## Usage
 

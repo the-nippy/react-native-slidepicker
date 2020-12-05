@@ -101,7 +101,7 @@
           }
         ]
       },
-      {"name": "Mexico", "id": 300, "list": []},
+      {"name": "Mexico", "id": 300, "list": [{"name": "Mexico City"}]},
       {
         "name": "Canada",
         "id": 200,

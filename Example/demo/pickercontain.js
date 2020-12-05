@@ -1,13 +1,13 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:37:11
- * @LastEditTime: 2020-11-20 15:47:44
+ * @LastEditTime: 2020-12-04 15:29:42
  * @LastEditors: xuwei
  * @Description:
  */
 
-import React, {PureComponent, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {PureComponent} from 'react';
+import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 
 export class AbsoContain extends PureComponent {
@@ -28,6 +28,19 @@ export class AbsoContain extends PureComponent {
   }
 }
 
+export const ModalContain = React.memo(({isModalShow, children}) => {
+  return (
+    <Modal
+      backdropColor={'#000'}
+      backdropOpacity={0.6}
+      backdropTransitionOutTiming={0}
+      isVisible={isModalShow}
+      style={{flex: 1, margin: 0, justifyContent: 'flex-end'}}>
+      {children}
+    </Modal>
+  );
+});
+
 const styles = StyleSheet.create({
   box: {
     position: 'absolute',
@@ -37,16 +50,4 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 10,
   },
-});
-
-export const ModalContain = React.memo(({isModalShow, children}) => {
-  return (
-    <Modal
-      backdropColor={'#000'}
-      backdropOpacity={0.6}
-      isVisible={isModalShow} //显示在外部控制
-      style={{flex: 1, margin: 0, justifyContent: 'flex-end'}}>
-      {children}
-    </Modal>
-  );
 });

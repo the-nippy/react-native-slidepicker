@@ -1,15 +1,25 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-11-23 10:26:13
+ * @LastEditTime: 2020-12-04 17:55:02
  * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SingleSlide } from "./single";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const INIT = [];
+
+const defaultOptions = {
+  confirmText: "Confirm",
+  cancelText: "Cancel",
+  headHeight: 50,
+  backgroundColor: "#fff",
+  confirmStyle: {},
+  cancelStyle: {},
+};
 
 export class RelativedPicker extends PureComponent {
   static defaultProps = {
@@ -20,6 +30,7 @@ export class RelativedPicker extends PureComponent {
     cancel: () => {},
     customHead: null,
     pickerStyle: {},
+    headOptions: {},
   };
 
   constructor(props) {
@@ -32,6 +43,11 @@ export class RelativedPicker extends PureComponent {
       level2List: null,
       level3List: null,
     };
+    this.headOptions = Object.assign(
+      {},
+      defaultOptions,
+      this.props.headOptions
+    );
   }
 
   componentDidMount() {
@@ -107,10 +123,16 @@ export class RelativedPicker extends PureComponent {
     }
   };
 
-  fliterProperty = (item) => ({
-    id: item.id,
-    name: item.name,
-  });
+  // fliterProperty = (item) => ({
+  //   id: item.id,
+  //   name: item.name,
+  // });
+
+  fliterProperty = (item) => {
+    const data = { ...item };
+    delete data.list;
+    return data;
+  };
 
   /**  init update  ---------------------------------- END */
 
@@ -147,55 +169,44 @@ export class RelativedPicker extends PureComponent {
   setLv2Ref = (cityref) => (this.level2Ref = cityref);
   setL3Ref = (arearef) => (this.level3Ref = arearef);
 
-  renderHead = () => {
-    if (this.props.customHead) {
-      return this.props.customHead;
-    } else {
-      return (
-        <View style={sts.btns}>
-          <TouchableOpacity style={sts.btn} onPress={this.cancel}>
-            <Text style={sts.btn_text}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={sts.btn} onPress={this.confirm}>
-            <Text style={sts.btn_text}>Confirm</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-  };
-
   render() {
     const { level1List, level2List, level3List } = this.state;
-    const { pickerDeep } = this.props;
+    const { pickerDeep, customHead } = this.props;
     return (
-      <View style={sts.com}>
-        {/* <View style={sts.rest} /> */}
-        {this.renderHead()}
-        <View style={sts.all}>
-          <SingleSlide
-            list={level1List}
-            done={this.doneL1}
-            ref={this.setLv1Ref}
-            {...this.props.pickerStyle}
+      <GestureHandlerRootView>
+        <View style={sts.com}>
+          <Head
+            headOptions={this.headOptions}
+            cancel={this.cancel}
+            confirm={this.confirm}
+            customHead={customHead}
           />
-          {level2List && pickerDeep >= 2 && (
+          <View style={sts.all}>
             <SingleSlide
-              list={level2List}
-              done={this.doneL2}
-              ref={this.setLv2Ref}
+              list={level1List}
+              done={this.doneL1}
+              ref={this.setLv1Ref}
               {...this.props.pickerStyle}
             />
-          )}
-          {level3List && pickerDeep >= 3 && (
-            <SingleSlide
-              list={level3List}
-              done={this.doneL3}
-              ref={this.setL3Ref}
-              {...this.props.pickerStyle}
-            />
-          )}
+            {level2List && pickerDeep >= 2 && (
+              <SingleSlide
+                list={level2List}
+                done={this.doneL2}
+                ref={this.setLv2Ref}
+                {...this.props.pickerStyle}
+              />
+            )}
+            {level3List && pickerDeep >= 3 && (
+              <SingleSlide
+                list={level3List}
+                done={this.doneL3}
+                ref={this.setL3Ref}
+                {...this.props.pickerStyle}
+              />
+            )}
+          </View>
         </View>
-      </View>
+      </GestureHandlerRootView>
     );
   }
 }
@@ -211,6 +222,11 @@ export class IndependentPicker extends PureComponent {
   constructor(props) {
     super(props);
     this.result = [];
+    this.headOptions = Object.assign(
+      {},
+      defaultOptions,
+      this.props.headOptions
+    );
     this.initData();
   }
 
@@ -240,44 +256,68 @@ export class IndependentPicker extends PureComponent {
 
   getResult = () => this.result;
 
-  renderHead = () => {
-    if (this.props.customHead) {
-      return this.props.customHead;
-    } else {
-      return (
-        <View style={sts.btns}>
-          <TouchableOpacity style={sts.btn} onPress={this.cancel}>
-            <Text style={sts.btn_text}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={sts.btn} onPress={this.confirm}>
-            <Text style={sts.btn_text}>Confirm</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-  };
-
   render() {
-    const { dataSource, pickerStyle } = this.props;
+    const { dataSource, pickerStyle, customHead } = this.props;
     return (
-      <View style={sts.com}>
-        {/* <View style={sts.rest} /> */}
-        {this.renderHead()}
-        <View style={sts.all}>
-          {dataSource.map((list, index) => (
-            <SingleSlide
-              list={list}
-              key={index}
-              inparindex={index}
-              done={this.done}
-              {...pickerStyle}
-            />
-          ))}
+      <GestureHandlerRootView>
+        <View style={sts.com}>
+          <Head
+            headOptions={this.headOptions}
+            cancel={this.cancel}
+            confirm={this.confirm}
+            customHead={customHead}
+          />
+          <View style={sts.all}>
+            {dataSource.map((list, index) => (
+              <SingleSlide
+                list={list}
+                key={index}
+                inparindex={index}
+                done={this.done}
+                {...pickerStyle}
+              />
+            ))}
+          </View>
         </View>
-      </View>
+      </GestureHandlerRootView>
     );
   }
 }
+
+const Head = React.memo(({ headOptions, customHead, confirm, cancel }) => {
+  if (customHead) {
+    return customHead;
+  } else {
+    return (
+      <View
+        style={[
+          sts.btns,
+          {
+            height: headOptions.headHeight,
+            backgroundColor: headOptions.backgroundColor,
+          },
+        ]}
+      >
+        <TouchableOpacity
+          style={[sts.btn, { height: headOptions.headHeight }]}
+          onPress={cancel}
+        >
+          <Text style={[sts.btn_text, headOptions.cancelStyle]}>
+            {headOptions.cancelText}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[sts.btn, { height: headOptions.headHeight }]}
+          onPress={confirm}
+        >
+          <Text style={[sts.btn_text, headOptions.confirmStyle]}>
+            {headOptions.confirmText}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+});
 
 const sts = StyleSheet.create({
   com: {
@@ -287,14 +327,15 @@ const sts = StyleSheet.create({
   rest: { flex: 1, backgroundColor: "#fff" },
   btns: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "#fff",
     // backgroundColor: "#888",
     // backgroundColor: "#a00",
   },
   btn: {
-    // backgroundColor: '#a00',
-    padding: 15,
+    justifyContent: "center",
+    paddingHorizontal: 10,
   },
   btn_text: { fontSize: 18, color: "#4169E1" },
   all: {
