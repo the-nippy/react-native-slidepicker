@@ -1,6 +1,6 @@
-# react-native-slidepicker
-
 <h3><a href="https://github.com/lexguy/react-native-slidepicker/blob/main/CN.md">简中文档</a><h3>
+
+## react-native-slidepicker
 
 <hr/>
 
@@ -8,7 +8,7 @@ A react native picker component，used in address picker and other picker scenes
 
 <img src="https://pic.downk.cc/item/5fca0ebf394ac52378391b0b.gif" width=250>
 
-<img src="https://pic.downk.cc/item/5fcaef1a394ac52378062486.jpg" width=200/><img src="https://pic.downk.cc/item/5fcaef1a394ac52378062489.jpg" width=200/><img src="https://pic.downk.cc/item/5fcaef1a394ac5237806248c.jpg" width=200/>
+<img src="https://pic.downk.cc/item/5fcaef1a394ac52378062486.jpg" width=200/> <img src="https://pic.downk.cc/item/5fcaef1a394ac52378062489.jpg" width=200/> <img src="https://pic.downk.cc/item/5fcaef1a394ac5237806248c.jpg" width=200/>
 
 why：
 

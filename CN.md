@@ -1,10 +1,10 @@
-# react-native-slidepicker
+## react-native-slidepicker
 
 一个 React Native 上的选择器组件，使用时间，地址以及各种分类选择的场景上。
 
 <img src="https://pic.downk.cc/item/5fca0ebf394ac52378391b0b.gif" width=250>
 
-<img src="https://pic.downk.cc/item/5fcaef1a394ac52378062486.jpg" width=200/><img src="https://pic.downk.cc/item/5fcaef1a394ac52378062489.jpg" width=200/><img src="https://pic.downk.cc/item/5fcaef1a394ac5237806248c.jpg" width=200/>
+<img src="https://pic.downk.cc/item/5fcaef1a394ac52378062486.jpg" width=200/> <img src="https://pic.downk.cc/item/5fcaef1a394ac52378062489.jpg" width=200/> <img src="https://pic.downk.cc/item/5fcaef1a394ac5237806248c.jpg" width=200/>
 
 特点：
 
