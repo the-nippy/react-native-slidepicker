@@ -1,12 +1,12 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2020-12-04 17:55:41
+ * @LastEditTime: 2020-12-07 10:14:01
  * @LastEditors: xuwei
  * @Description:
  */
 import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, PanResponder, Animated } from "react-native";
+import { View, Text, StyleSheet, Animated } from "react-native";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 
 export class SingleSlide extends PureComponent {
@@ -37,17 +37,15 @@ export class SingleSlide extends PureComponent {
 
   _onPanGestureEvent = ({ nativeEvent }) => {
     const { list, itemHeight } = this.props;
-    if (list.length <= 1) {
+    // console.info('tionY', nativeEvent.translationY)
+    //
+    if (
+      nativeEvent.translationY > itemHeight * this.state.checkedIndex ||
+      nativeEvent.translationY <
+        -itemHeight * (this.props.list.length - this.state.checkedIndex - 1)
+    ) {
       return;
     }
-    // console.info('index', this.state.checkedIndex)
-    // if(nativeEvent.translationY>itemHeight*this.state.checkedIndex){
-    //  this.transValue.setValue(0)
-    //  return;
-    // }else if(nativeEvent.translateY<-itemHeight*this.state.checkedIndex){
-    //   this.transValue.setValue((1-list.length)*itemHeight)
-    // }
-    // console.info('tionY', nativeEvent.translationY)
     this.transValue.setValue(nativeEvent.translationY);
   };
 
