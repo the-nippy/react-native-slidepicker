@@ -1,14 +1,14 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-12-04 18:12:16
+ * @LastEditTime: 2021-01-26 11:20:38
  * @LastEditors: xuwei
  * @Description:
  */
 import React, {Component, PureComponent} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
 import {ModalContain} from './pickercontain';
-import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
+import {CascadePicker, ParallelPicker} from '../react-native-slidepicker/index';
 
 const specData = require('./testfiles/spec.json');
 const oneData = require('./testfiles/one.json');
@@ -116,6 +116,7 @@ export default class PickerDemo extends Component {
               confirmText: '确认',
               confirmStyle: {fontSize: 20, color: '#fff', fontWeight: 'bold'},
               cancelStyle: {color: '#fff'},
+              borderTopRadius: 10,
             }}
           />
         </ModalContain>
