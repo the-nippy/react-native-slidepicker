@@ -1,25 +1,25 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2021-01-26 11:12:30
+ * @LastEditTime: 2021-01-27 17:33:58
  * @LastEditors: xuwei
  * @Description:
  */
-import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { SingleSlide } from "./single";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import React, {PureComponent} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {SingleSlide} from './single';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const INIT = [];
 
 const defaultOptions = {
-  confirmText: "Confirm",
-  cancelText: "Cancel",
+  confirmText: 'Confirm',
+  cancelText: 'Cancel',
   headHeight: 50,
-  backgroundColor: "#fff",
+  backgroundColor: '#fff',
   confirmStyle: {},
   cancelStyle: {},
-  borderTopRadius:0
+  borderTopRadius: 0,
 };
 
 export class RelativedPicker extends PureComponent {
@@ -47,14 +47,14 @@ export class RelativedPicker extends PureComponent {
     this.headOptions = Object.assign(
       {},
       defaultOptions,
-      this.props.headOptions
+      this.props.headOptions,
     );
   }
 
   componentDidMount() {
-    const { dataSource } = this.props;
+    const {dataSource} = this.props;
     if (!dataSource || !this.props.dataSource.length) {
-      console.warn("SlidePicker: dataSource should be a array");
+      console.warn('SlidePicker: dataSource should be a array');
       return;
     } else {
       this.splitData(dataSource);
@@ -76,7 +76,7 @@ export class RelativedPicker extends PureComponent {
   /** START init update  ----------------------------------*/
   splitData = (pros) => {
     const level1List = pros.map(this.fliterProperty);
-    this.setState({ level1List });
+    this.setState({level1List});
     this.addToLocal(level1List[0], 0);
     this.atleasttwo && this.setL2List(0);
   };
@@ -94,10 +94,7 @@ export class RelativedPicker extends PureComponent {
         list: item.list,
       }));
       this.addToLocal(level2List[0], 1);
-      this.setState(
-        { level2List },
-        () => this.atleastthree && this.setL3List(0)
-      );
+      this.setState({level2List}, () => this.atleastthree && this.setL3List(0));
     } else {
       this.atleasttwo && this.addToLocal({}, 1);
       this.atleastthree && this.addToLocal({}, 2);
@@ -116,11 +113,11 @@ export class RelativedPicker extends PureComponent {
     if (L2Target && L2Target.list) {
       const l3List = L2Target.list;
       const list = l3List.map(this.fliterProperty);
-      this.setState({ level3List: list });
+      this.setState({level3List: list});
       this.addToLocal(list[0], 2);
     } else {
       this.addToLocal({}, 2);
-      this.setState({ level3List: null });
+      this.setState({level3List: null});
     }
   };
 
@@ -130,7 +127,7 @@ export class RelativedPicker extends PureComponent {
   // });
 
   fliterProperty = (item) => {
-    const data = { ...item };
+    const data = {...item};
     delete data.list;
     return data;
   };
@@ -139,7 +136,7 @@ export class RelativedPicker extends PureComponent {
 
   // add to this.result   /level index from zero
   addToLocal = (todoItem, level) => {
-    const temp = { ...todoItem };
+    const temp = {...todoItem};
     delete temp.list;
     this.result[level] = temp;
     this.onceDataChange();
@@ -171,8 +168,9 @@ export class RelativedPicker extends PureComponent {
   setL3Ref = (arearef) => (this.level3Ref = arearef);
 
   render() {
-    const { level1List, level2List, level3List } = this.state;
-    const { pickerDeep, customHead } = this.props;
+    const {level1List, level2List, level3List} = this.state;
+
+    const {pickerDeep, customHead} = this.props;
     return (
       <GestureHandlerRootView>
         <View style={sts.com}>
@@ -226,25 +224,25 @@ export class IndependentPicker extends PureComponent {
     this.headOptions = Object.assign(
       {},
       defaultOptions,
-      this.props.headOptions
+      this.props.headOptions,
     );
     this.initData();
   }
 
   initData = () => {
-    const { dataSource } = this.props;
+    const {dataSource} = this.props;
     dataSource.forEach((element, index) => {
       this.result[index] = element[0];
     });
   };
 
   componentDidMount() {
-    const { onceChange } = this.props;
+    const {onceChange} = this.props;
     onceChange && onceChange(this.result);
   }
 
   done = (dataindex, parindex) => {
-    const { dataSource, onceChange } = this.props;
+    const {dataSource, onceChange} = this.props;
     const list = dataSource[parindex];
     const data = list[dataindex];
     this.result[parindex] = data;
@@ -258,7 +256,7 @@ export class IndependentPicker extends PureComponent {
   getResult = () => this.result;
 
   render() {
-    const { dataSource, pickerStyle, customHead } = this.props;
+    const {dataSource, pickerStyle, customHead} = this.props;
     return (
       <GestureHandlerRootView>
         <View style={sts.com}>
@@ -285,7 +283,7 @@ export class IndependentPicker extends PureComponent {
   }
 }
 
-const Head = React.memo(({ headOptions, customHead, confirm, cancel }) => {
+const Head = React.memo(({headOptions, customHead, confirm, cancel}) => {
   if (customHead) {
     return customHead;
   } else {
@@ -294,25 +292,22 @@ const Head = React.memo(({ headOptions, customHead, confirm, cancel }) => {
         style={[
           sts.btns,
           {
-            borderTopLeftRadius:headOptions.borderTopRadius,
-            borderTopRightRadius:headOptions.borderTopRadius,
+            borderTopLeftRadius: headOptions.borderTopRadius,
+            borderTopRightRadius: headOptions.borderTopRadius,
             height: headOptions.headHeight,
             backgroundColor: headOptions.backgroundColor,
           },
-        ]}
-      >
+        ]}>
         <TouchableOpacity
-          style={[sts.btn, { height: headOptions.headHeight }]}
-          onPress={cancel}
-        >
+          style={[sts.btn, {height: headOptions.headHeight}]}
+          onPress={cancel}>
           <Text style={[sts.btn_text, headOptions.cancelStyle]}>
             {headOptions.cancelText}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[sts.btn, { height: headOptions.headHeight }]}
-          onPress={confirm}
-        >
+          style={[sts.btn, {height: headOptions.headHeight}]}
+          onPress={confirm}>
           <Text style={[sts.btn_text, headOptions.confirmStyle]}>
             {headOptions.confirmText}
           </Text>
@@ -327,23 +322,23 @@ const sts = StyleSheet.create({
     // backgroundColor:'#00a'
     // flex: 1, paddingTop: 20
   },
-  rest: { flex: 1, backgroundColor: "#fff" },
+  rest: {flex: 1, backgroundColor: '#fff'},
   btns: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
     // backgroundColor: "#888",
     // backgroundColor: "#a00",
   },
   btn: {
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingHorizontal: 10,
   },
-  btn_text: { fontSize: 18, color: "#4169E1" },
+  btn_text: {fontSize: 18, color: '#4169E1'},
   all: {
-    flexDirection: "row",
-    backgroundColor: "#a00",
-    overflow: "hidden",
+    flexDirection: 'row',
+    backgroundColor: '#a00',
+    overflow: 'hidden',
   },
 });
