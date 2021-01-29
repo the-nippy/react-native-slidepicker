@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2021-01-27 17:33:58
+ * @LastEditTime: 2021-01-29 10:39:07
  * @LastEditors: xuwei
  * @Description:
  */
@@ -161,7 +161,7 @@ export class RelativedPicker extends PureComponent {
     this.atleastthree && this.addToLocal(target, 2);
   };
 
-  /**  after choose ---------------------------------  END*/
+  /** ----------------------------------- Render ----------------------------------------- */
 
   setLv1Ref = (prosref) => (this.level1Ref = prosref);
   setLv2Ref = (cityref) => (this.level2Ref = cityref);
@@ -338,7 +338,6 @@ const sts = StyleSheet.create({
   btn_text: {fontSize: 18, color: '#4169E1'},
   all: {
     flexDirection: 'row',
-    backgroundColor: '#a00',
     overflow: 'hidden',
   },
 });

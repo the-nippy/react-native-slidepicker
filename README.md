@@ -123,17 +123,18 @@ called by cancel button, you should close the picker in this function.
 
 a custom style for the picker content , receives these props:
 
-| Key             | Type            | Default Value | Description                                  |
-| --------------- | --------------- | ------------- | -------------------------------------------- |
-| itemHeight      | number          | 40            | item's height                                |
-| visibleNum      | number          | 5             | Number of rows                               |
-| activeBgColor   | string (color)  | "#ccc"        | Background color of selected item            |
-| activeFontSize  | Number          | 18            | Font size of selected item                   |
-| activeFontColor | string (color)  | "\#a00"       | Font color of selected item                  |
-| normalBgColor   | string (color)  | "#fff"        | Unselected item background color             |
-| normalBgOpacity | number (0-1)    | 0.4           | Background color opacity of unselected items |
-| normalFontSize  | number          | 16            | Unselected item font color                   |
-| normalFontColor | string：(color) | "#333"        | Unselected item font color                   |
+| Key             | Type            | Default Value | Description                            |
+| --------------- | --------------- | ------------- | -------------------------------------- |
+| itemHeight      | number          | 40            | item's height                          |
+| visibleNum      | number          | 5             | Number of rows                         |
+| activeBgColor   | string (color)  | "#ccc"        | Background color of selected item      |
+| activeBgOpacity | number          | 1             | Background opacity of selected items   |
+| activeFontSize  | Number          | 18            | Font size of selected item             |
+| activeFontColor | string (color)  | "\#a00"       | Font color of selected item            |
+| normalBgColor   | string (color)  | "#fff"        | Unselected item background color       |
+| normalBgOpacity | number (0-1)    | 0.4           | Background opacity of unselected items |
+| normalFontSize  | number          | 16            | Unselected item font color             |
+| normalFontColor | string：(color) | "#333"        | Unselected item font color             |
 
 <hr id="options"/>
 
@@ -141,14 +142,15 @@ a custom style for the picker content , receives these props:
 
 a custom style for the picker header , receives these props:
 
-| key             | Type              | Default Value                    | Description         |
-| --------------- | ----------------- | -------------------------------- | ------------------- |
-| confirmText     | string            | Confirm                          | confirm button text |
-| cancelText      | string            | Cancel                           | cancel button text  |
-| headHeight      | number            | 50                               | height of header    |
-| backgroundColor | string(color)     | \#fff                            | backgroundcolor     |
-| confirmStyle    | object (RN style) | {fontSize: 18, color: "#4169E1"} | confirm text style  |
-| cancelStyle     | object (RN style) | {fontSize: 18, color: "#4169E1"} | cancel text style   |
+| key             | Type              | Default Value                    | Description                 |
+| --------------- | ----------------- | -------------------------------- | --------------------------- |
+| confirmText     | string            | Confirm                          | confirm button text         |
+| cancelText      | string            | Cancel                           | cancel button text          |
+| headHeight      | number            | 50                               | height of header            |
+| borderTopRadius | number            | 0                                | borderTop(Left&Right)Radius |
+| backgroundColor | string(color)     | \#fff                            | backgroundcolor             |
+| confirmStyle    | object (RN style) | {fontSize: 18, color: "#4169E1"} | confirm text style          |
+| cancelStyle     | object (RN style) | {fontSize: 18, color: "#4169E1"} | cancel text style           |
 
 <hr id="head"/>
 

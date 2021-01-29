@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-01-27 18:32:37
+ * @LastEditTime: 2021-01-29 11:06:34
  * @LastEditors: xuwei
  * @Description:
  */
@@ -13,9 +13,8 @@ export class SingleSlide extends PureComponent {
   static defaultProps = {
     itemHeight: 40, // per item height
     visibleNum: 5, // visible lins
-    // maskLines: 2, //
-    activeBgColor: '#ccc',
-    // activeBgColor: '#EEE8AA',
+    activeBgColor: '#fff',
+    activeBgOpacity: 1,
     activeFontSize: 18,
     activeFontColor: '#a00',
     normalBgColor: '#fff',
@@ -37,7 +36,6 @@ export class SingleSlide extends PureComponent {
     const {list, itemHeight} = this.props;
     this.maxOffset = 0;
     this.listLength = list.length;
-    console.info('this.listLength', this.props.list.length);
     this.minOffset = (1 - this.listLength) * itemHeight;
   }
 
@@ -57,61 +55,35 @@ export class SingleSlide extends PureComponent {
   };
 
   _onHandlerStateChange = ({nativeEvent}) => {
-    const {itemHeight, inparindex} = this.props;
-
+    const {itemHeight} = this.props;
     if (nativeEvent.oldState === State.BEGAN) {
       this.transValue.setOffset(this.transValue._value);
     } else if (nativeEvent.oldState === State.ACTIVE) {
       const gesdy = nativeEvent.translationY;
       const ABSDy = Math.abs(gesdy);
-      const total = Math.floor(ABSDy / itemHeight);
-      const leave = ABSDy - total * itemHeight;
-      const count = leave < itemHeight / 2 ? total : total + 1;
+      const count = Math.round(ABSDy / itemHeight);
       this.transValue.setValue(
         gesdy > 0 ? itemHeight * count : -itemHeight * count,
       );
-      this.adjustSendData();
+      this.transValue.flattenOffset();
+      this.adjustAniValue();
     }
   };
 
-  adjustSendData = () => {
-    this.transValue.flattenOffset();
-
+  adjustAniValue = () => {
     const {done, inparindex, itemHeight, list} = this.props;
     const transvalue = this.transValue._value;
-    // const transvalue = gesdy;
-
     const count = transvalue / itemHeight;
     if (count > 0) {
       this.setAniAndDataback(0, 0);
-      return;
     } else if (count < -list.length + 1) {
       this.setAniAndDataback((-list.length + 1) * itemHeight, list.length - 1);
-      return;
     } else {
       const finalIndex = Math.abs(count);
       this.setState({checkedIndex: finalIndex});
       done(finalIndex, inparindex);
     }
   };
-
-  // adjustSendData = (gesdy) => {
-  //   const {done, inparindex, itemHeight, list} = this.props;
-  //   const transvalue = gesdy;
-  //   const count = transvalue / itemHeight;
-  //   if (count > 0) {
-  //     this.setAniAndDataback(0, 0);
-  //   } else if (count < -this.props.list.length + 1) {
-  //     this.setAniAndDataback((-list.length + 1) * itemHeight, list.length - 1);
-  //   } else {
-  //     const count = Math.round(Math.abs(gesdy) / itemHeight);
-  //     const position = gesdy > 0 ? itemHeight * count : -itemHeight * count;
-  //     // const finalIndex = Math.abs(count);
-  //     // this.setState({checkedIndex: finalIndex});
-  //     // done(finalIndex, inparindex);
-  //     this.setAniAndDataback(position, Math.abs(count));
-  //   }
-  // };
 
   setAniAndDataback = (position, newIndex) => {
     const {done, inparindex} = this.props;
@@ -167,6 +139,7 @@ export class SingleSlide extends PureComponent {
       activeBgColor,
       normalBgColor,
       normalBgOpacity,
+      activeBgOpacity,
     } = this.props;
 
     let half = Math.floor(visibleNum / 2);
@@ -177,24 +150,36 @@ export class SingleSlide extends PureComponent {
     finalList.unshift(...fillArr);
     finalList = finalList.concat(fillArr);
 
-    const maskBg = {backgroundColor: normalBgColor, opacity: normalBgOpacity};
+    const maskBg = {
+      backgroundColor: normalBgColor,
+      opacity: normalBgOpacity,
+      width: '100%',
+      height: itemHeight * half,
+    };
 
     return (
       <View style={[sts.contain, {height: itemHeight * visibleNum}]}>
         <PanGestureHandler
           onGestureEvent={this._onPanGestureEvent}
           onHandlerStateChange={this._onHandlerStateChange}>
-          <View style={{flex: 1, backgroundColor: activeBgColor}}>
+          <View style={{flex: 1}}>
             <Animated.View
               style={[sts.f1, {transform: [{translateY: this.transValue}]}]}>
               {finalList.map((item, index) =>
                 this.renderItem(item, index, offsetIndex),
               )}
             </Animated.View>
-            <View style={[sts.mask, maskBg, {height: itemHeight * half}]} />
+            <View style={maskBg} />
             <View
-              style={[sts.mask, maskBg, {bottom: 0, height: itemHeight * half}]}
-            />
+              style={[
+                {
+                  height: itemHeight,
+                  width: '100%',
+                  backgroundColor: activeBgColor,
+                  opacity: activeBgOpacity,
+                },
+              ]}></View>
+            <View style={maskBg} />
           </View>
         </PanGestureHandler>
       </View>
@@ -210,9 +195,6 @@ const sts = StyleSheet.create({
     textAlign: 'center',
   },
   mask: {
-    position: 'absolute',
-    // backgroundColor: '#fff',
-    // opacity: 0.3,
     width: '100%',
   },
   contain: {
@@ -220,6 +202,9 @@ const sts = StyleSheet.create({
     flex: 1,
   },
   f1: {
+    position: 'absolute',
+    width: '100%',
+    zIndex: 10,
     flex: 1,
   },
 });

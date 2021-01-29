@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-01-27 17:26:18
+ * @LastEditTime: 2021-01-29 11:18:11
  * @LastEditors: xuwei
  * @Description:
  */
@@ -102,11 +102,11 @@ export default class PickerDemo extends Component {
             dataSource={threeData}
             confirm={this.showData}
             cancel={this.close}
-            pickerDeep={1}
+            pickerDeep={3}
             pickerStyle={{
-              activeFontColor: '#0aa',
-              activeBgColor: '#eee',
-              normalBgColor: '#555',
+              activeFontColor: '#a00',
+              normalBgColor: '#a00',
+              // normalBgOpacity: 1,
               itemHeight: 52,
             }}
             headOptions={{
