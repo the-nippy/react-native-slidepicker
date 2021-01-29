@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-01-29 11:06:34
+ * @LastEditTime: 2021-01-29 18:36:50
  * @LastEditors: xuwei
  * @Description:
  */
@@ -37,6 +37,14 @@ export class SingleSlide extends PureComponent {
     this.maxOffset = 0;
     this.listLength = list.length;
     this.minOffset = (1 - this.listLength) * itemHeight;
+    this.props.done(0, 0);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.list !== this.props.list) {
+      this.transValue.setValue(0);
+      this.dataBack(0);
+    }
   }
 
   /** ----------------------------------- Gesture ----------------------------------------- */
@@ -80,18 +88,21 @@ export class SingleSlide extends PureComponent {
       this.setAniAndDataback((-list.length + 1) * itemHeight, list.length - 1);
     } else {
       const finalIndex = Math.abs(count);
-      this.setState({checkedIndex: finalIndex});
-      done(finalIndex, inparindex);
+      this.dataBack(finalIndex);
     }
   };
 
   setAniAndDataback = (position, newIndex) => {
-    const {done, inparindex} = this.props;
     this.transValue.setValue(position);
-    this.setState({checkedIndex: newIndex});
-    if (done) {
+    this.dataBack(newIndex);
+  };
+
+  dataBack = (newIndex) => {
+    const {done, inparindex} = this.props;
+    if (newIndex !== this.state.checkedIndex && done) {
       done(newIndex, inparindex);
     }
+    this.setState({checkedIndex: newIndex});
   };
 
   resetTrans = () => {
