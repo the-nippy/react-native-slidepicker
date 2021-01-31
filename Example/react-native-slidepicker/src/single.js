@@ -1,12 +1,12 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-01-29 18:36:50
+ * @LastEditTime: 2021-01-31 13:04:28
  * @LastEditors: xuwei
  * @Description:
  */
 import React, {PureComponent} from 'react';
-import {View, Text, StyleSheet, PanResponder, Animated} from 'react-native';
+import {View, Text, StyleSheet, Animated} from 'react-native';
 import {PanGestureHandler, State} from 'react-native-gesture-handler';
 
 export class SingleSlide extends PureComponent {
