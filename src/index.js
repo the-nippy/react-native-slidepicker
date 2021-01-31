@@ -1,26 +1,24 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2020-12-04 17:55:02
+ * @LastEditTime: 2021-01-29 18:27:14
  * @LastEditors: xuwei
  * @Description:
  */
-import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { SingleSlide } from "./single";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-const INIT = [];
+import React, {PureComponent} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {SingleSlide} from './single';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const defaultOptions = {
-  confirmText: "Confirm",
-  cancelText: "Cancel",
+  confirmText: 'Confirm',
+  cancelText: 'Cancel',
   headHeight: 50,
-  backgroundColor: "#fff",
+  backgroundColor: '#fff',
   confirmStyle: {},
   cancelStyle: {},
+  borderTopRadius: 0,
 };
-
 export class RelativedPicker extends PureComponent {
   static defaultProps = {
     dataSource: [], //data
@@ -36,145 +34,80 @@ export class RelativedPicker extends PureComponent {
   constructor(props) {
     super(props);
     this.result = [];
-    this.atleasttwo = this.props.pickerDeep >= 2;
-    this.atleastthree = this.props.pickerDeep >= 3;
+
     this.state = {
-      level1List: INIT,
-      level2List: null,
-      level3List: null,
+      lists: this.initState(),
     };
+
+    this.resultIndexs = [];
+    this.resultArray = [];
+
     this.headOptions = Object.assign(
       {},
       defaultOptions,
-      this.props.headOptions
+      this.props.headOptions,
     );
   }
 
-  componentDidMount() {
-    const { dataSource } = this.props;
-    if (!dataSource || !this.props.dataSource.length) {
-      console.warn("SlidePicker: dataSource should be a array");
-      return;
-    } else {
-      this.splitData(dataSource);
-    }
-  }
+  /** ----------------------------------- Data ----------------------------------------- */
 
-  /** START props function ------------------------------*/
+  initState = () => {
+    const lists = new Array(this.props.pickerDeep).fill([]);
+    lists[0] = this.props.dataSource;
+    return lists;
+  };
+
+  dismantleBebindData = (array, index, inparIndex) => {
+    const {pickerDeep, onceChange} = this.props;
+    const lists = this.state.lists.slice();
+    const curObj = array[index];
+    curObj && (this.resultArray[inparIndex] = curObj);
+    if (array && array.length > 0) {
+      lists[inparIndex] = array;
+      this.setState({lists}, () => {
+        inparIndex++;
+        this.dismantleBebindData(curObj.list || [], 0, inparIndex);
+      });
+    } else {
+      for (let i = inparIndex; i < pickerDeep; i++) {
+        lists[i] = [];
+        this.resultArray[i] = {};
+      }
+      this.setState({lists});
+      onceChange && onceChange(this.resultArray);
+    }
+  };
+
+  setData = (checkedIndex, inparindex) => {
+    this.setResult(checkedIndex, inparindex);
+    this.dismantleBebindData(
+      this.state.lists[inparindex],
+      checkedIndex,
+      inparindex,
+    );
+  };
+
+  setResult = (checkedIndex, inparindex) => {
+    this.resultIndexs[inparindex] = checkedIndex;
+    for (let i = inparindex + 1; i < this.props.pickerDeep; i++) {
+      this.resultIndexs[i] = 0;
+    }
+  };
+
+  /** ----------------------------------- Callback ----------------------------------------- */
   onceDataChange = () =>
     this.props.onceChange && this.props.onceChange(this.result);
 
-  confirm = () => this.props.confirm && this.props.confirm(this.result);
+  confirm = () => this.props.confirm && this.props.confirm(this.resultArray);
 
   cancel = () => this.props.cancel && this.props.cancel();
 
-  // called by ref
-  getResult = () => this.result;
-  /**  props  -----------------------------------END */
-
-  /** START init update  ----------------------------------*/
-  splitData = (pros) => {
-    const level1List = pros.map(this.fliterProperty);
-    this.setState({ level1List });
-    this.addToLocal(level1List[0], 0);
-    this.atleasttwo && this.setL2List(0);
-  };
-
-  // update Level2
-  setL2List = (initIndex) => {
-    this.level2Ref && this.level2Ref.resetTrans();
-    const pros = this.props.dataSource;
-    const L1Target = pros[initIndex];
-    if (L1Target && L1Target.list) {
-      const l2List = L1Target.list;
-      const level2List = l2List.map((item) => ({
-        id: item.id,
-        name: item.name,
-        list: item.list,
-      }));
-      this.addToLocal(level2List[0], 1);
-      this.setState(
-        { level2List },
-        () => this.atleastthree && this.setL3List(0)
-      );
-    } else {
-      this.atleasttwo && this.addToLocal({}, 1);
-      this.atleastthree && this.addToLocal({}, 2);
-      this.setState({
-        level2List: this.atleasttwo ? [] : null,
-        level3List: this.atleastthree ? [] : null,
-      });
-    }
-  };
-
-  // update Level3
-  setL3List = (initIndex) => {
-    this.level3Ref && this.level3Ref.resetTrans();
-    const level2List = this.state.level2List;
-    const L2Target = level2List[initIndex];
-    if (L2Target && L2Target.list) {
-      const l3List = L2Target.list;
-      const list = l3List.map(this.fliterProperty);
-      this.setState({ level3List: list });
-      this.addToLocal(list[0], 2);
-    } else {
-      this.addToLocal({}, 2);
-      this.setState({ level3List: null });
-    }
-  };
-
-  // fliterProperty = (item) => ({
-  //   id: item.id,
-  //   name: item.name,
-  // });
-
-  fliterProperty = (item) => {
-    const data = { ...item };
-    delete data.list;
-    return data;
-  };
-
-  /**  init update  ---------------------------------- END */
-
-  // add to this.result   /level index from zero
-  addToLocal = (todoItem, level) => {
-    const temp = { ...todoItem };
-    delete temp.list;
-    this.result[level] = temp;
-    this.onceDataChange();
-  };
-
-  /** START after choose ---------------------------------*/
-
-  doneL1 = (proIndex) => {
-    const target = this.state.level1List[proIndex];
-    this.atleasttwo && this.setL2List(proIndex);
-    this.addToLocal(target, 0);
-  };
-
-  doneL2 = (cityIndex) => {
-    const target = this.state.level2List[cityIndex];
-    this.atleastthree && this.setL3List(cityIndex);
-    this.addToLocal(target, 1);
-  };
-
-  doneL3 = (areaIndex) => {
-    const target = this.state.level3List[areaIndex];
-    this.atleastthree && this.addToLocal(target, 2);
-  };
-
-  /**  after choose ---------------------------------  END*/
-
-  setLv1Ref = (prosref) => (this.level1Ref = prosref);
-  setLv2Ref = (cityref) => (this.level2Ref = cityref);
-  setL3Ref = (arearef) => (this.level3Ref = arearef);
-
+  /** ----------------------------------- Render ----------------------------------------- */
   render() {
-    const { level1List, level2List, level3List } = this.state;
-    const { pickerDeep, customHead } = this.props;
+    const {customHead} = this.props;
     return (
       <GestureHandlerRootView>
-        <View style={sts.com}>
+        <View>
           <Head
             headOptions={this.headOptions}
             cancel={this.cancel}
@@ -182,28 +115,15 @@ export class RelativedPicker extends PureComponent {
             customHead={customHead}
           />
           <View style={sts.all}>
-            <SingleSlide
-              list={level1List}
-              done={this.doneL1}
-              ref={this.setLv1Ref}
-              {...this.props.pickerStyle}
-            />
-            {level2List && pickerDeep >= 2 && (
+            {this.state.lists.map((list, index) => (
               <SingleSlide
-                list={level2List}
-                done={this.doneL2}
-                ref={this.setLv2Ref}
+                key={index}
+                list={list}
+                done={this.setData}
+                inparindex={index}
                 {...this.props.pickerStyle}
               />
-            )}
-            {level3List && pickerDeep >= 3 && (
-              <SingleSlide
-                list={level3List}
-                done={this.doneL3}
-                ref={this.setL3Ref}
-                {...this.props.pickerStyle}
-              />
-            )}
+            ))}
           </View>
         </View>
       </GestureHandlerRootView>
@@ -225,25 +145,25 @@ export class IndependentPicker extends PureComponent {
     this.headOptions = Object.assign(
       {},
       defaultOptions,
-      this.props.headOptions
+      this.props.headOptions,
     );
     this.initData();
   }
 
   initData = () => {
-    const { dataSource } = this.props;
+    const {dataSource} = this.props;
     dataSource.forEach((element, index) => {
       this.result[index] = element[0];
     });
   };
 
   componentDidMount() {
-    const { onceChange } = this.props;
+    const {onceChange} = this.props;
     onceChange && onceChange(this.result);
   }
 
   done = (dataindex, parindex) => {
-    const { dataSource, onceChange } = this.props;
+    const {dataSource, onceChange} = this.props;
     const list = dataSource[parindex];
     const data = list[dataindex];
     this.result[parindex] = data;
@@ -253,14 +173,13 @@ export class IndependentPicker extends PureComponent {
 
   confirm = () => this.props.confirm && this.props.confirm(this.result);
   cancel = () => this.props.cancel && this.props.cancel();
-
   getResult = () => this.result;
 
   render() {
-    const { dataSource, pickerStyle, customHead } = this.props;
+    const {dataSource, pickerStyle, customHead} = this.props;
     return (
       <GestureHandlerRootView>
-        <View style={sts.com}>
+        <View>
           <Head
             headOptions={this.headOptions}
             cancel={this.cancel}
@@ -284,7 +203,7 @@ export class IndependentPicker extends PureComponent {
   }
 }
 
-const Head = React.memo(({ headOptions, customHead, confirm, cancel }) => {
+const Head = React.memo(({headOptions, customHead, confirm, cancel}) => {
   if (customHead) {
     return customHead;
   } else {
@@ -293,23 +212,22 @@ const Head = React.memo(({ headOptions, customHead, confirm, cancel }) => {
         style={[
           sts.btns,
           {
+            borderTopLeftRadius: headOptions.borderTopRadius,
+            borderTopRightRadius: headOptions.borderTopRadius,
             height: headOptions.headHeight,
             backgroundColor: headOptions.backgroundColor,
           },
-        ]}
-      >
+        ]}>
         <TouchableOpacity
-          style={[sts.btn, { height: headOptions.headHeight }]}
-          onPress={cancel}
-        >
+          style={[sts.btn, {height: headOptions.headHeight}]}
+          onPress={cancel}>
           <Text style={[sts.btn_text, headOptions.cancelStyle]}>
             {headOptions.cancelText}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[sts.btn, { height: headOptions.headHeight }]}
-          onPress={confirm}
-        >
+          style={[sts.btn, {height: headOptions.headHeight}]}
+          onPress={confirm}>
           <Text style={[sts.btn_text, headOptions.confirmStyle]}>
             {headOptions.confirmText}
           </Text>
@@ -320,27 +238,20 @@ const Head = React.memo(({ headOptions, customHead, confirm, cancel }) => {
 });
 
 const sts = StyleSheet.create({
-  com: {
-    // backgroundColor:'#00a'
-    // flex: 1, paddingTop: 20
-  },
-  rest: { flex: 1, backgroundColor: "#fff" },
+  rest: {flex: 1, backgroundColor: '#fff'},
   btns: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
-    // backgroundColor: "#888",
-    // backgroundColor: "#a00",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
   },
   btn: {
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingHorizontal: 10,
   },
-  btn_text: { fontSize: 18, color: "#4169E1" },
+  btn_text: {fontSize: 18, color: '#4169E1'},
   all: {
-    flexDirection: "row",
-    backgroundColor: "#a00",
-    overflow: "hidden",
+    flexDirection: 'row',
+    overflow: 'hidden',
   },
 });
