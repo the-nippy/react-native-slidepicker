@@ -1,14 +1,15 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2020-12-04 18:12:16
+ * @LastEditTime: 2021-01-31 13:34:17
  * @LastEditors: xuwei
  * @Description:
  */
 import React, {Component, PureComponent} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
 import {ModalContain} from './pickercontain';
-import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
+import {CascadePicker, ParallelPicker} from '../react-native-slidepicker/index';
+// import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 
 const specData = require('./testfiles/spec.json');
 const oneData = require('./testfiles/one.json');
@@ -104,9 +105,9 @@ export default class PickerDemo extends Component {
             cancel={this.close}
             pickerDeep={3}
             pickerStyle={{
-              activeFontColor: '#0aa',
-              activeBgColor: '#eee',
-              normalBgColor: '#555',
+              activeFontColor: '#a00',
+              normalBgColor: '#a00',
+              // normalBgOpacity: 1,
               itemHeight: 52,
             }}
             headOptions={{
@@ -116,6 +117,7 @@ export default class PickerDemo extends Component {
               confirmText: '确认',
               confirmStyle: {fontSize: 20, color: '#fff', fontWeight: 'bold'},
               cancelStyle: {color: '#fff'},
+              borderTopRadius: 10,
             }}
           />
         </ModalContain>
