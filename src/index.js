@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2021-01-29 18:27:14
+ * @LastEditTime: 2021-01-31 13:43:19
  * @LastEditors: xuwei
  * @Description:
  */
@@ -96,11 +96,22 @@ export class RelativedPicker extends PureComponent {
 
   /** ----------------------------------- Callback ----------------------------------------- */
   onceDataChange = () =>
-    this.props.onceChange && this.props.onceChange(this.result);
+    this.props.onceChange &&
+    this.props.onceChange(this._cleanArray(this.resultArray));
 
-  confirm = () => this.props.confirm && this.props.confirm(this.resultArray);
+  confirm = () =>
+    this.props.confirm &&
+    this.props.confirm(this._cleanArray(this.resultArray));
 
   cancel = () => this.props.cancel && this.props.cancel();
+
+  getResult = () => this._cleanArray(this.resultArray);
+
+  _cleanArray = () =>
+    this.resultArray.map((item) => {
+      const {list, ...data} = item;
+      return data;
+    });
 
   /** ----------------------------------- Render ----------------------------------------- */
   render() {
