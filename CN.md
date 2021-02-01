@@ -17,8 +17,16 @@
 
 安装库：
 
-```javascript
-npm install react-native-slidepicker
+安装 (npm) :
+
+```bash
+npm install react-native-slidepicker react-native-gesture-handler -S
+```
+
+或者使用 yarn
+
+```bash
+yarn add react-native-slidepicker react-native-gesture-handler
 ```
 
 引入使用：
