@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-01-31 13:04:28
+ * @LastEditTime: 2021-02-01 10:44:41
  * @LastEditors: xuwei
  * @Description:
  */
@@ -21,7 +21,6 @@ export class SingleSlide extends PureComponent {
     normalBgOpacity: 0.4,
     normalFontSize: 16,
     normalFontColor: '#333',
-
     inparindex: 0,
   };
 
