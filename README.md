@@ -24,8 +24,14 @@ why：
 
 install:
 
-```javascript
-npm install react-native-slidepicker
+```bash
+npm install react-native-slidepicker react-native-gesture-handler -S
+```
+
+or with yarn :
+
+```bash
+yarn add react-native-slidepicker react-native-gesture-handler
 ```
 
 import:
