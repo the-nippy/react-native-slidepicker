@@ -1,24 +1,14 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2021-02-01 18:42:03
+ * @LastEditTime: 2021-02-02 10:38:47
  * @LastEditors: xuwei
  * @Description:
  */
 import React, {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {SingleSlide} from './single';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-const defaultOptions = {
-  confirmText: 'Confirm',
-  cancelText: 'Cancel',
-  headHeight: 50,
-  backgroundColor: '#fff',
-  confirmStyle: {},
-  cancelStyle: {},
-  borderTopRadius: 0,
-};
 export class RelativedPicker extends PureComponent {
   static defaultProps = {
     dataSource: [], //data
@@ -36,15 +26,6 @@ export class RelativedPicker extends PureComponent {
     this.state = {
       lists: this.initState(),
     };
-
-    this.resultIndexs = [];
-    this.resultArray = [];
-
-    this.headOptions = Object.assign(
-      {},
-      defaultOptions,
-      this.props.headOptions,
-    );
   }
 
   /** ----------------------------------- Data ----------------------------------------- */
@@ -59,7 +40,6 @@ export class RelativedPicker extends PureComponent {
     const {pickerDeep, onceChange} = this.props;
     const lists = this.state.lists.slice();
     const curObj = array[index];
-    // curObj && (this.resultArray[inparIndex] = curObj);
     curObj && this.props.setResult(inparIndex, curObj);
     if (array && array.length > 0) {
       lists[inparIndex] = array;
@@ -70,7 +50,6 @@ export class RelativedPicker extends PureComponent {
     } else {
       for (let i = inparIndex; i < pickerDeep; i++) {
         lists[i] = [];
-        // this.resultArray[i] = {};
         this.props.setResult(i, {});
       }
       this.setState({lists});
@@ -79,20 +58,12 @@ export class RelativedPicker extends PureComponent {
   };
 
   setData = (checkedIndex, inparindex) => {
-    // this.setResult(checkedIndex, inparindex);
     this.dismantleBebindData(
       this.state.lists[inparindex],
       checkedIndex,
       inparindex,
     );
   };
-
-  // setResult = (checkedIndex, inparindex) => {
-  //   this.resultIndexs[inparindex] = checkedIndex;
-  //   for (let i = inparindex + 1; i < this.props.pickerDeep; i++) {
-  //     this.resultIndexs[i] = 0;
-  //   }
-  // };
 
   /** ----------------------------------- Render ----------------------------------------- */
   render() {
