@@ -5566,10 +5566,17 @@ react-native-modal@^11.5.6:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
-react-native-slidepicker@^1.0.6, react-native-slidepicker@^1.0.7:
+react-native-slidepicker@^1.0.6:
   version "1.0.7"
   resolved "https://registry.npm.taobao.org/react-native-slidepicker/download/react-native-slidepicker-1.0.7.tgz#4c11a9354ba620e8d9a206742aefd2f85a53af3c"
   integrity sha1-TBGpNUumIOjZogZ0Ku/S+FpTrzw=
+  dependencies:
+    react-native-slidepicker "^1.0.6"
+
+react-native-slidepicker@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/react-native-slidepicker/-/react-native-slidepicker-1.0.8.tgz#19aa8629e2923c4843692d7da09ce0fa15a006bb"
+  integrity sha512-+7P3r2lrIaYG8LbfcPt2rWyn4PcQva5ea08WXTgewlQgzzx0aXoPofcwxtouZ+cmhkXBeUem5+EedJqZeOBLCA==
   dependencies:
     react-native-slidepicker "^1.0.6"
 
