@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 18:17:39
- * @LastEditTime: 2021-02-03 17:05:15
+ * @LastEditTime: 2021-02-03 18:01:29
  * @LastEditors: xuwei
  * @Description:
  */
@@ -30,7 +30,7 @@ export class IndependentPicker extends PureComponent {
   };
 
   render() {
-    const {dataSource, pickerStyle} = this.props;
+    const {dataSource, pickerStyle, defaultValueIndexes} = this.props;
     return (
       <View style={sts.all}>
         {dataSource.map((list, index) => (
@@ -39,6 +39,7 @@ export class IndependentPicker extends PureComponent {
             key={index}
             inparindex={index}
             done={this._done}
+            defaultIndex={defaultValueIndexes[index]}
             {...pickerStyle}
           />
         ))}

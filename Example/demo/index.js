@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-03 17:15:53
+ * @LastEditTime: 2021-02-03 18:09:16
  * @LastEditors: xuwei
  * @Description:
  */
@@ -65,6 +65,7 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.showData}
             cancel={this.close}
+            defaultValueIndexes={[3, 2]}
             onceChange={(arr) => {
               // console.info('once', arr);
             }}
@@ -85,7 +86,7 @@ export default class PickerDemo extends Component {
           />
         </ModalContain>
 
-        {/* <ModalContain isModalShow={this.state.showType === 'one'}>
+        <ModalContain isModalShow={this.state.showType === 'one'}>
           <CascadePicker
             ref={this.setOnePickerRef}
             dataSource={oneData}
@@ -108,7 +109,7 @@ export default class PickerDemo extends Component {
               </View>
             }
           />
-        </ModalContain> */}
+        </ModalContain>
 
         <ModalContain isModalShow={this.state.showType === 'three'}>
           <CascadePicker

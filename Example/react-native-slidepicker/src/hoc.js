@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 10:29:16
- * @LastEditTime: 2021-02-03 16:29:30
+ * @LastEditTime: 2021-02-03 18:14:50
  * @LastEditors: xuwei
  * @Description:
  */
@@ -41,6 +41,7 @@ export function WithHeadAndMethod(WrapComponent) {
       this.resultArray[index] = value;
     };
 
+    getResult = () => this.resultArray; // ref
     confirm = () => {
       if (this.props.confirm) {
         this.props.confirm(this.resultArray);
@@ -57,8 +58,6 @@ export function WithHeadAndMethod(WrapComponent) {
     };
     onceChange = () =>
       this.props.onceChange && this.props.onceChange(this.resultArray);
-
-    // getResult = () => this._cleanData(this.resultArray);
 
     render() {
       const {customHead} = this.props;
