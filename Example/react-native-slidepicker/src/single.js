@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-02-01 10:44:41
+ * @LastEditTime: 2021-02-03 15:54:02
  * @LastEditors: xuwei
  * @Description:
  */
@@ -16,7 +16,7 @@ export class SingleSlide extends PureComponent {
     activeBgColor: '#fff',
     activeBgOpacity: 1,
     activeFontSize: 18,
-    activeFontColor: '#a00',
+    activeFontColor: '#F00',
     normalBgColor: '#fff',
     normalBgOpacity: 0.4,
     normalFontSize: 16,
@@ -78,7 +78,7 @@ export class SingleSlide extends PureComponent {
   };
 
   adjustAniValue = () => {
-    const {done, inparindex, itemHeight, list} = this.props;
+    const {itemHeight, list} = this.props;
     const transvalue = this.transValue._value;
     const count = transvalue / itemHeight;
     if (count > 0) {

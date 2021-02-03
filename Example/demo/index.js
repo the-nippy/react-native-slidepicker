@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-01 18:33:32
+ * @LastEditTime: 2021-02-03 17:15:53
  * @LastEditors: xuwei
  * @Description:
  */
@@ -65,11 +65,22 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.showData}
             cancel={this.close}
+            onceChange={(arr) => {
+              // console.info('once', arr);
+            }}
+            // pickerDeep={1}
             pickerStyle={{
-              itemHeight: 60,
+              itemHeight: 50,
               visibleNum: 3,
-              activeBgColor: '#e2e2e2',
-              normalBgColor: '#fdfdfd',
+              // activeBgColor: '#a00',
+              // activeBgOpacity: 0.5,
+              activeFontSize: 25,
+              activeFontColor: '#00F',
+
+              // normalBgColor: '#a00',
+              // normalBgOpacity: 1,
+              // normalFontSize: 10,
+              // normalFontColor: '#0a0',
             }}
           />
         </ModalContain>
@@ -104,21 +115,31 @@ export default class PickerDemo extends Component {
             dataSource={threeData}
             confirm={this.showData}
             cancel={this.close}
-            pickerDeep={3}
+            onceChange={(arr) => {
+              // console.info('once', arr);
+            }}
+            pickerDeep={2}
             pickerStyle={{
-              activeFontColor: '#a00',
-              normalBgColor: '#a00',
+              itemHeight: 50,
+              // visibleNum: 3,
+              // activeBgColor: '#a00',
+              // activeBgOpacity: 0.5,
+              // activeFontSize: 25,
+              // activeFontColor: '#00F',
+
+              // normalBgColor: '#a00',
               // normalBgOpacity: 1,
-              itemHeight: 52,
+              // normalFontSize: 10,
+              // normalFontColor: '#0a0',
             }}
             headOptions={{
-              headHeight: 60,
-              backgroundColor: '#444',
               cancelText: '取消',
               confirmText: '确认',
+              headHeight: 40,
+              borderTopRadius: 10,
+              backgroundColor: '#444',
               confirmStyle: {fontSize: 20, color: '#fff', fontWeight: 'bold'},
               cancelStyle: {color: '#fff'},
-              borderTopRadius: 10,
             }}
           />
         </ModalContain>

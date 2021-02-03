@@ -1,36 +1,28 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 18:17:39
- * @LastEditTime: 2021-02-01 18:25:06
+ * @LastEditTime: 2021-02-03 17:05:15
  * @LastEditors: xuwei
  * @Description:
  */
 
 import React, {PureComponent} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {SingleSlide} from './single';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 export class IndependentPicker extends PureComponent {
-  // static defaultProps = {
-  //   dataSource: [], //data
-  //   onceChange: (arr) => {}, // once change callback
-  //   confirm: (arr) => {}, //confirm  send data back
-  //   cancel: () => {},
-  // };
-
   constructor(props) {
     super(props);
-    this.initData();
+    this._initData();
   }
 
-  initData = () => {
+  _initData = () => {
     const {dataSource} = this.props;
     dataSource.forEach((element, index) => {
       this.props.setResult(index, element[0]);
     });
   };
 
-  done = (dataindex, parindex) => {
+  _done = (dataindex, parindex) => {
     const {dataSource, onceChange} = this.props;
     const list = dataSource[parindex];
     this.props.setResult(parindex, list[dataindex]);
@@ -46,7 +38,7 @@ export class IndependentPicker extends PureComponent {
             list={list}
             key={index}
             inparindex={index}
-            done={this.done}
+            done={this._done}
             {...pickerStyle}
           />
         ))}

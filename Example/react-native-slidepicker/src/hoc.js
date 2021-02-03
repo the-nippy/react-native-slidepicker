@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 10:29:16
- * @LastEditTime: 2021-02-01 18:11:10
+ * @LastEditTime: 2021-02-03 16:29:30
  * @LastEditors: xuwei
  * @Description:
  */
@@ -20,43 +20,43 @@ const defaultOptions = {
   borderTopRadius: 0,
 };
 
-export function cleanData(array) {
-  return array.map((item) => {
-    const {list, ...data} = item;
-    return data;
-  });
-}
-
-export function WithHeadAndMethod(WrapComponent, _cleanData) {
+export function WithHeadAndMethod(WrapComponent) {
   return class extends Component {
+    static defaultProps = {
+      dataSource: [],
+      pickerDeep: 3,
+      onceChange: null,
+      confirm: null,
+      cancel: null,
+      customHead: null,
+      pickerStyle: {},
+    };
     constructor(props) {
       super(props);
       this.resultArray = [];
-      this.headOptions = Object.assign(
-        {},
-        defaultOptions,
-        this.props.headOptions,
-      );
+      this.headOptions = {...defaultOptions, ...this.props.headOptions};
     }
 
     _setResult = (index, value) => {
       this.resultArray[index] = value;
     };
-    _getTransResult = () =>
-      _cleanData ? _cleanData(this.resultArray) : this.resultArray;
 
     confirm = () => {
       if (this.props.confirm) {
-        this.props.confirm(this._getTransResult());
+        this.props.confirm(this.resultArray);
       } else {
-        console.warn(`[RN slidepicker] should provide 'confirm' method`);
+        console.warn(`[slidepicker] should provide 'confirm' method`);
       }
     };
-
+    cancel = () => {
+      if (this.props.cancel) {
+        this.props.cancel();
+      } else {
+        console.warn(`[slidepicker] should provide 'cancel' method`);
+      }
+    };
     onceChange = () =>
-      this.props.onceChange && this.props.onceChange(this._getTransResult());
-
-    cancel = () => this.props.cancel && this.props.cancel();
+      this.props.onceChange && this.props.onceChange(this.resultArray);
 
     // getResult = () => this._cleanData(this.resultArray);
 
@@ -66,14 +66,14 @@ export function WithHeadAndMethod(WrapComponent, _cleanData) {
         <GestureHandlerRootView>
           <View>
             <Head
-              headOptions={this.headOptions || {}}
+              headOptions={this.headOptions}
               cancel={this.cancel}
               confirm={this.confirm}
               customHead={customHead}
             />
             <WrapComponent
-              setResult={this._setResult}
               {...this.props}
+              setResult={this._setResult}
               confirm={this.confirm}
               cancel={this.cancel}
               onceChange={this.onceChange}
@@ -85,21 +85,20 @@ export function WithHeadAndMethod(WrapComponent, _cleanData) {
   };
 }
 
+/** ----------------------------------- Head Component ----------------------------------------- */
+
 const Head = React.memo(({headOptions, customHead, confirm, cancel}) => {
   if (customHead) {
     return customHead;
   } else {
+    const headerapstyle = {
+      borderTopLeftRadius: headOptions.borderTopRadius,
+      borderTopRightRadius: headOptions.borderTopRadius,
+      height: headOptions.headHeight,
+      backgroundColor: headOptions.backgroundColor,
+    };
     return (
-      <View
-        style={[
-          sts.btns,
-          {
-            borderTopLeftRadius: headOptions.borderTopRadius,
-            borderTopRightRadius: headOptions.borderTopRadius,
-            height: headOptions.headHeight,
-            backgroundColor: headOptions.backgroundColor,
-          },
-        ]}>
+      <View style={[sts.btns, headerapstyle]}>
         <TouchableOpacity
           style={[sts.btn, {height: headOptions.headHeight}]}
           onPress={cancel}>
