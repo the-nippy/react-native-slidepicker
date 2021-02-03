@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-03 18:09:16
+ * @LastEditTime: 2021-02-03 18:28:10
  * @LastEditors: xuwei
  * @Description:
  */
@@ -70,19 +70,20 @@ export default class PickerDemo extends Component {
               // console.info('once', arr);
             }}
             // pickerDeep={1}
-            pickerStyle={{
-              itemHeight: 50,
-              visibleNum: 3,
-              // activeBgColor: '#a00',
-              // activeBgOpacity: 0.5,
-              activeFontSize: 25,
-              activeFontColor: '#00F',
-
-              // normalBgColor: '#a00',
-              // normalBgOpacity: 1,
-              // normalFontSize: 10,
-              // normalFontColor: '#0a0',
-            }}
+            // pickerStyle={
+            //   {
+            //     // itemHeight: 50,
+            //     // visibleNum: 3,
+            //     // // activeBgColor: '#a00',
+            //     // // activeBgOpacity: 0.5,
+            //     // activeFontSize: 25,
+            //     // activeFontColor: '#00F',
+            //     // normalBgColor: '#a00',
+            //     // normalBgOpacity: 1,
+            //     // normalFontSize: 10,
+            //     // normalFontColor: '#0a0',
+            //   }
+            // }
           />
         </ModalContain>
 
