@@ -98,7 +98,7 @@ required. data source of the picker。
 
 ### `pickerDeep : number`
 
-the num of sub pickers, required in CascadePicker Component.
+the num of sub pickers in CascadePicker, **required**.
 
 <hr id="confirm"></hr>
 

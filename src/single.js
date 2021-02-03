@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-01-31 13:04:28
+ * @LastEditTime: 2021-02-03 18:14:15
  * @LastEditors: xuwei
  * @Description:
  */
@@ -16,28 +16,29 @@ export class SingleSlide extends PureComponent {
     activeBgColor: '#fff',
     activeBgOpacity: 1,
     activeFontSize: 18,
-    activeFontColor: '#a00',
+    activeFontColor: '#F00',
     normalBgColor: '#fff',
     normalBgOpacity: 0.4,
     normalFontSize: 16,
     normalFontColor: '#333',
-
     inparindex: 0,
   };
 
   transValue = new Animated.Value(0);
   constructor(props) {
     super(props);
-    this.state = {checkedIndex: 0};
-    this.transValue = new Animated.Value(0);
+    const {defaultIndex, itemHeight} = this.props;
+    this._deIndex = defaultIndex || 0;
+    this.state = {checkedIndex: this._deIndex};
+    this.transValue = new Animated.Value(-this._deIndex * itemHeight || 0);
   }
 
   componentDidMount() {
-    const {list, itemHeight} = this.props;
+    const {list, itemHeight, inparindex} = this.props;
     this.maxOffset = 0;
     this.listLength = list.length;
     this.minOffset = (1 - this.listLength) * itemHeight;
-    this.props.done(0, 0);
+    this.props.done(this._deIndex, inparindex);
   }
 
   componentDidUpdate(prevProps) {
@@ -79,7 +80,7 @@ export class SingleSlide extends PureComponent {
   };
 
   adjustAniValue = () => {
-    const {done, inparindex, itemHeight, list} = this.props;
+    const {itemHeight, list} = this.props;
     const transvalue = this.transValue._value;
     const count = transvalue / itemHeight;
     if (count > 0) {

@@ -74,7 +74,7 @@ export default class PickerTest extends Component {
 - [`dataSource`](#dataSource)
 - [`pickerDeep`](#deep)
 - [`confirm`](#confirm)
-- [`onceChange`](#oncechange)
+
 - [`cancel`](#cancel)
 - [`pickerStyle`](#pickerStyle)
 - [`headOptions`](#options)
@@ -102,12 +102,6 @@ export default class PickerTest extends Component {
 (dataArray) => { } , 函数类型，如果使用了默认的确认和取消按钮，则该函数是必要的，在确认时传回选择的数据。
 
 如果使用了自定义头部，自定义了「选择」按钮和操作，则非必要。
-
-<hr id="oncechange"/>
-
-### `onceChange : (dataArray) => { }`
-
-(dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
 
 <hr id="cancel"/>
 
@@ -212,6 +206,16 @@ export default class PickerTest extends Component {
     <CascadePicker {...props}>
   </Modal>
 ```
+
+## 试验性功能
+
+- [`onceChange`](#oncechange)
+
+ <hr id="oncechange"/>
+
+### `onceChange : (dataArray) => { }`
+
+(dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
 
 ## 其他
 
