@@ -5575,8 +5575,8 @@ react-native-slidepicker@^1.0.6:
 
 react-native-slidepicker@^1.0.8:
   version "1.0.8"
-  resolved "https://registry.npm.taobao.org/react-native-slidepicker/download/react-native-slidepicker-1.0.8.tgz#19aa8629e2923c4843692d7da09ce0fa15a006bb"
-  integrity sha1-GaqGKeKSPEhDaS19oJzg+hWgBrs=
+  resolved "https://registry.npmjs.org/react-native-slidepicker/-/react-native-slidepicker-1.0.8.tgz#19aa8629e2923c4843692d7da09ce0fa15a006bb"
+  integrity sha512-+7P3r2lrIaYG8LbfcPt2rWyn4PcQva5ea08WXTgewlQgzzx0aXoPofcwxtouZ+cmhkXBeUem5+EedJqZeOBLCA==
   dependencies:
     react-native-slidepicker "^1.0.6"
 
