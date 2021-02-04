@@ -1,7 +1,7 @@
 /*
  * @Author: xuxiaowei
  * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2021-02-03 16:59:53
+ * @LastEditTime: 2021-02-04 10:55:57
  * @LastEditors: xuwei
  * @Description:
  */
@@ -9,7 +9,7 @@ import React, {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {SingleSlide} from './single';
 
-// TODO （ done -> onceChange -> _dismantleBebindData 消除执行次数)
+// TODO （ done -> onceChange -> _dismantleBebindData 消减执行次数)
 // onceChange 实验性功能
 export class RelativedPicker extends PureComponent {
   constructor(props) {

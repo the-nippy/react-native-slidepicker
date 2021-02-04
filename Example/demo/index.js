@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-03 18:28:10
+ * @LastEditTime: 2021-02-04 10:59:03
  * @LastEditors: xuwei
  * @Description:
  */
@@ -65,7 +65,7 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.showData}
             cancel={this.close}
-            defaultValueIndexes={[3, 2]}
+            defaultValueIndexes={[3, 10]}
             onceChange={(arr) => {
               // console.info('once', arr);
             }}
