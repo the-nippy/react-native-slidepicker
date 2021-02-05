@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-05 16:20:22
+ * @LastEditTime: 2021-02-05 18:00:19
  * @LastEditors: xuwei
  * @Description:
  */
@@ -65,10 +65,10 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.showData}
             cancel={this.close}
-            defaultValueIndexes={[3, 1]}
-            onceChange={(arr) => {
-              // console.info('once', arr);
-            }}
+            // defaultValueIndexes={[3, 1]}
+            // onceChange={(arr) => {
+            //   console.info('once', arr);
+            // }}
             // pickerDeep={1}
             // pickerStyle={
             //   {
@@ -99,13 +99,14 @@ export default class PickerDemo extends Component {
               itemHeight: 60,
               activeFontColor: '#F52D3A',
               activeFontSize: 21,
+              normalFontColor: '#FFF',
             }}
             customHead={
               <View style={styles.head}>
                 <Image source={ICON_DOG} style={{width: 36, height: 36}} />
                 <Text style={{fontSize: 18}}>Choose Animals</Text>
                 <TouchableOpacity onPress={this.showOneData}>
-                  <Text>Done</Text>
+                  <Text style={{fontSize: 18, color: '#0aa'}}>Done</Text>
                 </TouchableOpacity>
               </View>
             }
@@ -118,25 +119,25 @@ export default class PickerDemo extends Component {
             confirm={this.showData}
             cancel={this.close}
             onceChange={(arr) => {
-              // console.info('once', arr);
+              console.info('once', arr);
             }}
-            pickerDeep={2}
+            pickerDeep={3}
             pickerStyle={{
               itemHeight: 50,
-              // visibleNum: 3,
-              // activeBgColor: '#a00',
-              // activeBgOpacity: 0.5,
-              // activeFontSize: 25,
-              // activeFontColor: '#00F',
+              visibleNum: 5,
+              activeBgColor: '#a00',
+              activeBgOpacity: 0.5,
+              activeFontSize: 19,
+              activeFontColor: '#FFF',
 
-              // normalBgColor: '#a00',
-              // normalBgOpacity: 1,
-              // normalFontSize: 10,
-              // normalFontColor: '#0a0',
+              normalBgColor: '#999',
+              normalBgOpacity: 1,
+              normalFontSize: 13,
+              normalFontColor: '#333',
             }}
             headOptions={{
-              cancelText: '取消',
-              confirmText: '确认',
+              cancelText: 'Cancel',
+              confirmText: 'OK',
               headHeight: 50,
               borderTopRadius: 10,
               backgroundColor: '#444',

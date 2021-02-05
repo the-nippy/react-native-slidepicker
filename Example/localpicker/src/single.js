@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-02-05 16:29:13
+ * @LastEditTime: 2021-02-05 17:00:51
  * @LastEditors: xuwei
  * @Description:
  */
@@ -13,11 +13,11 @@ export class SingleSlide extends PureComponent {
   static defaultProps = {
     itemHeight: 40,
     visibleNum: 5, // visible lins
-    activeBgColor: '#fff',
+    activeBgColor: '#FFF',
     activeBgOpacity: 1,
     activeFontSize: 18,
     activeFontColor: '#F00',
-    normalBgColor: '#fff',
+    normalBgColor: '#FFF',
     normalBgOpacity: 0.4,
     normalFontSize: 16,
     normalFontColor: '#333',
