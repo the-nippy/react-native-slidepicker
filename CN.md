@@ -11,7 +11,7 @@
 - 使用 JavaScript 实现，兼容 Android 和 iOS 端。
 - 自定义条目高度，背景色，文字样式，自定义选择器头部
 - 支持使用级联选择和平行选择两种方式
-- 自定义在显示，在 Modal 或绝对定位中使用
+- 自定义在显示，可在 Modal 或绝对定位中使用
 
 ## 使用
 
@@ -48,7 +48,9 @@ import {ParallelPicker} from 'react-native-slidepicker';
 import ParaData from './one.json';
 export default class PickerTest extends Component {
   ...
-  onceChange = data => console.info('once', data);
+  cancel = data => {
+    //...close modal
+  };
   confirm = data => console.info('confirm', data);
   render() {
     return (
@@ -56,7 +58,7 @@ export default class PickerTest extends Component {
         <Modal isVisible={this.state...} {...props}>
           <ParallelPicker
             dataSource={ParaData}
-            onceChange={this.onceChange}
+          	cancel={this.cancel}
             confirm={this.confirm}
           />
         </Modal>
@@ -74,8 +76,8 @@ export default class PickerTest extends Component {
 - [`dataSource`](#dataSource)
 - [`pickerDeep`](#deep)
 - [`confirm`](#confirm)
-
 - [`cancel`](#cancel)
+- [`defaultValueIndexes`](#defaultValueIndexes)
 - [`pickerStyle`](#pickerStyle)
 - [`headOptions`](#options)
 - [`customHead`](#head)
@@ -120,6 +122,7 @@ export default class PickerTest extends Component {
 | itemHeight      | number          | 40            | 条目高度                                         |
 | visibleNum      | number          | 5             | 可见行数                                         |
 | activeBgColor   | string (color)  | "#ccc"        | 被选中条目背景色                                 |
+| activeBgOpacity | number          | 1             | 被选中条目背景透明度                             |
 | activeFontSize  | Number          | 18            | 被选中条目字体大小                               |
 | activeFontColor | string (color)  | "\#a00"       | 被选中条目字体颜色                               |
 | normalBgColor   | string (color)  | "#fff"        | 未被选中条目背景色                               |
@@ -138,6 +141,7 @@ a custom style for the picker header , receives these props:
 | confirmText     | string            | Confirm                          | 确认按钮文本     |
 | cancelText      | string            | Cancel                           | 取消按钮文本     |
 | headHeight      | number            | 50                               | 头部高度         |
+| borderTopRadius | number            | 0                                | 头部的顶部圆角   |
 | backgroundColor | string(color)     | \#fff                            | 背景色           |
 | confirmStyle    | object (RN style) | {fontSize: 18, color: "#4169E1"} | 确认按钮文本样式 |
 | cancelStyle     | object (RN style) | {fontSize: 18, color: "#4169E1"} | 取消按钮文本样式 |
@@ -209,7 +213,13 @@ export default class PickerTest extends Component {
 
 ## 试验性功能
 
-- [`onceChange`](#oncechange)
+### `onceChange (dataArray) => { }` 
+
+每次选择改变发生都会执行，返回当前的实时结果。
+
+### `defaultValueIndexes` 
+
+默认选中值，目前只在`ParallelPicker`中可用，`CascadePicker`待完成。
 
  <hr id="oncechange"/>
 
@@ -249,7 +259,7 @@ export default class PickerTest extends Component {
 ]
 ```
 
-**平行数据：**
+**平行数据（一个二维数组）：**
 
 ```json
 [

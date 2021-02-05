@@ -24,9 +24,6 @@
     "url": "https://github.com/lexguy/react-native-slidepicker/issues"
   },
   "homepage": "https://github.com/lexguy/react-native-slidepicker#readme",
-  "dependencies": {
-    "react-native-slidepicker": "^1.0.6"
-  },
   "files": [
     "index.js",
     "src/",

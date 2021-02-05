@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-05 18:00:19
+ * @LastEditTime: 2021-02-05 18:57:28
  * @LastEditors: xuwei
  * @Description:
  */
@@ -99,7 +99,7 @@ export default class PickerDemo extends Component {
               itemHeight: 60,
               activeFontColor: '#F52D3A',
               activeFontSize: 21,
-              normalFontColor: '#FFF',
+              normalFontColor: '#ccc',
             }}
             customHead={
               <View style={styles.head}>
@@ -125,7 +125,7 @@ export default class PickerDemo extends Component {
             pickerStyle={{
               itemHeight: 50,
               visibleNum: 5,
-              activeBgColor: '#a00',
+              activeBgColor: '#A00',
               activeBgOpacity: 0.5,
               activeFontSize: 19,
               activeFontColor: '#FFF',
