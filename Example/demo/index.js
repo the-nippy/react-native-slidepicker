@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-04 10:59:03
+ * @LastEditTime: 2021-02-05 09:06:09
  * @LastEditors: xuwei
  * @Description:
  */
@@ -9,7 +9,7 @@ import React, {Component, PureComponent} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
 import {ModalContain} from './pickercontain';
 
-import {CascadePicker, ParallelPicker} from '../react-native-slidepicker/index';
+import {CascadePicker, ParallelPicker} from '../localpicker/index';
 // import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 
 const specData = require('./testfiles/spec.json');
