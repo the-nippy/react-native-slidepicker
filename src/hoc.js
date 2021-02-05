@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 10:29:16
- * @LastEditTime: 2021-02-03 18:14:50
+ * @LastEditTime: 2021-02-04 10:25:17
  * @LastEditors: xuwei
  * @Description:
  */
@@ -85,7 +85,6 @@ export function WithHeadAndMethod(WrapComponent) {
 }
 
 /** ----------------------------------- Head Component ----------------------------------------- */
-
 const Head = React.memo(({headOptions, customHead, confirm, cancel}) => {
   if (customHead) {
     return customHead;

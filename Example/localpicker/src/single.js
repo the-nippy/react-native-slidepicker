@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-02-04 10:55:17
+ * @LastEditTime: 2021-02-05 16:29:13
  * @LastEditors: xuwei
  * @Description:
  */
@@ -26,8 +26,8 @@ export class SingleSlide extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {checkedIndex: this._deIndex};
     this.init();
+    this.state = {checkedIndex: this._deIndex};
   }
 
   init = () => {

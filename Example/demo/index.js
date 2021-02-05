@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-02-05 09:06:09
+ * @LastEditTime: 2021-02-05 16:20:22
  * @LastEditors: xuwei
  * @Description:
  */
@@ -44,19 +44,19 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => this.setState({showType: 'spec'})}>
-          <Text style={{fontSize: 20}}>Show Spec Picker</Text>
+          <Text style={{fontSize: 20}}>Demo1(ParallelPicker)</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'one'})}>
-          <Text style={{fontSize: 20}}>Show one wheel</Text>
+          <Text style={{fontSize: 20}}>Demo2(ParallelPicker)</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'three'})}>
-          <Text style={{fontSize: 20}}>Show three wheel</Text>
+          <Text style={{fontSize: 20}}>Demo3(CascadePicker)</Text>
         </TouchableOpacity>
 
         {/* color size */}
@@ -65,7 +65,7 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.showData}
             cancel={this.close}
-            defaultValueIndexes={[3, 10]}
+            defaultValueIndexes={[3, 1]}
             onceChange={(arr) => {
               // console.info('once', arr);
             }}
@@ -88,7 +88,7 @@ export default class PickerDemo extends Component {
         </ModalContain>
 
         <ModalContain isModalShow={this.state.showType === 'one'}>
-          <CascadePicker
+          <ParallelPicker
             ref={this.setOnePickerRef}
             dataSource={oneData}
             confirm={this.showData}
@@ -137,7 +137,7 @@ export default class PickerDemo extends Component {
             headOptions={{
               cancelText: '取消',
               confirmText: '确认',
-              headHeight: 40,
+              headHeight: 50,
               borderTopRadius: 10,
               backgroundColor: '#444',
               confirmStyle: {fontSize: 20, color: '#fff', fontWeight: 'bold'},

@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 18:17:39
- * @LastEditTime: 2021-02-03 18:01:29
+ * @LastEditTime: 2021-02-05 16:23:12
  * @LastEditors: xuwei
  * @Description:
  */
@@ -39,7 +39,7 @@ export class IndependentPicker extends PureComponent {
             key={index}
             inparindex={index}
             done={this._done}
-            defaultIndex={defaultValueIndexes[index]}
+            defaultIndex={defaultValueIndexes ? defaultValueIndexes[index] : 0}
             {...pickerStyle}
           />
         ))}
