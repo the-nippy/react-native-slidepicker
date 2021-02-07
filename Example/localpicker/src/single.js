@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-01-31 13:04:28
+ * @LastEditTime: 2021-02-05 17:00:51
  * @LastEditors: xuwei
  * @Description:
  */
@@ -11,35 +11,46 @@ import {PanGestureHandler, State} from 'react-native-gesture-handler';
 
 export class SingleSlide extends PureComponent {
   static defaultProps = {
-    itemHeight: 40, // per item height
+    itemHeight: 40,
     visibleNum: 5, // visible lins
-    activeBgColor: '#fff',
+    activeBgColor: '#FFF',
     activeBgOpacity: 1,
     activeFontSize: 18,
-    activeFontColor: '#a00',
-    normalBgColor: '#fff',
+    activeFontColor: '#F00',
+    normalBgColor: '#FFF',
     normalBgOpacity: 0.4,
     normalFontSize: 16,
     normalFontColor: '#333',
-
     inparindex: 0,
   };
 
-  transValue = new Animated.Value(0);
   constructor(props) {
     super(props);
-    this.state = {checkedIndex: 0};
-    this.transValue = new Animated.Value(0);
+    this.init();
+    this.state = {checkedIndex: this._deIndex};
   }
+
+  init = () => {
+    const {defaultIndex, itemHeight, list} = this.props;
+    if (defaultIndex) {
+      if (defaultIndex < 0 || defaultIndex > list.length - 1) {
+        console.warn(
+          '[slidepicker]defaultValueIndexes are out of range, default to 0',
+        );
+        this._deIndex = 0;
+      } else {
+        this._deIndex = defaultIndex;
+      }
+    } else {
+      this._deIndex = 0;
+    }
+    this.transValue = new Animated.Value(-this._deIndex * itemHeight || 0);
+  };
 
   componentDidMount() {
-    const {list, itemHeight} = this.props;
-    this.maxOffset = 0;
-    this.listLength = list.length;
-    this.minOffset = (1 - this.listLength) * itemHeight;
-    this.props.done(0, 0);
+    const {inparindex} = this.props;
+    this.props.done(this._deIndex, inparindex);
   }
-
   componentDidUpdate(prevProps) {
     if (prevProps.list !== this.props.list) {
       this.transValue.setValue(0);
@@ -48,7 +59,6 @@ export class SingleSlide extends PureComponent {
   }
 
   /** ----------------------------------- Gesture ----------------------------------------- */
-
   //滑动中
   _onPanGestureEvent = ({nativeEvent}) => {
     const {itemHeight} = this.props;
@@ -79,7 +89,7 @@ export class SingleSlide extends PureComponent {
   };
 
   adjustAniValue = () => {
-    const {done, inparindex, itemHeight, list} = this.props;
+    const {itemHeight, list} = this.props;
     const transvalue = this.transValue._value;
     const count = transvalue / itemHeight;
     if (count > 0) {
@@ -111,7 +121,6 @@ export class SingleSlide extends PureComponent {
   };
 
   /** ----------------------------------- Render ----------------------------------------- */
-
   renderItem = (item, index, offsetIndex) => {
     const {
       itemHeight,
@@ -121,22 +130,15 @@ export class SingleSlide extends PureComponent {
       normalFontColor,
     } = this.props;
     const {checkedIndex} = this.state;
-
     const isChecked = checkedIndex + offsetIndex === index;
-
+    const itemStyle = {
+      color: isChecked ? activeFontColor : normalFontColor,
+      fontSize: isChecked ? activeFontSize : normalFontSize,
+      height: itemHeight,
+      lineHeight: itemHeight,
+    };
     return (
-      <Text
-        numberOfLines={1}
-        style={[
-          sts.text,
-          {
-            color: isChecked ? activeFontColor : normalFontColor,
-            fontSize: isChecked ? activeFontSize : normalFontSize,
-            height: itemHeight,
-            lineHeight: itemHeight,
-          },
-        ]}
-        key={index}>
+      <Text numberOfLines={1} style={[sts.text, itemStyle]} key={index}>
         {item.name || ''}
       </Text>
     );
@@ -154,7 +156,6 @@ export class SingleSlide extends PureComponent {
     } = this.props;
 
     let half = Math.floor(visibleNum / 2);
-
     const fillArr = Array(half).fill('');
     const offsetIndex = half;
     let finalList = list.slice();
@@ -167,7 +168,6 @@ export class SingleSlide extends PureComponent {
       width: '100%',
       height: itemHeight * half,
     };
-
     return (
       <View style={[sts.contain, {height: itemHeight * visibleNum}]}>
         <PanGestureHandler
@@ -182,14 +182,13 @@ export class SingleSlide extends PureComponent {
             </Animated.View>
             <View style={maskBg} />
             <View
-              style={[
-                {
-                  height: itemHeight,
-                  width: '100%',
-                  backgroundColor: activeBgColor,
-                  opacity: activeBgOpacity,
-                },
-              ]}></View>
+              style={{
+                height: itemHeight,
+                width: '100%',
+                backgroundColor: activeBgColor,
+                opacity: activeBgOpacity,
+              }}
+            />
             <View style={maskBg} />
           </View>
         </PanGestureHandler>
@@ -204,9 +203,6 @@ const sts = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-  },
-  mask: {
-    width: '100%',
   },
   contain: {
     flexDirection: 'row',

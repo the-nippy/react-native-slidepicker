@@ -14,7 +14,7 @@
     "react-native": "0.63.3",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-modal": "^11.5.6",
-    "react-native-slidepicker": "^1.0.4"
+    "react-native-slidepicker": "^1.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

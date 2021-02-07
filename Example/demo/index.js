@@ -1,19 +1,23 @@
 /*
  * @Author: xuwei
  * @Date: 2020-11-18 09:23:11
- * @LastEditTime: 2021-01-31 13:34:17
+ * @LastEditTime: 2021-02-07 09:47:12
  * @LastEditors: xuwei
  * @Description:
  */
-import React, {Component, PureComponent} from 'react';
+import React, {Component} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
 import {ModalContain} from './pickercontain';
-import {CascadePicker, ParallelPicker} from '../react-native-slidepicker/index';
+
+import {CascadePicker, ParallelPicker} from '../localpicker/index';
 // import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 
-const specData = require('./testfiles/spec.json');
+// const specData = require('./testfiles/spec.json');
+const specData = require('./testfiles/spec_cn.json');
+
 const oneData = require('./testfiles/one.json');
-const threeData = require('./testfiles/three.json');
+// const threeData = require('./testfiles/three.json');
+const threeData = require('./testfiles/area.json');
 const ICON_DOG = require('./testfiles/dog.png');
 
 export default class PickerDemo extends Component {
@@ -43,19 +47,20 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => this.setState({showType: 'spec'})}>
-          <Text style={{fontSize: 20}}>Show Spec Picker</Text>
+          {/* <Text style={{fontSize: 20}}>Demo1(ParallelPicker)</Text> */}
+          <Text style={{fontSize: 20}}>示例1 (ParallelPicker)</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'one'})}>
-          <Text style={{fontSize: 20}}>Show one wheel</Text>
+          <Text style={{fontSize: 20}}>示例2 (ParallelPicker)</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'three'})}>
-          <Text style={{fontSize: 20}}>Show three wheel</Text>
+          <Text style={{fontSize: 20}}>示例3 (CascadePicker)</Text>
         </TouchableOpacity>
 
         {/* color size */}
@@ -64,17 +69,30 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.showData}
             cancel={this.close}
-            pickerStyle={{
-              itemHeight: 60,
-              visibleNum: 3,
-              activeBgColor: '#e2e2e2',
-              normalBgColor: '#fdfdfd',
-            }}
+            // defaultValueIndexes={[3, 1]}
+            // onceChange={(arr) => {
+            //   console.info('once', arr);
+            // }}
+            // pickerDeep={1}
+            // pickerStyle={
+            //   {
+            //     // itemHeight: 50,
+            //     // visibleNum: 3,
+            //     // // activeBgColor: '#a00',
+            //     // // activeBgOpacity: 0.5,
+            //     // activeFontSize: 25,
+            //     // activeFontColor: '#00F',
+            //     // normalBgColor: '#a00',
+            //     // normalBgOpacity: 1,
+            //     // normalFontSize: 10,
+            //     // normalFontColor: '#0a0',
+            //   }
+            // }
           />
         </ModalContain>
 
         <ModalContain isModalShow={this.state.showType === 'one'}>
-          <CascadePicker
+          <ParallelPicker
             ref={this.setOnePickerRef}
             dataSource={oneData}
             confirm={this.showData}
@@ -85,13 +103,14 @@ export default class PickerDemo extends Component {
               itemHeight: 60,
               activeFontColor: '#F52D3A',
               activeFontSize: 21,
+              normalFontColor: '#ccc',
             }}
             customHead={
               <View style={styles.head}>
                 <Image source={ICON_DOG} style={{width: 36, height: 36}} />
                 <Text style={{fontSize: 18}}>Choose Animals</Text>
                 <TouchableOpacity onPress={this.showOneData}>
-                  <Text>Done</Text>
+                  <Text style={{fontSize: 18, color: '#0aa'}}>完成</Text>
                 </TouchableOpacity>
               </View>
             }
@@ -103,21 +122,31 @@ export default class PickerDemo extends Component {
             dataSource={threeData}
             confirm={this.showData}
             cancel={this.close}
+            onceChange={(arr) => {
+              console.info('once', arr);
+            }}
             pickerDeep={3}
             pickerStyle={{
-              activeFontColor: '#a00',
-              normalBgColor: '#a00',
-              // normalBgOpacity: 1,
-              itemHeight: 52,
+              itemHeight: 50,
+              visibleNum: 5,
+              activeBgColor: '#A00',
+              activeBgOpacity: 0.5,
+              activeFontSize: 19,
+              activeFontColor: '#FFF',
+
+              normalBgColor: '#999',
+              normalBgOpacity: 1,
+              normalFontSize: 13,
+              normalFontColor: '#333',
             }}
             headOptions={{
-              headHeight: 60,
-              backgroundColor: '#444',
               cancelText: '取消',
               confirmText: '确认',
+              headHeight: 50,
+              borderTopRadius: 10,
+              backgroundColor: '#444',
               confirmStyle: {fontSize: 20, color: '#fff', fontWeight: 'bold'},
               cancelStyle: {color: '#fff'},
-              borderTopRadius: 10,
             }}
           />
         </ModalContain>
