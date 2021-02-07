@@ -208,7 +208,7 @@ export default class PickerTest extends Component {
 
 This component does not deal with the logic of pop-up boxes, because the scheme of the pop-up layer may be different from the scheme adopted by each person. At present, it is difficult to find a solution that most people agree with. Therefore, the logic of this layer is left to the user. If there is a better scheme, issue and PR are welcome.
 
-If you need to use it in the pop-up layer, you can use `absolute position and z-Index` or `Modal component`.
+If you need to use it in the pop-up layer, you can use `absolute position and z-Index` or <a href="https://github.com/react-native-modal/react-native-modal">`Modal component`</a>. 
 
 example:
 

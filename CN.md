@@ -2,16 +2,16 @@
 
 一个 React Native 上的选择器组件，使用时间，地址以及各种分类选择的场景上。
 
-<img src="https://pic.downk.cc/item/5fca0ebf394ac52378391b0b.gif" width=250>
+<img src="https://img.imgdb.cn/item/601f481a3ffa7d37b3cb1e0e.gif" width=250>
 
-<img src="https://pic.downk.cc/item/5fcaef1a394ac52378062486.jpg" width=200/> <img src="https://pic.downk.cc/item/5fcaef1a394ac52378062489.jpg" width=200/> <img src="https://pic.downk.cc/item/5fcaef1a394ac5237806248c.jpg" width=200/>
+<img src="https://img.imgdb.cn/item/601f484d3ffa7d37b3cb2d6f.jpg" width=250/> <img src="https://img.imgdb.cn/item/601f486d3ffa7d37b3cb374e.jpg" width=250/> <img src="https://img.imgdb.cn/item/601f48903ffa7d37b3cb4370.jpg" width=250/>
 
 特点：
 
 - 使用 JavaScript 实现，兼容 Android 和 iOS 端。
 - 自定义条目高度，背景色，文字样式，自定义选择器头部
 - 支持使用级联选择和平行选择两种方式
-- 自定义在显示，可在 Modal 或绝对定位中使用
+- 自定义显示方式，可在 Modal 或绝对定位中使用
 
 ## 使用
 
@@ -194,7 +194,7 @@ export default class PickerTest extends Component {
 
 本组件并不处理弹出框的逻辑，因为弹出层的方案可能每个人采用的方案本身不同，目前还难以找到一种大多数人统一认同的方案，所以这一层的逻辑交由使用者处理 , 如果有更好的方案欢迎 issue 和 PR 。
 
-如果你需要使用在弹出层中，可以使用绝对定位及 z-Index 方式或`Modal`组件处理，
+如果你需要使用在弹出层中，可以使用绝对定位及 z-Index 方式或<a href="https://github.com/react-native-modal/react-native-modal">`Modal`</a>组件处理，(Example文件夹中的示例使用`Modal`)
 
 如：
 
@@ -219,13 +219,7 @@ export default class PickerTest extends Component {
 
 ### `defaultValueIndexes` 
 
-默认选中值，目前只在`ParallelPicker`中可用，`CascadePicker`待完成。
-
- <hr id="oncechange"/>
-
-### `onceChange : (dataArray) => { }`
-
-(dataArray) => { } , 函数类型，非必要参数。每次数据选择都会触发，传回当前选择的实时数据。
+默认选中值，目前只在`ParallelPicker`中可用，`CascadePicker`中待完善
 
 ## 其他
 
