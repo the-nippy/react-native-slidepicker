@@ -1,7 +1,7 @@
 /*
  * @Author: xuwei
  * @Date: 2021-02-01 10:29:16
- * @LastEditTime: 2021-02-04 10:25:17
+ * @LastEditTime: 2021-02-05 17:02:01
  * @LastEditors: xuwei
  * @Description:
  */
@@ -14,7 +14,7 @@ const defaultOptions = {
   confirmText: 'Confirm',
   cancelText: 'Cancel',
   headHeight: 50,
-  backgroundColor: '#fff',
+  backgroundColor: '#FFF',
   confirmStyle: {},
   cancelStyle: {},
   borderTopRadius: 0,
