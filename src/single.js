@@ -91,11 +91,11 @@ export class SingleSlide extends PureComponent {
   adjustAniValue = () => {
     const {itemHeight, list} = this.props;
     const transvalue = this.transValue._value;
-    const count = Match.ceil(transvalue / itemHeight);
+    const count = Math.round(transvalue / itemHeight);
     if (count > 0) {
       this.setAniAndDataback(0, 0);
     } else if (count < -list.length + 1) {
-      this.setAniAndDataback(Match.ceil((-list.length + 1) * itemHeight), list.length - 1);
+      this.setAniAndDataback(Math.round((-list.length + 1) * itemHeight), list.length - 1);
     } else {
       const finalIndex = Math.abs(count);
       this.dataBack(finalIndex);
