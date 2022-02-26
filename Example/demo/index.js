@@ -9,8 +9,8 @@ import React, {Component} from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, Image} from 'react-native';
 import {ModalContain} from './pickercontain';
 
-import {CascadePicker, ParallelPicker} from '../localpicker/index';
-// import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
+// import {CascadePicker, ParallelPicker} from '../localpicker/index';
+import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 
 // const specData = require('./testfiles/spec.json');
 const specData = require('./testfiles/spec_cn.json');
