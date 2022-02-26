@@ -2,9 +2,7 @@
 
 一个 React Native 上的选择器组件，使用时间，地址以及各种分类选择的场景上。
 
-<img src="https://img.imgdb.cn/item/601f481a3ffa7d37b3cb1e0e.gif" width=250>
-
-<img src="https://img.imgdb.cn/item/601f484d3ffa7d37b3cb2d6f.jpg" width=250/> <img src="https://img.imgdb.cn/item/601f486d3ffa7d37b3cb374e.jpg" width=250/> <img src="https://img.imgdb.cn/item/601f48903ffa7d37b3cb4370.jpg" width=250/>
+  <img src="https://christop.oss-cn-guangzhou.aliyuncs.com/tech/slidepicker-demo.gif">
 
 特点：
 
@@ -77,7 +75,7 @@ export default class PickerTest extends Component {
 - [`pickerDeep`](#deep)
 - [`confirm`](#confirm)
 - [`cancel`](#cancel)
-- [`defaultValueIndexes`](#defaultValueIndexes)
+- [`values`](#values)
 - [`pickerStyle`](#pickerStyle)
 - [`headOptions`](#options)
 - [`customHead`](#head)
@@ -87,7 +85,7 @@ export default class PickerTest extends Component {
 ### `dataSource : array`
 
 必要的属性，数组类型，用于选择的数据源。
-`name`和`list`都是关键字，`name`是用于显示的文本，`list`是数组类型数据表示一列。
+`id`，`name`和`list`都是关键字，`id`是每条数据的唯一标示，`name`是用于显示的文本，`list`是数组类型数据表示一列。
 
 [参考数据格式](#dataformat)
 
@@ -110,6 +108,12 @@ export default class PickerTest extends Component {
 ### `cancel : () => { } `
 
 () => { }，函数类型， 如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
+
+<hr id="values"/>
+
+### `values : {}[] `
+
+选择的值，用于回显数据。应该和confirm回调中返回的数据格式一致。注意，数据回显通过 id 判断，所以数据中应该包含唯一识别的字段 id。
 
 <hr id="pickerStyle"/>
 
@@ -216,10 +220,6 @@ export default class PickerTest extends Component {
 ### `onceChange (dataArray) => { }` 
 
 每次选择改变发生都会执行，返回当前的实时结果。
-
-### `defaultValueIndexes` 
-
-默认选中值，目前只在`ParallelPicker`中可用，`CascadePicker`中待完善
 
 ## 其他
 

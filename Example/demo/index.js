@@ -16,8 +16,8 @@ import {CascadePicker, ParallelPicker} from 'react-native-slidepicker';
 const specData = require('./testfiles/spec_cn.json');
 
 const oneData = require('./testfiles/one.json');
-// const threeData = require('./testfiles/three.json');
-const threeData = require('./testfiles/area.json');
+const threeData = require('./testfiles/three.json');
+// const threeData = require('./testfiles/area.json');
 const ICON_DOG = require('./testfiles/dog.png');
 
 export default class PickerDemo extends Component {
@@ -61,7 +61,7 @@ export default class PickerDemo extends Component {
           style={styles.button}
           onPress={() => this.setState({showType: 'spec'})}>
           {/* <Text style={{fontSize: 20}}>Demo1(ParallelPicker)</Text> */}
-          <Text style={{fontSize: 20}}>1:规格选择</Text>
+          <Text style={{fontSize: 20}}>demo1:规格选择</Text>
           <View style={{marginLeft: 10}}>
             {this.state.dataSpec.map(function (spec, i) {
               return <Text key={i}>{spec.name}</Text>;
@@ -72,7 +72,7 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'one'})}>
-          <Text style={{fontSize: 20}}>2:单选</Text>
+          <Text style={{fontSize: 20}}>demo2:单次选择</Text>
           <View style={{marginLeft: 10}}>
             {this.state.dataAnimal.map(function (animal, i) {
               return <Text key={i}>{animal.name}</Text>;
@@ -83,7 +83,7 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'three'})}>
-          <Text style={{fontSize: 20}}>3:地区选择</Text>
+          <Text style={{fontSize: 20}}>demo3:地区选择</Text>
           <View style={{marginLeft: 10}}>
             {this.state.dataArea.map(function (area, i) {
               return <Text key={i}>{area.name}</Text>;

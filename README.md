@@ -6,9 +6,9 @@
 
 A react native picker component，used in address picker and other picker scenes.
 
-<img src="https://img.imgdb.cn/item/601d19963ffa7d37b3ee0718.gif" width=250>
+<img src="https://christop.oss-cn-guangzhou.aliyuncs.com/tech/slidepicker-demo.gif">
 
-<img src="https://img.imgdb.cn/item/601d19ce3ffa7d37b3ee217c.jpg" width=250/> <img src="https://img.imgdb.cn/item/601d1a043ffa7d37b3ee358a.jpg" width=250/> <img src="https://img.imgdb.cn/item/601d1a3d3ffa7d37b3ee4653.jpg" width=250/>
+  
 
 why：
 
@@ -81,7 +81,7 @@ export default class PickerTest extends Component {
 - [`pickerDeep`](#deep)
 - [`confirm`](#confirm)
 - [`cancel`](#cancel)
-- [`defaultValueIndexes`](#defaultValueIndexes)
+- [`values`](#values)
 - [`pickerStyle`](#pickerStyle)
 - [`headOptions`](#options)
 - [`customHead`](#head)
@@ -92,7 +92,7 @@ export default class PickerTest extends Component {
 
 **required**. data source of the picker。
 
-`name` and `list` are keywords , `name` will be shown in the picker, `list` should be a array.
+`id` ,`name` and `list` are keywords , `id` is necessary as the unique key,  `name` will be shown in the picker, `list` should be a array. 
 
 [Data format to follow](#dataformat)
 
@@ -116,15 +116,11 @@ called by confirm button, send the picker data back.
 if you won't use the customeHead, this function is required.
 called by cancel button, you should close the picker in this function.
 
-<hr id="defaultValueIndexes"/>
+<hr id="values"/>
 
-### `defaultValueIndexes : array`
+### `values : {}[] `
 
-(only used in `ParallelPicker` for now. the support for CascadePicker will come soon.)
-
-the index array for default values.
-
-`[0,2]` means the  first value in first wheel and the third value in second wheel are checked by default.
+The selected result.  You should set this value by data from `confirm` method callback. 
 
 <hr id="pickerStyle"/>
 
@@ -230,10 +226,6 @@ example:
 ### ` onceChange : (dataArray) => { }`
 
  once change the picker, it will be called and send current result back.
-
-### `defaultValueIndexes` 
-
-only available in ParallelPicker for now...
 
 ## Others
 
