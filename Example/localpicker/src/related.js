@@ -5,8 +5,7 @@ import {SingleSlide} from './single';
 export class RelativedPicker extends PureComponent {
   constructor(props) {
     super(props);
-    // this.getDeafultValue();
-    const defaultIndexArr = new Array(this.props.pickerDeep).fill(0);
+    const defaultIndexArr = this.getDeafultValue();
     const [initList, resultArray] = this._transDataAndResult(defaultIndexArr);
     this.resultArray = resultArray;
     this.state = {
@@ -20,8 +19,22 @@ export class RelativedPicker extends PureComponent {
   }
 
   getDeafultValue = () => {
-    const {values, dataSource} = this.props;
-    // while
+    const {values, dataSource, pickerDeep} = this.props;
+    let i = 0,
+      defaultIndexArr = new Array(pickerDeep).fill(0),
+      templist = dataSource;
+    while (i < pickerDeep) {
+      let targetIndex = 0;
+      if (values[i] && values[i].id !== undefined) {
+        targetIndex = templist.findIndex((item) => item.id === values[i].id);
+      }
+      defaultIndexArr[i] = targetIndex;
+      if (templist && templist[targetIndex] && templist[targetIndex].list) {
+        templist = templist[targetIndex].list;
+      }
+      i++;
+    }
+    return defaultIndexArr;
   };
 
   /** ----------------------------------- Data ----------------------------------------- */
