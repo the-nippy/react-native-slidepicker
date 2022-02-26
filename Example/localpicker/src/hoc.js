@@ -1,11 +1,3 @@
-/*
- * @Author: xuwei
- * @Date: 2021-02-01 10:29:16
- * @LastEditTime: 2021-02-05 17:02:01
- * @LastEditors: xuwei
- * @Description:
- */
-
 import React, {Component} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -30,18 +22,23 @@ export function WithHeadAndMethod(WrapComponent) {
       cancel: null,
       customHead: null,
       pickerStyle: {},
+      values: [],
     };
     constructor(props) {
       super(props);
       this.resultArray = [];
       this.headOptions = {...defaultOptions, ...this.props.headOptions};
+      // console.info('', )
     }
 
-    _setResult = (index, value) => {
-      this.resultArray[index] = value;
-    };
+    // _setResult = (index, value) => {
+    //   this.resultArray[index] = value;
+    // };
 
-    getResult = () => this.resultArray; // ref
+    _setResult = (arr) => (this.resultArray = arr);
+
+    getResult = () => this.resultArray; // 通过 ref 获取
+
     confirm = () => {
       if (this.props.confirm) {
         this.props.confirm(this.resultArray);

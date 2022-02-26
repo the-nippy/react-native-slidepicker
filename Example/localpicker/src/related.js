@@ -1,70 +1,76 @@
-/*
- * @Author: xuxiaowei
- * @Date: 2020-11-04 12:24:42
- * @LastEditTime: 2021-02-05 15:32:42
- * @LastEditors: xuwei
- * @Description:
- */
 import React, {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {SingleSlide} from './single';
 
-// TODO （ done -> onceChange -> _dismantleBebindData 消减执行次数)
-// onceChange 实验性功能
 export class RelativedPicker extends PureComponent {
   constructor(props) {
     super(props);
+    // this.getDeafultValue();
+    const defaultIndexArr = new Array(this.props.pickerDeep).fill(0);
+    const [initList, resultArray] = this._transDataAndResult(defaultIndexArr);
+    this.resultArray = resultArray;
     this.state = {
-      lists: this._initState(),
+      resultIndexArray: defaultIndexArr, // 记录每轮处于第几个 Index
+      lists: initList,
     };
   }
-  /** ----------------------------------- Data ----------------------------------------- */
-  _initState = () => {
-    const lists = new Array(this.props.pickerDeep).fill([]);
-    lists[0] = this.props.dataSource;
-    return lists;
+
+  componentDidMount() {
+    this.props.setResult(this.resultArray);
+  }
+
+  getDeafultValue = () => {
+    const {values, dataSource} = this.props;
+    // while
   };
 
-  _dismantleBebindData = (array, index, inparIndex) => {
-    const {pickerDeep} = this.props;
-    if (pickerDeep === inparIndex) {
-      this._onceChange();
-      return;
-    }
-    const lists = this.state.lists.slice();
-    const curObj = array[index];
-    curObj && this._setParResult(inparIndex, curObj);
-    if (array && array.length > 0) {
-      lists[inparIndex] = array;
-      this.setState({lists}, () => {
-        inparIndex++;
-        this._dismantleBebindData(curObj.list || [], 0, inparIndex);
-      });
-    } else {
-      for (let i = inparIndex; i < pickerDeep; i++) {
-        lists[i] = [];
-        this._setParResult(i, {});
+  /** ----------------------------------- Data ----------------------------------------- */
+  // 嵌套数组转换成用于渲染显示的平级 List，获取实时选择结果
+  _transDataAndResult = (resultIndexArray) => {
+    const {dataSource, pickerDeep} = this.props;
+    let i = 0,
+      plainLists = new Array(pickerDeep).fill([]),
+      templist = dataSource,
+      resultArray = new Array(this.props.pickerDeep).fill({}); // 最终返回结果
+    while (i < pickerDeep) {
+      let wheelIndex = resultIndexArray[i];
+      // resultArray[i] = templist[wheelIndex];
+      const {list, ...data} = {...templist[wheelIndex]};
+      resultArray[i] = data;
+
+      plainLists[i] = templist;
+      if (templist && templist[wheelIndex] && templist[wheelIndex].list) {
+        templist = templist[wheelIndex].list;
+      } else {
+        break;
       }
-      this.setState({lists});
-      this._onceChange();
+      ++i;
     }
+    return [plainLists, resultArray];
   };
 
   _onceChange = () =>
     this.props.onceChange && this.props.onceChange(this.resultArray);
 
-  _setParResult = (index, obj) => {
-    const {list, ...item} = obj;
-    this.props.setResult(index, item);
+  // 单轮设置后的回调，第几轮的数据在第几位
+  _setData = (checkedIndex, inparIndex) => {
+    const newIndexArray = this.state.resultIndexArray.slice();
+    newIndexArray[inparIndex] = checkedIndex;
+    // 选择之后，重置后面的选择轮的 index 为 0
+    for (let i = this.props.pickerDeep - 1; i > inparIndex; i--) {
+      newIndexArray[i] = 0;
+    }
+    const [newLists, resultArray] = this._transDataAndResult(newIndexArray);
+    // 结果返回给父组件
+    this.props.setResult(resultArray);
+    this._onceChange();
+    // 更新 List
+    this.setState({
+      resultIndexArray: newIndexArray,
+      lists: newLists,
+    });
   };
 
-  _setData = (checkedIndex, inparindex) => {
-    this._dismantleBebindData(
-      this.state.lists[inparindex],
-      checkedIndex,
-      inparindex,
-    );
-  };
   /** ----------------------------------- Render ----------------------------------------- */
   render() {
     return (
@@ -75,6 +81,7 @@ export class RelativedPicker extends PureComponent {
             list={list}
             done={this._setData}
             inparindex={index}
+            defaultIndex={this.state.resultIndexArray[index]}
             {...this.props.pickerStyle}
           />
         ))}

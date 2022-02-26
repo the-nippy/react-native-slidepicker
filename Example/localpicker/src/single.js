@@ -30,6 +30,12 @@ export class SingleSlide extends PureComponent {
     this.state = {checkedIndex: this._deIndex};
   }
 
+  static getDerivedStateFromProps(props) {
+    return {
+      checkedIndex: props.defaultIndex,
+    };
+  }
+
   init = () => {
     const {defaultIndex, itemHeight, list} = this.props;
     if (defaultIndex) {
@@ -42,19 +48,15 @@ export class SingleSlide extends PureComponent {
         this._deIndex = defaultIndex;
       }
     } else {
-      this._deIndex = 0;
+      this._deIndex = this.props.defaultIndex;
     }
     this.transValue = new Animated.Value(-this._deIndex * itemHeight || 0);
   };
 
-  componentDidMount() {
-    const {inparindex} = this.props;
-    this.props.done(this._deIndex, inparindex);
-  }
   componentDidUpdate(prevProps) {
     if (prevProps.list !== this.props.list) {
       this.transValue.setValue(0);
-      this.dataBack(0);
+      // this.dataBack(0);
     }
   }
 
@@ -112,7 +114,7 @@ export class SingleSlide extends PureComponent {
     if (newIndex !== this.state.checkedIndex && done) {
       done(newIndex, inparindex);
     }
-    this.setState({checkedIndex: newIndex});
+    // this.setState({checkedIndex: newIndex});
   };
 
   resetTrans = () => {

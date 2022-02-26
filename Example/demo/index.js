@@ -23,7 +23,7 @@ const ICON_DOG = require('./testfiles/dog.png');
 export default class PickerDemo extends Component {
   constructor(props) {
     super(props);
-    this.state = {showType: ''};
+    this.state = {showType: '', dataSpec: [], dataAnimal: [], dataArea: []};
   }
 
   close = () => this.setState({showType: ''});
@@ -39,6 +39,19 @@ export default class PickerDemo extends Component {
     const data = this.oneRef.getResult();
     console.info('data', data);
     this.setState({showType: ''});
+  };
+
+  setSpec = (res) => {
+    this.setState({dataSpec: res, showType: ''});
+    console.info('result:', res);
+  };
+  setAnimal = (res) => {
+    this.setState({dataAnimal: res, showType: ''});
+    console.info('result:', res);
+  };
+  setArea = (res) => {
+    this.setState({dataArea: res, showType: ''});
+    console.info('result:', res);
   };
 
   render() {
@@ -60,14 +73,19 @@ export default class PickerDemo extends Component {
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'three'})}>
-          <Text style={{fontSize: 20}}>示例3 (CascadePicker)</Text>
+          <Text style={{fontSize: 20}}>3:地区选择</Text>
+          <View style={{marginLeft: 10}}>
+            {this.state.dataArea.map(function (area, i) {
+              return <Text key={i}>{area.name}</Text>;
+            })}
+          </View>
         </TouchableOpacity>
 
         {/* color size */}
         <ModalContain isModalShow={this.state.showType === 'spec'}>
           <ParallelPicker
             dataSource={specData}
-            confirm={this.showData}
+            confirm={this.setSpec}
             cancel={this.close}
             // defaultValueIndexes={[3, 1]}
             // onceChange={(arr) => {
@@ -95,7 +113,7 @@ export default class PickerDemo extends Component {
           <ParallelPicker
             ref={this.setOnePickerRef}
             dataSource={oneData}
-            confirm={this.showData}
+            confirm={this.setAnimal}
             cancel={this.close}
             pickerDeep={1}
             pickerStyle={{
@@ -120,8 +138,9 @@ export default class PickerDemo extends Component {
         <ModalContain isModalShow={this.state.showType === 'three'}>
           <CascadePicker
             dataSource={threeData}
-            confirm={this.showData}
+            confirm={this.setArea}
             cancel={this.close}
+            values={this.state.dataArea}
             onceChange={(arr) => {
               console.info('once', arr);
             }}
@@ -164,7 +183,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    zIndex: 10,
+    // zIndex: 10,
+    flexDirection: 'row',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
