@@ -1,10 +1,3 @@
-/*
- * @Author: xuwei
- * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-02-05 16:29:13
- * @LastEditors: xuwei
- * @Description:
- */
 import React, {PureComponent} from 'react';
 import {View, Text, StyleSheet, Animated} from 'react-native';
 import {PanGestureHandler, State} from 'react-native-gesture-handler';
@@ -13,11 +6,11 @@ export class SingleSlide extends PureComponent {
   static defaultProps = {
     itemHeight: 40,
     visibleNum: 5, // visible lins
-    activeBgColor: '#fff',
+    activeBgColor: '#FFF',
     activeBgOpacity: 1,
     activeFontSize: 18,
     activeFontColor: '#F00',
-    normalBgColor: '#fff',
+    normalBgColor: '#FFF',
     normalBgOpacity: 0.4,
     normalFontSize: 16,
     normalFontColor: '#333',
@@ -28,6 +21,12 @@ export class SingleSlide extends PureComponent {
     super(props);
     this.init();
     this.state = {checkedIndex: this._deIndex};
+  }
+
+  static getDerivedStateFromProps(props) {
+    return {
+      checkedIndex: props.defaultIndex,
+    };
   }
 
   init = () => {
@@ -42,19 +41,14 @@ export class SingleSlide extends PureComponent {
         this._deIndex = defaultIndex;
       }
     } else {
-      this._deIndex = 0;
+      this._deIndex = this.props.defaultIndex;
     }
     this.transValue = new Animated.Value(-this._deIndex * itemHeight || 0);
   };
 
-  componentDidMount() {
-    const {inparindex} = this.props;
-    this.props.done(this._deIndex, inparindex);
-  }
   componentDidUpdate(prevProps) {
     if (prevProps.list !== this.props.list) {
       this.transValue.setValue(0);
-      this.dataBack(0);
     }
   }
 
@@ -91,11 +85,11 @@ export class SingleSlide extends PureComponent {
   adjustAniValue = () => {
     const {itemHeight, list} = this.props;
     const transvalue = this.transValue._value;
-    const count = Math.round(transvalue / itemHeight);
+    const count = transvalue / itemHeight;
     if (count > 0) {
       this.setAniAndDataback(0, 0);
     } else if (count < -list.length + 1) {
-      this.setAniAndDataback(Math.round((-list.length + 1) * itemHeight), list.length - 1);
+      this.setAniAndDataback((-list.length + 1) * itemHeight, list.length - 1);
     } else {
       const finalIndex = Math.abs(count);
       this.dataBack(finalIndex);
@@ -112,7 +106,7 @@ export class SingleSlide extends PureComponent {
     if (newIndex !== this.state.checkedIndex && done) {
       done(newIndex, inparindex);
     }
-    this.setState({checkedIndex: newIndex});
+    // this.setState({checkedIndex: newIndex});
   };
 
   resetTrans = () => {

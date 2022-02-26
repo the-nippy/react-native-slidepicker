@@ -1,11 +1,3 @@
-/*
- * @Author: xuwei
- * @Date: 2021-02-01 10:29:16
- * @LastEditTime: 2021-02-04 10:25:17
- * @LastEditors: xuwei
- * @Description:
- */
-
 import React, {Component} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -14,7 +6,7 @@ const defaultOptions = {
   confirmText: 'Confirm',
   cancelText: 'Cancel',
   headHeight: 50,
-  backgroundColor: '#fff',
+  backgroundColor: '#FFF',
   confirmStyle: {},
   cancelStyle: {},
   borderTopRadius: 0,
@@ -30,6 +22,7 @@ export function WithHeadAndMethod(WrapComponent) {
       cancel: null,
       customHead: null,
       pickerStyle: {},
+      values: [],
     };
     constructor(props) {
       super(props);
@@ -37,11 +30,10 @@ export function WithHeadAndMethod(WrapComponent) {
       this.headOptions = {...defaultOptions, ...this.props.headOptions};
     }
 
-    _setResult = (index, value) => {
-      this.resultArray[index] = value;
-    };
+    _setResult = (arr) => (this.resultArray = arr);
 
-    getResult = () => this.resultArray; // ref
+    getResult = () => this.resultArray; // 通过 ref 获取
+
     confirm = () => {
       if (this.props.confirm) {
         this.props.confirm(this.resultArray);
@@ -49,6 +41,7 @@ export function WithHeadAndMethod(WrapComponent) {
         console.warn(`[slidepicker] should provide 'confirm' method`);
       }
     };
+
     cancel = () => {
       if (this.props.cancel) {
         this.props.cancel();
@@ -56,6 +49,7 @@ export function WithHeadAndMethod(WrapComponent) {
         console.warn(`[slidepicker] should provide 'cancel' method`);
       }
     };
+
     onceChange = () =>
       this.props.onceChange && this.props.onceChange(this.resultArray);
 
