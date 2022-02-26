@@ -1,10 +1,3 @@
-/*
- * @Author: xuwei
- * @Date: 2020-11-06 21:51:46
- * @LastEditTime: 2021-02-05 17:00:51
- * @LastEditors: xuwei
- * @Description:
- */
 import React, {PureComponent} from 'react';
 import {View, Text, StyleSheet, Animated} from 'react-native';
 import {PanGestureHandler, State} from 'react-native-gesture-handler';
@@ -56,7 +49,6 @@ export class SingleSlide extends PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.list !== this.props.list) {
       this.transValue.setValue(0);
-      // this.dataBack(0);
     }
   }
 
