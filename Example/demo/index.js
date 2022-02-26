@@ -37,8 +37,8 @@ export default class PickerDemo extends Component {
 
   showOneData = () => {
     const data = this.oneRef.getResult();
-    console.info('data', data);
-    this.setState({showType: ''});
+    console.info('animaldata', data);
+    this.setState({dataAnimal: data, showType: ''});
   };
 
   setSpec = (res) => {
@@ -61,13 +61,23 @@ export default class PickerDemo extends Component {
           style={styles.button}
           onPress={() => this.setState({showType: 'spec'})}>
           {/* <Text style={{fontSize: 20}}>Demo1(ParallelPicker)</Text> */}
-          <Text style={{fontSize: 20}}>示例1 (ParallelPicker)</Text>
+          <Text style={{fontSize: 20}}>1:规格选择</Text>
+          <View style={{marginLeft: 10}}>
+            {this.state.dataSpec.map(function (spec, i) {
+              return <Text key={i}>{spec.name}</Text>;
+            })}
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, {marginTop: 20}]}
           onPress={() => this.setState({showType: 'one'})}>
-          <Text style={{fontSize: 20}}>示例2 (ParallelPicker)</Text>
+          <Text style={{fontSize: 20}}>2:单选</Text>
+          <View style={{marginLeft: 10}}>
+            {this.state.dataAnimal.map(function (animal, i) {
+              return <Text key={i}>{animal.name}</Text>;
+            })}
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -87,7 +97,7 @@ export default class PickerDemo extends Component {
             dataSource={specData}
             confirm={this.setSpec}
             cancel={this.close}
-            // defaultValueIndexes={[3, 1]}
+            values={this.state.dataSpec}
             // onceChange={(arr) => {
             //   console.info('once', arr);
             // }}
@@ -109,12 +119,14 @@ export default class PickerDemo extends Component {
           />
         </ModalContain>
 
+        {/* Animal */}
         <ModalContain isModalShow={this.state.showType === 'one'}>
           <ParallelPicker
             ref={this.setOnePickerRef}
             dataSource={oneData}
             confirm={this.setAnimal}
             cancel={this.close}
+            values={this.state.dataAnimal}
             pickerDeep={1}
             pickerStyle={{
               visibleNum: 3,

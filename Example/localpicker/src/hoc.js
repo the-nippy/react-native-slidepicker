@@ -28,12 +28,7 @@ export function WithHeadAndMethod(WrapComponent) {
       super(props);
       this.resultArray = [];
       this.headOptions = {...defaultOptions, ...this.props.headOptions};
-      // console.info('', )
     }
-
-    // _setResult = (index, value) => {
-    //   this.resultArray[index] = value;
-    // };
 
     _setResult = (arr) => (this.resultArray = arr);
 
@@ -46,6 +41,7 @@ export function WithHeadAndMethod(WrapComponent) {
         console.warn(`[slidepicker] should provide 'confirm' method`);
       }
     };
+
     cancel = () => {
       if (this.props.cancel) {
         this.props.cancel();
@@ -53,6 +49,7 @@ export function WithHeadAndMethod(WrapComponent) {
         console.warn(`[slidepicker] should provide 'cancel' method`);
       }
     };
+
     onceChange = () =>
       this.props.onceChange && this.props.onceChange(this.resultArray);
 
