@@ -1,3 +1,11 @@
+# Deprecated
+
+
+
+
+
+
+
 <h3><a href="https://github.com/lexguy/react-native-slidepicker/blob/main/CN.md">简中文档</a><h3>
 
 ## react-native-slidepicker
