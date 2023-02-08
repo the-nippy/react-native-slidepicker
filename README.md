@@ -1,9 +1,16 @@
 # Deprecated
 
+Because of this tool is relying on <a href="https://github.com/software-mansion/react-native-gesture-handler">React-native-gesture-handler</a>, and this issue https://github.com/software-mansion/react-native-gesture-handler/issues/139 still exists,  get some problems. So we suspend maintenance.
 
 
 
+## 暂停更新
 
+此选择器的手势监听依赖于对原生手势封装的 <a href="https://github.com/software-mansion/react-native-gesture-handler">React-native-gesture-handler</a>,库，该库在 Modal中的手势动作获取有一些问题，一直未修复，故暂停更新。查看 https://github.com/software-mansion/react-native-gesture-handler/issues/139
+
+
+
+---
 
 
 <h3><a href="https://github.com/lexguy/react-native-slidepicker/blob/main/CN.md">简中文档</a><h3>
@@ -16,7 +23,7 @@ A react native picker component，used in address picker and other picker scenes
 
 <img src="https://christop.oss-cn-guangzhou.aliyuncs.com/tech/slidepicker-demo.gif">
 
-  
+
 
 why：
 
@@ -60,7 +67,7 @@ import Modal from 'react-native-modal';
 import ParaData from './one.json';
 export default class PickerTest extends Component {
   ...
-  cancel = () => { 
+  cancel = () => {
     //...close modal
   };
   confirm = data => console.info('confirm', data);
@@ -100,7 +107,7 @@ export default class PickerTest extends Component {
 
 **required**. data source of the picker。
 
-`id` ,`name` and `list` are keywords , `id` is necessary as the unique key,  `name` will be shown in the picker, `list` should be a array. 
+`id` ,`name` and `list` are keywords , `id` is necessary as the unique key,  `name` will be shown in the picker, `list` should be a array.
 
 [Data format to follow](#dataformat)
 
@@ -128,7 +135,7 @@ called by cancel button, you should close the picker in this function.
 
 ### `values : {}[] `
 
-The selected result.  You should set this value by data from `confirm` method callback. 
+The selected result.  You should set this value by data from `confirm` method callback.
 
 <hr id="pickerStyle"/>
 
@@ -212,7 +219,7 @@ export default class PickerTest extends Component {
 
 This component does not deal with the logic of pop-up boxes, because the scheme of the pop-up layer may be different from the scheme adopted by each person. At present, it is difficult to find a solution that most people agree with. Therefore, the logic of this layer is left to the user. If there is a better scheme, issue and PR are welcome.
 
-If you need to use it in the pop-up layer, you can use `absolute position and z-Index` or <a href="https://github.com/react-native-modal/react-native-modal">`Modal component`</a>. 
+If you need to use it in the pop-up layer, you can use `absolute position and z-Index` or <a href="https://github.com/react-native-modal/react-native-modal">`Modal component`</a>.
 
 example:
 
