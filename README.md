@@ -6,7 +6,7 @@ Because of this tool is relying on <a href="https://github.com/software-mansion/
 
 ## 暂停更新
 
-此选择器的手势监听依赖于对原生手势封装的 <a href="https://github.com/software-mansion/react-native-gesture-handler">React-native-gesture-handler</a>,库，该库在 Modal中的手势动作获取有一些问题，一直未修复，故暂停更新。查看 https://github.com/software-mansion/react-native-gesture-handler/issues/139
+此选择器的手势监听依赖于对原生手势封装的 <a href="https://github.com/software-mansion/react-native-gesture-handler">React-native-gesture-handler</a> 库，该库在 Modal 中的手势动作获取有一些问题一直未修复，故暂停更新。查看 https://github.com/software-mansion/react-native-gesture-handler/issues/139
 
 
 
