@@ -11,7 +11,7 @@ type IPickerValueProps = Omit<IWheelItemProps, 'options'>;
 
 type SlidePickerType = {
   visible: boolean;
-  wheels: number;
+  wheels?: number;
   values: IWheelItemProp[];
   dataSource: IParallelItemsProps | ICascadeItemsProps;
 

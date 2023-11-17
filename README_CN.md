@@ -82,122 +82,75 @@ export default class PickerTest extends Component {
 
 组件的可用属性：
 
-- [`dataSource`](#dataSource)
-- [`pickerDeep`](#deep)
-- [`confirm`](#confirm)
-- [`cancel`](#cancel)
-- [`values`](#values)
-- [`pickerStyle`](#pickerStyle)
-- [`headOptions`](#options)
-- [`customHead`](#head)
+| prop                   | type ( * 表示必需) | description                                                  | default                                          |
+| ---------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------ |
+| visible                | boolean  *         | 是否可见                                                     | false                                            |
+| dataSource             | array *            | 数据源，级联和平行数据格式见下方                             | []                                               |
+| values                 | array *            | 选择后的值。用于下次打开时数据回显                           | []                                               |
+| wheels                 | number             | 表示有几轮数据                                               | 2                                                |
+| onMaskClick            | function           | 背景点击事件                                                 | null                                             |
+| animationDuration      | number             | 启动和关闭的动画持续时间                                     | 200                                              |
+| checkRange             | number             | 可见选择项数                                                 | 3                                                |
+| itemHeight             | number             | 选择项 item 高度                                             | 60                                               |
+| contentBackgroundColor | string             | 选择区域背景色                                               | #f8f8f8                                          |
+| contentBackgroundColor | string (color)     | 选择 item 分割线颜色                                         | rgba(0,0,0,0.05)                                 |
+| checkedTextStyle       | TextStyle          | 选中 item 文本样式                                           | { fontWeight: '700',fontSize: 16,color: '#006' } |
+| normalTextStyle        | TextStyle          | 选中 item 文本样式                                           | { fontWeight: '400',  fontSize: 14 }             |
+| titleText              | string             | 选择器头部标题                                               |                                                  |
+| titleTextStyle         | TextStyle          | 选择器头部标题文本样式                                       |                                                  |
+| cancelText             | string             | 取消文本                                                     | cancel                                           |
+| cancelTextStyle        | TextStyle          | 取消文本样式                                                 | { fontSize: 15, color: 'rgb(42, 123, 152)' }     |
+| onCancelClick          | function           | 取消事件                                                     |                                                  |
+| confirmText            | string             | 确认文本                                                     | confirm                                          |
+| confirmTextStyle       | TextStyle          | 确认文本样式                                                 | { fontSize: 15, color: 'rgb(42, 123, 152)' }     |
+| onConfirmClick         | function           | 确认事件, (res) => { } 携带选择结果                          |                                                  |
+| HeaderComponent        | JSX element        | 自定义选择器头部组件（如果使用自定义选择器头部组件，默认头部会被替换，onConfirmClick 不会被调用 , 需要使用 ref 来调用 _getValues 以取值） |                                                  |
+
+
 
 <hr id="dataSource"></hr>
 
-### `dataSource : array`
-
-必要的属性，数组类型，用于选择的数据源。
-`id`，`name`和`list`都是关键字，`id`是每条数据的唯一标示，`name`是用于显示的文本，`list`是数组类型数据表示一列。
-
-[参考数据格式](#dataformat)
-
-<hr id="deep"></hr>
-
-### `pickerDeep : number`
-
-选择轮盘的个数
-
-<hr id="confirm"></hr>
-
-### `confirm : (dataArray) => { }`
-
-(dataArray) => { } , 函数类型，如果使用了默认的确认和取消按钮，则该函数是必要的，在确认时传回选择的数据。
-
-如果使用了自定义头部，自定义了「选择」按钮和操作，则非必要。
-
-<hr id="cancel"/>
-
-### `cancel : () => { } `
-
-() => { }，函数类型， 如果使用了默认的确认和取消按钮，则该函数是必要的，用于取消操作。
-
-<hr id="values"/>
-
-### `values : {}[] `
-
-选择的值，用于回显数据。应该和confirm回调中返回的数据格式一致。注意，数据回显通过 id 判断，所以数据中应该包含唯一识别的字段 id。
-
-<hr id="pickerStyle"/>
-
-### `pickerStyle : object`
-
-一个样式对象，可以包含如下的属性：
-
-| Key             | Type            | Default Value | Description                                      |
-| --------------- | --------------- | ------------- | ------------------------------------------------ |
-| itemHeight      | number          | 40            | 条目高度                                         |
-| visibleNum      | number          | 5             | 可见行数                                         |
-| activeBgColor   | string (color)  | "#ccc"        | 被选中条目背景色                                 |
-| activeBgOpacity | number          | 1             | 被选中条目背景透明度                             |
-| activeFontSize  | Number          | 18            | 被选中条目字体大小                               |
-| activeFontColor | string (color)  | "\#a00"       | 被选中条目字体颜色                               |
-| normalBgColor   | string (color)  | "#fff"        | 未被选中条目背景色                               |
-| normalBgOpacity | number (0-1)    | 0.4           | 未被选中条目背景色透明度（底色是 activeBgColor） |
-| normalFontSize  | number          | 16            | 未被选中条目字体颜色                             |
-| normalFontColor | string：(color) | "#333"        | 未被选中条目字体颜色                             |
-
-<hr id="options"/>
-
-### `headOptions : object `
-
-a custom style for the picker header , receives these props:
-
-| key             | Type              | Default Value                    | Description      |
-| --------------- | ----------------- | -------------------------------- | ---------------- |
-| confirmText     | string            | Confirm                          | 确认按钮文本     |
-| cancelText      | string            | Cancel                           | 取消按钮文本     |
-| headHeight      | number            | 50                               | 头部高度         |
-| borderTopRadius | number            | 0                                | 头部的顶部圆角   |
-| backgroundColor | string(color)     | \#fff                            | 背景色           |
-| confirmStyle    | object (RN style) | {fontSize: 18, color: "#4169E1"} | 确认按钮文本样式 |
-| cancelStyle     | object (RN style) | {fontSize: 18, color: "#4169E1"} | 取消按钮文本样式 |
-
-<hr id="head"/>
-
-### `customHead : view`
-
-自定义头部，即滑动选择块上面的一部分内容，非必要参数。自定义头部会替换掉默认的包含「确认」，「取消」按钮的 View。
-
-如果你需要在自定义的头部 View 中通过点击事件获取到结果，即达到「确认」按钮的效果，那就需要给当前`picker`组件指定一个 Ref，再通过`getResult`方法得到结果，详情参考下面的[`getResult方法`](#getresult)。
-
 ## 方法
 
-如果你使用了自定义头部，且包含了「确认」「取消」按钮，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到你的确事件上才能获取到选择结果。
+如果你使用了自定义头部，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到点击事件上才能获取到选择结果。
 
-<span id="getresult"></span>
-
-### `getResult()`
+### `_getValues()`
 
 除非你使用自定义头部，否则都应该使用 [confirm 方法](#confirm) 表示选定， 而不是使用这个方法。
 
 通过设置 ref，可以实时获取到已选择的数据，但是触发时机并不好判定，因为已经有了 confirm 按钮和事件回调，应该优先使用 confirm 事件。
 
 ```JSX
-export default class PickerTest extends Component {
-  //...
-  setPickerRef=(ref) => this.pickerRef = ref;
-
-  getData=()=>{
-    const data = this.pickerRef.getResult();
-    console.info('data',data)
+export default class RefDemo extends Component {
+  
+  constructor(props: any) {
+   	// ...
+    this.skuRef = React.createRef();
   }
+  
   render() {
-    const CustomHead = <View><Button onPress={this.getData}></Button></View>;
+    
     return (
       <View style={{flex: 1}}>
-        <ParallelPicker
-          ref={this.setPickerRef}
-          dataSource={ParaData}
-          ...
+       <SlidePicker.Parallel
+          ref={this.skuRef}
+          // ....
+          HeaderComponent={
+            <View style={styles.header}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Image source={ICON_DOG} style={{width: 34, height: 34}} />
+                <Text style={{marginLeft: 10}}>What you want?</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  const res = this.skuRef?.current?._getValues();
+                  console.info('res', res);
+                  this.setState({skuData: res, demoType: ''});
+                }}>
+                <Text style={{fontWeight: '700'}}>Done</Text>
+              </TouchableOpacity>
+            </View>
+          }
         />
       </View>
     );
@@ -205,90 +158,9 @@ export default class PickerTest extends Component {
 }
 ```
 
-## 说明
+## Others
 
-本组件并不处理弹出框的逻辑，因为弹出层的方案可能每个人采用的方案本身不同，目前还难以找到一种大多数人统一认同的方案，所以这一层的逻辑交由使用者处理 , 如果有更好的方案欢迎 issue 和 PR 。
+1. 项目采用 Class Component ，一方面是历史原因项目启动后不再变动，一方面沿袭也为了兼容旧的 React & RN 版本。
+2. 1.x 版本采用的是 react-native-gesture-handler 来处理手势，写了一套滚动处理，但是在Android机器上尤其是配合react-native-modal出现一些不稳定问题，对该库原生层问题无能为力。故2.x全部采用RN自带组件完成，主要为FlatList.
+3. 弹出层的处理。一般 Picker 组件内会带有弹出层，本组价的 `SlidePicker.Parallel` 和 `SlidePicker.Cascade` 采用绝对定位的 View 作为 Mask 容器来‘装载’选择器，所以需要将其放在页面级别的层级。如果想要自己处理弹出层，也可以使用 `SlidePicker.PureParallel` 和 `SlidePicker.PureCascade`，这是不带弹出层的纯选择器组件。
 
-如果你需要使用在弹出层中，可以使用绝对定位及 z-Index 方式或<a href="https://github.com/react-native-modal/react-native-modal">`Modal`</a>组件处理，(Example文件夹中的示例使用`Modal`)
-
-如：
-
-```jsx
- //通过 state 控制显示和在 Modal 中
- {this.state.isPicker &&
-    <View>
-      <CascadePicker {...props}>
-    </View>
-  }
-
-  <Modal isVisible={this.state.isShow}>
-    <CascadePicker {...props}>
-  </Modal>
-```
-
-## 试验性功能
-
-### `onceChange (dataArray) => { }` 
-
-每次选择改变发生都会执行，返回当前的实时结果。
-
-## 其他
-
-<span id="dataformat"></span>
-
-**级联数据：**
-
-```json
-[
-  {
-    "name": "Asia",
-    "id": 1,
-    "list": [
-      {
-        "name": "China",
-        "id": 100,
-        "list": [
-          {
-            "name": "Beijing",
-            "id": 1101
-          }
-        ]
-      },
-      {
-        "name": "South Korea",
-        "id": 200,
-        "list": []
-      }
-    ]
-  }
-]
-```
-
-**平行数据（一个二维数组）：**
-
-```json
-[
-  [
-    {
-      "name": "2015",
-      "id": 11
-    }
-  ],
-  [
-    {
-      "name": "7月",
-      "id": 201
-    },
-    {
-      "name": "8月",
-      "id": 202
-    }
-  ],
-  [
-    {
-      "name": "1日",
-      "id": 2101
-    }
-  ]
-]
-```
