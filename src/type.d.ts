@@ -13,7 +13,7 @@ type SlidePickerType = {
   visible: boolean;
   wheels: number;
   values: IWheelItemProps[];
-  data: IParallelItemsProps | ICascadeItemsProps;
+  dataSource: IParallelItemsProps | ICascadeItemsProps;
 
   onMaskClick?: () => void;
 

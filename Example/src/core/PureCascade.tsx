@@ -57,9 +57,9 @@ class PureCascade extends Component<SlidePickerType, IParallelState> {
   };
 
   getValuesByCheckMarks = () => {
-    const {wheels, data} = this.props;
+    const {wheels, dataSource} = this.props;
     const result = [];
-    let temp = data as ICascadeItemsProps;
+    let temp = dataSource as ICascadeItemsProps;
     for (let i = 0; i < wheels; i++) {
       const checkedIndex = this.state.checkedIndexMarks[i];
       const wheelData = {...temp[checkedIndex]};
@@ -73,9 +73,9 @@ class PureCascade extends Component<SlidePickerType, IParallelState> {
   };
 
   getCheckMarksByValues = () => {
-    const {values, data} = this.props;
+    const {values, dataSource} = this.props;
     const initialCheckedIndexMarks = [];
-    let temp = data as ICascadeItemsProps;
+    let temp = dataSource as ICascadeItemsProps;
     for (let i = 0; i < values.length; i++) {
       const element = values[i];
       if (temp && temp.length > 0) {
@@ -98,9 +98,9 @@ class PureCascade extends Component<SlidePickerType, IParallelState> {
   _getValues = () => this.getValuesByCheckMarks();
 
   getWheelItemsData = () => {
-    const {data, wheels} = this.props;
+    const {dataSource, wheels} = this.props;
     const {checkedIndexMarks} = this.state;
-    let temp = data;
+    let temp = dataSource;
     const AllWheelItems = [temp];
     for (let index = 0; index < wheels; index++) {
       temp = (temp?.[checkedIndexMarks[index]] as IWheelItemProps)
@@ -141,7 +141,7 @@ PureCascade.defaultProps = {
   visible: false,
   wheels: 2,
   checkRange: 3,
-  data: [],
+  dataSource: [],
   itemHeight: 50,
   values: [],
 };

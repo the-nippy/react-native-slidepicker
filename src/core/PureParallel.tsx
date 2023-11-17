@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
-import Wheel from './Wheel';
-import Header from './Header';
+import React, { Component } from "react";
+import { View, StyleSheet } from "react-native";
+import Wheel from "./Wheel";
+import Header from "./Header";
 
 interface IParallelState {
   checkedIndexMarks: number[];
@@ -15,19 +15,19 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
 
   constructor(props: any) {
     super(props);
-    const {wheels} = this.props;
+    const { wheels } = this.props;
     const initialCheckMarks = new Array(wheels).fill(0);
-    this.state = {checkedIndexMarks: initialCheckMarks};
+    this.state = { checkedIndexMarks: initialCheckMarks };
     this.setMarkTimer = null;
     // this.cacheMarks = new Array(wheels).fill(0);
     this.wheelRefs = initialCheckMarks.map(() => React.createRef());
   }
 
   componentDidMount(): void {
-    const {values, wheels} = this.props;
+    const { values, wheels } = this.props;
     if (values && values.length === wheels) {
       const initialCheckedIndexMarks = this.getCheckMarksByValues();
-      this.setState({checkedIndexMarks: initialCheckedIndexMarks}, () => {
+      this.setState({ checkedIndexMarks: initialCheckedIndexMarks }, () => {
         this.wheelRefs.forEach((ele, i) => {
           ele?.current?.manualSetChecked(initialCheckedIndexMarks[i], false);
         });
@@ -42,7 +42,7 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
   setCheckMark = (locationMark: number, checkedIndex: number) => {
     const indexMarks = [...this.state.checkedIndexMarks];
     indexMarks[locationMark] = checkedIndex;
-    this.setState({checkedIndexMarks: indexMarks});
+    this.setState({ checkedIndexMarks: indexMarks });
   };
 
   // setCheckMark = (locationMark: number, checkedIndex: number) => {
@@ -54,32 +54,30 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
   // };
 
   getValuesByCheckMarks = () => {
-    const {data} = this.props;
+    const { dataSource } = this.props;
     const result = [];
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < dataSource.length; i++) {
       const checkedIndex = this.state.checkedIndexMarks[i];
-      const element = (data as IParallelItemsProps)[i][checkedIndex];
+      const element = (dataSource as IParallelItemsProps)[i][checkedIndex];
       result.push(element);
     }
     return result;
   };
 
   getCheckMarksByValues = () => {
-    const {values, data} = this.props;
+    const { values, dataSource } = this.props;
     const initialCheckedIndexMarks = [];
     for (let i = 0; i < values.length; i++) {
       const element = values[i];
-      const wheelItems = (data as IParallelItemsProps)[i];
-      const findIndex = wheelItems.findIndex(
-        ele => ele?.value === element?.value,
-      );
+      const wheelItems = (dataSource as IParallelItemsProps)[i];
+      const findIndex = wheelItems.findIndex((ele) => ele?.value === element?.value);
       initialCheckedIndexMarks.push(findIndex >= 0 ? findIndex : 0);
     }
     return initialCheckedIndexMarks;
   };
 
   onConfirmClickProxy = () => {
-    const {onConfirmClick, data} = this.props;
+    const { onConfirmClick, dataSource } = this.props;
     const result = this.getValuesByCheckMarks();
     onConfirmClick && onConfirmClick(result);
   };
@@ -88,7 +86,7 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
   _getValues = () => this.getValuesByCheckMarks();
 
   render() {
-    const {wheels, data} = this.props;
+    const { wheels, dataSource } = this.props;
 
     return (
       <View>
@@ -99,7 +97,7 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
               <Wheel
                 key={i}
                 ref={this.wheelRefs[i]}
-                wheelItems={(data as IParallelItemsProps)[i]}
+                wheelItems={(dataSource as IParallelItemsProps)[i]}
                 rowLocationMark={i}
                 setCheckMark={this.setCheckMark}
                 {...this.props}
@@ -116,15 +114,15 @@ PureParallel.defaultProps = {
   visible: false,
   wheels: 2,
   checkRange: 3,
-  data: [],
+  dataSource: [],
   itemHeight: 50,
-  value: [],
+  values: [],
 };
 
 const styles = StyleSheet.create({
   lists: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

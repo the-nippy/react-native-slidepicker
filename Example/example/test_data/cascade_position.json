@@ -132,7 +132,8 @@
               }
             ]
           },
-          {"label": "Texas", "value": "Texas"}
+          {"label": "Texas", "value": "Texas"},
+          {"label": "Nevada", "value": "Nevada"}
         ]
       },
       {
@@ -145,6 +146,10 @@
           {"label": "Vancouver", "value": "Vancouver"},
           {"label": "Quebec City", "value": "Quebec City"}
         ]
+      },
+      {
+        "label": "Mexico",
+        "value": "Mexico"
       }
     ]
   },
@@ -188,5 +193,9 @@
         ]
       }
     ]
+  },
+  {
+    "label": "Africa",
+    "value": "Africa"
   }
 ]

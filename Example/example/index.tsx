@@ -78,7 +78,7 @@ export default class Demo extends Component<PropsWithChildren, IExampleState> {
 
         <SlidePicker.Cascade
           visible={this.state.demoType === 'cascade_position'}
-          data={CASCADE_POSITION}
+          dataSource={CASCADE_POSITION}
           values={this.state.positionData}
           wheels={4}
           checkRange={5}
@@ -98,7 +98,7 @@ export default class Demo extends Component<PropsWithChildren, IExampleState> {
 
         <SlidePicker.Parallel
           visible={this.state.demoType === 'parallel_time'}
-          data={PARALLEL_TIME}
+          dataSource={PARALLEL_TIME}
           values={this.state.timeData}
           wheels={2}
           checkedTextStyle={styles.checkedStyle}
@@ -113,7 +113,7 @@ export default class Demo extends Component<PropsWithChildren, IExampleState> {
         <SlidePicker.Parallel
           ref={this.skuRef}
           visible={this.state.demoType === 'parallel_sku'}
-          data={PARALLEL_SKU}
+          dataSource={PARALLEL_SKU}
           values={this.state.skuData}
           wheels={3}
           checkedTextStyle={styles.checkedStyle}

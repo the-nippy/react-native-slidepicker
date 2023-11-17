@@ -1,15 +1,17 @@
 ## react-native-slidepicker
 
-一个 React Native 上的选择器组件，使用时间，地址以及各种分类选择的场景上。
+一个 React Native 上的选择器组件，可以用在时间，地址以及各种分类选择的场景上。
 
-  <img src="https://christop.oss-cn-guangzhou.aliyuncs.com/tech/slidepicker-demo.gif">
+  <img src="./example_pic.gif" width="300">
 
 特点：
 
-- 使用 JavaScript 实现，兼容 Android 和 iOS 端。
-- 自定义条目高度，背景色，文字样式，自定义选择器头部
-- 支持使用级联选择和平行选择两种方式
-- 自定义显示方式，可在 Modal 或绝对定位中使用
+- 全部使用 RN 官方组件，纯 TS/JS 实现，兼容 Android 和 iOS 端
+- 支持使用级联数据选择和平行数据选择
+- 大部分样式可自定义：条目文字、背景色、整个选择器头部
+- 自定义显示方式，默认在绝对定位的Mask中，可自定义容器放入选择器
+
+为什么使用Class Component？项目始于2020年，作者个人彼时对Hooks处于探索阶段，且当时项目主要使用Class，故沿用了Class进行封装。
 
 ## 使用
 
@@ -18,23 +20,26 @@
 安装 (npm) :
 
 ```bash
-npm install react-native-slidepicker react-native-gesture-handler -S
-```
-
-或者使用 yarn
-
-```bash
-yarn add react-native-slidepicker react-native-gesture-handler
+npm install react-native-slidepicker -S
 ```
 
 引入使用：
 
 ```javascript
+import SlidePicker from "react-native-slidepicker";
+
 //联动数据
-import { CascadePicker } from "react-native-slidepicker";
+<SlidePicker.Cascsde
+	visible={true}
+	data={...}
+  values={...}
+  ...
+/>
 
 //平级数据
-import { ParallelPicker } from "react-native-slidepicker";
+<SlidePicker.Parallel
+   data={...}   
+/>
 ```
 
 ## 例子
@@ -42,24 +47,30 @@ import { ParallelPicker } from "react-native-slidepicker";
 使用例子：
 
 ```JSX
-import {ParallelPicker} from 'react-native-slidepicker';
-import ParaData from './one.json';
+import SlidePicker from 'react-native-slidepicker';
+import PARALLEL_TIME from './test_data/parallel_time.json';
+
 export default class PickerTest extends Component {
-  ...
-  cancel = data => {
-    //...close modal
-  };
-  confirm = data => console.info('confirm', data);
+  
+  constructor(props: any) {
+    super(props);
+    this.state = {demoType : '', timeData: [] };
+  }
+  
   render() {
     return (
       <View style={{flex: 1}}>
-        <Modal isVisible={this.state...} {...props}>
-          <ParallelPicker
-            dataSource={ParaData}
-          	cancel={this.cancel}
-            confirm={this.confirm}
-          />
-        </Modal>
+        
+        <SlidePicker.Parallel
+          visible={this.state.demoType === 'parallel_time'}
+          data={PARALLEL_TIME}
+          values={this.state.timeData}
+          wheels={2}
+          checkedTextStyle={styles.checkedStyle}
+          normalTextStyle={{fontSize: 14}}
+          onCancelClick={() => this.setState({demoType: ''})}
+          onConfirmClick={res => this.setState({timeData: res, demoType: ''})}
+        />
       </View>
     );
   }
