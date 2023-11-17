@@ -2,7 +2,9 @@
 
 一个 React Native 上的选择器组件，可以用在时间，地址以及各种分类选择的场景上。
 
-  <img src="./example_pic.gif" width="300">
+  <img src="./example_pic.gif" width="360">
+
+demo 代码：https://github.com/the-nippy/react-native-slidepicker/blob/feature/absomask_flatlist/Example/example/index.tsx
 
 特点：
 
@@ -32,13 +34,13 @@ import SlidePicker from "react-native-slidepicker";
 <SlidePicker.Cascsde
 	visible={true}
 	data={...}
-  values={...}
-  ...
+	values={...}
+	// ...
 />
 
 //平级数据
 <SlidePicker.Parallel
-   data={...}
+	data={...}
 />
 ```
 
@@ -85,7 +87,7 @@ export default class PickerTest extends Component {
 | prop                   | type ( \* 表示必需) | description                                                                                                                                | default                                          |
 | ---------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
 | visible                | boolean \*          | 是否可见                                                                                                                                   | false                                            |
-| dataSource             | array \*            | 数据源，级联和平行数据格式见下方                                                                                                           | []                                               |
+| dataSource             | array \*            | 数据源，<a href='#data_demo'>查看级联和平行数据格式</a>                                                                                    | []                                               |
 | values                 | array \*            | 选择后的值。用于下次打开时数据回显                                                                                                         | []                                               |
 | wheels                 | number              | 表示有几轮数据                                                                                                                             | 2                                                |
 | onMaskClick            | function            | 背景点击事件                                                                                                                               | null                                             |
@@ -158,6 +160,72 @@ export default class RefDemo extends Component {
 
 ## Others
 
-1. 项目采用 Class Component ，一方面是历史原因项目启动后不再变动，一方面沿袭也为了兼容旧的 React & RN 版本。
+1. 项目采用 Class Component ，项目启动后未再变动，沿袭也为了兼容旧的 React & RN 版本。
 2. 1.x 版本采用的是 react-native-gesture-handler 来处理手势，写了一套滚动处理，但是在 Android 机器上尤其是配合 react-native-modal 出现一些不稳定问题，对该库原生层问题无能为力。故 2.x 全部采用 RN 自带组件完成，主要为 FlatList.
 3. 弹出层的处理。一般 Picker 组件内会带有弹出层，本组价的 `SlidePicker.Parallel` 和 `SlidePicker.Cascade` 采用绝对定位的 View 作为 Mask 容器来‘装载’选择器，所以需要将其放在页面级别的层级。如果想要自己处理弹出层，也可以使用 `SlidePicker.PureParallel` 和 `SlidePicker.PureCascade`，这是不带弹出层的纯选择器组件。
+
+<div id="data_demo">
+
+## 数据格式
+
+demo 数据格式 https://github.com/the-nippy/react-native-slidepicker/tree/feature/absomask_flatlist/Example/example/test_data
+
+级联数据格式：
+
+```json
+[
+  {
+    "label": "",
+    "value": "",
+    "options": [
+      {
+        "label": "",
+        "value": "",
+        "options": [
+          {
+            "label": "",
+            "value": "",
+            "options": [{ "label": "" }]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "",
+    "value": ""
+  }
+]
+```
+
+平行数据格式
+
+```json
+[
+  [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+
+  [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ]
+]
+```
