@@ -1,0 +1,192 @@
+[
+  {
+    "label": "Asia",
+    "value": "asia",
+    "options": [
+      {
+        "label": "China",
+        "value": "china",
+        "options": [
+          {
+            "label": "shandong",
+            "value": "shandong",
+            "options": [
+              {
+                "label": "Ji Nan",
+                "value": "Ji Nan"
+              },
+              {
+                "label": "Qing Dao",
+                "value": "Qing Dao"
+              },
+              {
+                "label": "Bin Zhou",
+                "value": "Bin Zhou"
+              },
+              {
+                "label": "Zi Bo",
+                "value": "Zi Bo"
+              }
+            ]
+          },
+          {
+            "label": "Gan Su",
+            "value": "Gan Su",
+            "options": [
+              {
+                "label": "Lan Zhou",
+                "value": "Lan Zhou"
+              },
+              {
+                "label": "Zhang Ye",
+                "value": "Zhang Ye"
+              },
+              {
+                "label": "Wu Wei",
+                "value": "Wu Wei"
+              },
+              {
+                "label": "Jiu Quan",
+                "value": "Jiu Quan"
+              },
+              {
+                "label": "Tian Shui",
+                "value": "Tian Shui"
+              }
+            ]
+          },
+          {
+            "label": "Zhe Jiang",
+            "value": "Zhe Jiang",
+            "options": [
+              {
+                "label": "Hang Zhou",
+                "value": "Hang Zhou"
+              },
+              {
+                "label": "Wen Zhou",
+                "value": "Wen Zhou"
+              },
+              {
+                "label": "Shao Xing",
+                "value": "Shao Xing"
+              }
+            ]
+          },
+          {
+            "label": "Hu Bei",
+            "value": "Hu Bei",
+            "options": [
+              {
+                "label": "Wu Han",
+                "value": "Wu Han"
+              },
+              {
+                "label": "Xiang Yang",
+                "value": "Xiang Yang"
+              },
+              {
+                "label": "Jing Zhou",
+                "value": "Jing Zhou"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Japan",
+        "value": "japan",
+        "options": []
+      },
+      {
+        "label": "South Korea",
+        "value": "South Korea"
+      }
+    ]
+  },
+  {
+    "label": "North America",
+    "value": "north america",
+    "options": [
+      {
+        "label": "USA",
+        "value": "usa",
+        "options": [
+          {
+            "label": "Pennsylvania",
+            "value": "Pennsylvania",
+            "options": [{"label": "Philly", "value": "Philly"}]
+          },
+          {"label": "Hawaii", "value": "Hawaii"},
+          {
+            "label": "New Mexico",
+            "value": "New Mexico",
+            "options": [
+              {
+                "label": "ABQ",
+                "value": "ABQ"
+              },
+              {
+                "label": "Santa Fe",
+                "value": "Santa Fe"
+              }
+            ]
+          },
+          {"label": "Texas", "value": "Texas"}
+        ]
+      },
+      {
+        "label": "Canada",
+        "value": "canada",
+        "options": [
+          {"label": "Ottawa", "value": "Ottawa"},
+          {"label": "Toronto", "value": "Toronto"},
+          {"label": "Montreal", "value": "Montreal"},
+          {"label": "Vancouver", "value": "Vancouver"},
+          {"label": "Quebec City", "value": "Quebec City"}
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Europe",
+    "value": "europe",
+    "options": [
+      {
+        "label": "Germany",
+        "value": "Germany",
+        "options": [
+          {"label": "Berlin", "value": "Berlin"},
+          {"label": "Hamburg", "value": "Hamburg"},
+          {"label": "Munich", "value": "Munich"},
+          {"label": "Cologne", "value": "Cologne"},
+          {"label": "Bremen", "value": "Bremen"},
+          {"label": "Stuttgart", "value": "Stuttgart"},
+          {"label": "Dortmund", "value": "Dortmund"}
+        ]
+      },
+      {
+        "label": "France",
+        "value": "France",
+        "options": [
+          {"label": "Paris", "value": "Paris"},
+          {"label": "Dunkerque", "value": "Dunkerque"},
+          {"label": "Lille", "value": "Lille"},
+          {"label": "Cherbourg", "value": "Cherbourg"},
+          {"label": "Rouen", "value": "Rouen"}
+        ]
+      },
+      {
+        "label": "U.K.",
+        "value": "uk",
+        "options": [
+          {"label": "London", "value": "London"},
+          {"label": "Manchester", "value": "Manchester"},
+          {"label": "Edinburgh", "value": "Edinburgh"},
+          {"label": "Birmingham", "value": "Birmingham"},
+          {"label": "Cambrvaluege", "value": "Cambrvaluege"}
+        ]
+      }
+    ]
+  }
+]

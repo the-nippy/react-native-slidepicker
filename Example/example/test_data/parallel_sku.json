@@ -1,0 +1,29 @@
+[
+  [
+    {"label": "type A", "value": 0},
+    {"label": "type B", "value": 1},
+    {"label": "type C", "value": 2},
+    {"label": "type D", "value": 3}
+  ],
+  [
+    {"label": "red", "value": 0},
+    {"label": "yellow", "value": 1},
+    {"label": "blue", "value": 2},
+    {"label": "green", "value": 3},
+    {"label": "gray", "value": 4}
+  ],
+  [
+    {"label": 33, "value": 33},
+    {"label": 34, "value": 34},
+    {"label": 35, "value": 35},
+    {"label": 36, "value": 36},
+    {"label": 37, "value": 37},
+    {"label": 38, "value": 38},
+    {"label": 39, "value": 39},
+    {"label": 40, "value": 40},
+    {"label": 41, "value": 41},
+    {"label": 42, "value": 42},
+    {"label": 43, "value": 43},
+    {"label": 44, "value": 44}
+  ]
+]
