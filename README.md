@@ -4,7 +4,7 @@
 
   <img src="./example_pic.gif" width="360">
 
-demo 代码：https://github.com/the-nippy/react-native-slidepicker/blob/feature/absomask_flatlist/Example/example/index.tsx
+<a href="https://github.com/the-nippy/react-native-slidepicker/blob/feature/absomask_flatlist/Example/example/index.tsx">例子demo 代码</a>
 
 特点：
 
@@ -168,9 +168,11 @@ export default class RefDemo extends Component {
 
 ## 数据格式
 
-demo 数据格式 https://github.com/the-nippy/react-native-slidepicker/tree/feature/absomask_flatlist/Example/example/test_data
+<a href="https://github.com/the-nippy/react-native-slidepicker/tree/feature/absomask_flatlist/Example/example/test_data">例子 demo 数据格式 </a>
 
-级联数据格式：
+
+
+**级联数据**格式：
 
 ```json
 [
@@ -198,7 +200,7 @@ demo 数据格式 https://github.com/the-nippy/react-native-slidepicker/tree/fea
 ]
 ```
 
-平行数据格式
+**平行数据**格式
 
 ```json
 [
