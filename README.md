@@ -13,7 +13,6 @@
 - 大部分样式可自定义：条目文字、背景色、整个选择器头部
 - 自定义显示方式，默认在绝对定位的 Mask 中，可自定义容器放入选择器
 
-为什么使用 Class Component？项目始于 2020 年，作者个人彼时对 Hooks 处于探索阶段，且当时项目主要使用 Class，故沿用了 Class 进行封装。
 
 ## 使用
 
@@ -40,7 +39,7 @@ import SlidePicker from "react-native-slidepicker";
 
 //平级数据
 <SlidePicker.Parallel
-	dataSource={...}
+  dataSource={...}
 />
 ```
 
