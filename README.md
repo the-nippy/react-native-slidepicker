@@ -31,16 +31,16 @@ npm install react-native-slidepicker -S
 import SlidePicker from "react-native-slidepicker";
 
 //联动数据
-<SlidePicker.Cascsde
-	visible={true}
-	data={...}
-	values={...}
-	// ...
+<SlidePicker.Cascade
+  visible={true}
+  dataSource={...}
+  values={...}
+  ...
 />
 
 //平级数据
 <SlidePicker.Parallel
-	data={...}
+	dataSource={...}
 />
 ```
 
@@ -160,9 +160,14 @@ export default class RefDemo extends Component {
 
 ## Others
 
-1. 项目采用 Class Component ，项目启动后未再变动，沿袭也为了兼容旧的 React & RN 版本。
-2. 1.x 版本采用的是 react-native-gesture-handler 来处理手势，写了一套滚动处理，但是在 Android 机器上尤其是配合 react-native-modal 出现一些不稳定问题，对该库原生层问题无能为力。故 2.x 全部采用 RN 自带组件完成，主要为 FlatList.
-3. 弹出层的处理。一般 Picker 组件内会带有弹出层，本组价的 `SlidePicker.Parallel` 和 `SlidePicker.Cascade` 采用绝对定位的 View 作为 Mask 容器来‘装载’选择器，所以需要将其放在页面级别的层级。如果想要自己处理弹出层，也可以使用 `SlidePicker.PureParallel` 和 `SlidePicker.PureCascade`，这是不带弹出层的纯选择器组件。
+1. 弹出层的问题
+
+一般 Picker 组件内会带有弹出层，本组件的 `SlidePicker.Parallel` 和 `SlidePicker.Cascade` 采用绝对定位的 View 作为 Mask 容器来装载选择器，所以最好将组件放在页面级别的层级。如果想要自己处理弹出层，也可以使用 `SlidePicker.PureParallel` 和 `SlidePicker.PureCascade`，这是不带弹出层的纯选择器组件。
+
+2. 历史版本
+
+1.x 版本采用的是 react-native-gesture-handler 来处理手势滚动，但是在 Android 机器上尤其是配合 react-native-modal 出现一些不稳定问题，对该库原生层问题无能为力。故 2.x 全部采用 RN 自带组件完成，主要为 FlatList.
+
 
 <div id="data_demo">
 

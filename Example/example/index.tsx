@@ -7,7 +7,8 @@ import {
   Image,
   Pressable,
 } from 'react-native';
-import SlidePicker from '../src';
+// import SlidePicker from '../src';
+import SlidePicker from 'react-native-slidepicker';
 
 import CASCADE_POSITION from './test_data/cascade_position.json';
 import PARALLEL_TIME from './test_data/parallel_time.json';
