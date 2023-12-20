@@ -170,7 +170,7 @@ Generally, the Picker component will have a pop-up layer, and this component's `
 
 2. Historical Version
 
-The 1.x version uses react native Gesture handler to handle gesture scrolling, but on Android machines, especially when combined with react-native-modal, there are some instability issues that cannot be addressed by the native code of the library ( <a href="https://github.com/software-mansion/react-native-gesture-handler/issues/139">issue#139</a> ). Therefore, all 2. x are completed using RN's built-in components, mainly FlatList
+The 1.x version uses react native Gesture handler to handle gesture scrolling, but on Android machines, especially when combined with react-native-modal, there are some instability issues that cannot be addressed by the native code of the library ( <a href="https://github.com/software-mansion/react-native-gesture-handler/issues/139">issue#139</a> ). Therefore, 2. x are completed using RN's built-in components, mainly FlatList
 
 
 <div id="data_demo">
