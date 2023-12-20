@@ -1,30 +1,35 @@
+## <a href="https://github.com/the-nippy/react-native-slidepicker/blob/main/README_CN.md">中文文档</a>
+
+
 ## react-native-slidepicker
 
-一个 React Native 上的选择器组件，可以用在时间，地址以及各种分类选择的场景上。
+A selector component on React Native that can be used for time, address, and various classification selection scenarios.
 
   <img src="./example_pic.gif" width="360">
 
-<a href="https://github.com/the-nippy/react-native-slidepicker/blob/feature/absomask_flatlist/Example/example/index.tsx">例子demo 代码</a>
+<a href="https://github.com/the-nippy/react-native-slidepicker/blob/feature/absomask_flatlist/Example/example/index.tsx">demo code</a>
 
-特点：
+Feature：
 
-- 全部使用 RN 官方组件，纯 TS/JS 实现，兼容 Android 和 iOS 端
-- 支持使用级联数据选择和平行数据选择
-- 大部分样式可自定义：条目文字、背景色、整个选择器头部
-- 自定义显示方式，默认在绝对定位的 Mask 中，可自定义容器放入选择器
+- Implemented through RN components (JS / TS), compatible with Android and iOS.
+
+- Support the use of cascaded data selection and parallel data selection.
+
+- Most styles can be customized: entry text, background color, entire selector header.
+
+- Custom display method, default to absolute positioning Mask, customizable container placement selector.
 
 
-## 使用
+## How to use
 
-安装库：
 
-安装 (npm) :
+Install (npm) :
 
 ```bash
 npm install react-native-slidepicker -S
 ```
 
-引入使用：
+Import & use :
 
 ```javascript
 import SlidePicker from "react-native-slidepicker";
@@ -43,9 +48,8 @@ import SlidePicker from "react-native-slidepicker";
 />
 ```
 
-## 例子
+## Demo
 
-使用例子：
 
 ```JSX
 import SlidePicker from 'react-native-slidepicker';
@@ -81,43 +85,43 @@ export default class PickerTest extends Component {
 
 ## props
 
-组件的可用属性：
 
-| prop                   | type ( \* 表示必需) | description                                                                                                                                | default                                          |
+
+| prop                   | type ( \* means required) | description                                                                                                                                | default                                          |
 | ---------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
-| visible                | boolean \*          | 是否可见                                                                                                                                   | false                                            |
-| dataSource             | array \*            | 数据源，<a href='#data_demo'>查看级联和平行数据格式</a>                                                                                    | []                                               |
-| values                 | array \*            | 选择后的值。用于下次打开时数据回显                                                                                                         | []                                               |
-| wheels                 | number              | 表示有几轮数据                                                                                                                             | 2                                                |
-| onMaskClick            | function            | 背景点击事件                                                                                                                               | null                                             |
-| animationDuration      | number              | 启动和关闭的动画持续时间                                                                                                                   | 200                                              |
-| checkRange             | number              | 可见选择项数                                                                                                                               | 3                                                |
-| itemHeight             | number              | 选择项 item 高度                                                                                                                           | 60                                               |
-| contentBackgroundColor | string              | 选择区域背景色                                                                                                                             | #f8f8f8                                          |
-| contentBackgroundColor | string (color)      | 选择 item 分割线颜色                                                                                                                       | rgba(0,0,0,0.05)                                 |
-| checkedTextStyle       | TextStyle           | 选中 item 文本样式                                                                                                                         | { fontWeight: '700',fontSize: 16,color: '#006' } |
-| normalTextStyle        | TextStyle           | 选中 item 文本样式                                                                                                                         | { fontWeight: '400', fontSize: 14 }              |
-| titleText              | string              | 选择器头部标题                                                                                                                             |                                                  |
-| titleTextStyle         | TextStyle           | 选择器头部标题文本样式                                                                                                                     |                                                  |
-| cancelText             | string              | 取消文本                                                                                                                                   | cancel                                           |
-| cancelTextStyle        | TextStyle           | 取消文本样式                                                                                                                               | { fontSize: 15, color: 'rgb(42, 123, 152)' }     |
-| onCancelClick          | function            | 取消事件                                                                                                                                   |                                                  |
-| confirmText            | string              | 确认文本                                                                                                                                   | confirm                                          |
-| confirmTextStyle       | TextStyle           | 确认文本样式                                                                                                                               | { fontSize: 15, color: 'rgb(42, 123, 152)' }     |
-| onConfirmClick         | function            | 确认事件, (res) => { } 携带选择结果                                                                                                        |                                                  |
-| HeaderComponent        | JSX element         | 自定义选择器头部组件（如果使用自定义选择器头部组件，默认头部会被替换，onConfirmClick 不会被调用 , 需要使用 ref 来调用 \_getValues 以取值） |                                                  |
+| visible                | boolean \*          | component visible                                                                                                                                   | false                                            |
+| dataSource             | array \*            | data source，<a href='#data_demo'>view data format</a>                                                                                    | []                                               |
+| values                 | array \*            | checked values                                                                                                         | []                                               |
+| wheels                 | number              | data columns                                                                                                                             | 2                                                |
+| onMaskClick            | function            | background click event                                                                                                                               | null                                             |
+| animationDuration      | number              | open/close animation duration                                                                                                                   | 200                                              |
+| checkRange             | number              | row ranges数                                                                                                                               | 3                                                |
+| itemHeight             | number              | height of item                                                                                                                           | 60                                               |
+| contentBackgroundColor | string              | check area background color                                                                                                                             | #f8f8f8                                          |
+| itemDividerColor | string      | divider line color                                                                                                                       | rgba(0,0,0,0.05)                                 |
+| checkedTextStyle       | TextStyle           | checked item text style                                                                                                                         | { fontWeight: '700',fontSize: 16,color: '#006' } |
+| normalTextStyle        | TextStyle           | normal item text style                                                                                                                         | { fontWeight: '400', fontSize: 14 }              |
+| titleText              | string              | picker heading                                                                                                                             |                                                  |
+| titleTextStyle         | TextStyle           | picker heading text style                                                                                                                     |                                                  |
+| cancelText             | string              | cancel text                                                                                                                                   | cancel                                           |
+| cancelTextStyle        | TextStyle           | cancel text style                                                                                                                               | { fontSize: 15, color: 'rgb(42, 123, 152)' }     |
+| onCancelClick          | function            | cancel event                                                                                                                                   |                                                  |
+| confirmText            | string              | confirm text                                                                                                                                   | confirm                                          |
+| confirmTextStyle       | TextStyle           | confirm text style                                                                                                                               | { fontSize: 15, color: 'rgb(42, 123, 152)' }     |
+| onConfirmClick         | function            | confirm event, `(res) => { }` width result                                                                                                        |                                                  |
+| HeaderComponent        | JSX element         | Custom selector header component (If using a custom selector header component, the default header will be replaced, onConfirmClick will not be called, and ref needs to be used to call \ _getValues to take values)） |                                                  |
 
 <hr id="dataSource"></hr>
 
 ## 方法
 
-如果你使用了自定义头部，那么就需要为 picker 组件设置 ref。然后将 ref 上的方法绑定到点击事件上才能获取到选择结果。
+If you have used a custom header, then you need to set ref for the picker component. Then, the selection result can only be obtained by calling ref when clicking.
 
 ### `_getValues()`
 
-除非你使用自定义头部，否则都应该使用 [confirm 方法](#confirm) 表示选定， 而不是使用这个方法。
+> Unless you use a custom header, you should use the **onConfirmClick** props instead of using this method.
 
-通过设置 ref，可以实时获取到已选择的数据，但是触发时机并不好判定，因为已经有了 confirm 按钮和事件回调，应该优先使用 confirm 事件。
+By setting ref, the selected data can be obtained in real-time.
 
 ```JSX
 export default class RefDemo extends Component {
@@ -159,24 +163,26 @@ export default class RefDemo extends Component {
 
 ## Others
 
-1. 弹出层的问题
+1. Issue with pop-up layers
 
-一般 Picker 组件内会带有弹出层，本组件的 `SlidePicker.Parallel` 和 `SlidePicker.Cascade` 采用绝对定位的 View 作为 Mask 容器来装载选择器，所以最好将组件放在页面级别的层级。如果想要自己处理弹出层，也可以使用 `SlidePicker.PureParallel` 和 `SlidePicker.PureCascade`，这是不带弹出层的纯选择器组件。
+Generally, the Picker component will have a pop-up layer, and this component's `SlidePicker.Parallel` and `SlidePicker.Cascade` uses an absolutely positioned View as the Mask container to load selectors, so it is best to place components at the page level. If you want to handle pop-up layers yourself, you can also use ` SlidePicker.PureParallel` and `SlidePicker.PureCascade`, this is a pure selector component without a pop-up layer.
 
-2. 历史版本
 
-1.x 版本采用的是 react-native-gesture-handler 来处理手势滚动，但是在 Android 机器上尤其是配合 react-native-modal 出现一些不稳定问题，对该库原生层问题无能为力。故 2.x 全部采用 RN 自带组件完成，主要为 FlatList.
+2. Historical Version
+
+The 1.x version uses react native Gesture handler to handle gesture scrolling, but on Android machines, especially when combined with react-native-modal, there are some instability issues that cannot be addressed by the native code of the library ( <a href="https://github.com/software-mansion/react-native-gesture-handler/issues/139">issue#139</a> ). Therefore, all 2. x are completed using RN's built-in components, mainly FlatList
 
 
 <div id="data_demo">
 
-## 数据格式
-
-<a href="https://github.com/the-nippy/react-native-slidepicker/tree/feature/absomask_flatlist/Example/example/test_data">例子 demo 数据格式 </a>
+## Data format
 
 
+<a href="https://github.com/the-nippy/react-native-slidepicker/tree/feature/absomask_flatlist/Example/example/test_data">demo data format</a>
 
-**级联数据**格式：
+
+
+**cascaded data format** ：
 
 ```json
 [
@@ -204,7 +210,7 @@ export default class RefDemo extends Component {
 ]
 ```
 
-**平行数据**格式
+**parallel data format** :
 
 ```json
 [
