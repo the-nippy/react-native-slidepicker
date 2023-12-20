@@ -113,7 +113,7 @@ export default class PickerTest extends Component {
 
 <hr id="dataSource"></hr>
 
-## 方法
+## Method (ref)
 
 If you have used a custom header, then you need to set ref for the picker component. Then, the selection result can only be obtained by calling ref when clicking.
 
