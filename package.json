@@ -1,6 +1,6 @@
 {
   "name": "react-native-slidepicker",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a slide picker used in react native",
   "main": "./src/index.tsx",
   "scripts": {
