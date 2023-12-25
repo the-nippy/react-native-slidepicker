@@ -64,7 +64,7 @@ export default class PickerTest extends Component {
 
         <SlidePicker.Parallel
           visible={this.state.demoType === 'parallel_time'}
-          data={PARALLEL_TIME}
+          dataSource={PARALLEL_TIME}
           values={this.state.timeData}
           wheels={2}
           checkedTextStyle={styles.checkedStyle}
