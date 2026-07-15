@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "export JAVA_HOME=$(grep -s -F 'org.gradle.java.home=' android/local.properties | head -1 | cut -d'=' -f2-); react-native run-android",
+    "android:emu": "export JAVA_HOME=$(grep -s -F 'org.gradle.java.home=' android/local.properties | head -1 | cut -d'=' -f2-); emulator -avd Pixel_8 & sleep 20 && react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
