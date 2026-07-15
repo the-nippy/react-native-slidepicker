@@ -6,16 +6,17 @@ import {
   Dimensions,
   LayoutChangeEvent,
   Pressable,
+  InteractionManager,
 } from 'react-native';
 
-type IMaskSlidePickerType = SlidePickerType & {
+type TMaskSlidePickerType = TSlidePickerType & {
   ref?: React.RefObject<any>;
 };
 
 export function withMask(
-  WrappedComponent: React.ComponentType<IMaskSlidePickerType>,
+  WrappedComponent: React.ComponentType<TMaskSlidePickerType>,
 ) {
-  return class Mask extends Component<IMaskSlidePickerType> {
+  return class Mask extends Component<TMaskSlidePickerType> {
     animationDuration: number;
 
     aniTransValue = new Animated.Value(0);
@@ -24,13 +25,21 @@ export function withMask(
     state = {mount: false};
     wrappedCompRef: React.RefObject<any>;
 
-    constructor(props: any) {
+    constructor(props: TMaskSlidePickerType) {
       super(props);
       this.animationDuration = this.props.animationDuration || 200;
       this.wrappedCompRef = React.createRef();
     }
 
-    componentDidUpdate(prevProps: Readonly<SlidePickerType>): void {
+    componentDidMount(): void {
+      if (this.props.visible) {
+        InteractionManager.runAfterInteractions(() => {
+          this.setState({mount: true});
+        });
+      }
+    }
+
+    componentDidUpdate(prevProps: Readonly<TSlidePickerType>): void {
       if (!prevProps.visible && this.props.visible) {
         this.setState({mount: true});
       }
@@ -77,7 +86,8 @@ export function withMask(
         <View style={styles.mask}>
           <Pressable
             style={{flex: 1}}
-            onPress={() => onMaskClick && onMaskClick()}></Pressable>
+            onPress={() => onMaskClick && onMaskClick()}
+          />
           <Animated.View
             style={[
               {
@@ -88,7 +98,7 @@ export function withMask(
             ]}
             onLayout={this.onContentLayout}>
             <WrappedComponent
-              {...(this.props as SlidePickerType)}
+              {...(this.props as TSlidePickerType)}
               ref={this.wrappedCompRef}
             />
           </Animated.View>
@@ -105,7 +115,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,.5)',
     justifyContent: 'flex-end',
   },
   content: {

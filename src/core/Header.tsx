@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TextStyle,
-  Pressable,
   TouchableOpacity,
 } from 'react-native';
 
@@ -23,10 +22,6 @@ interface IHeaderProps {
 export default class Header extends PureComponent<IHeaderProps> {
   static defaultProps: IHeaderProps;
 
-  constructor(props: any) {
-    super(props);
-  }
-
   render() {
     const {
       HeaderComponent,
@@ -40,7 +35,9 @@ export default class Header extends PureComponent<IHeaderProps> {
       onConfirmClick,
     } = this.props;
 
-    if (HeaderComponent) return HeaderComponent;
+    if (HeaderComponent) {
+      return HeaderComponent;
+    }
 
     const cancelStyle = StyleSheet.flatten([
       styles.base_textStyle,

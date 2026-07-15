@@ -1,19 +1,19 @@
-type IWheelItemProps = {
+type TWheelItemProps = {
   label: string | number;
   value: string | number;
-  options?: IWheelItemProps[] | null;
+  options?: TWheelItemProps[] | null;
 };
 
-type IParallelItemsProps = IWheelItemProps[][];
-type ICascadeItemsProps = IWheelItemProps[];
+type TParallelItemsProps = TWheelItemProps[][];
+type TCascadeItemsProps = TWheelItemProps[];
 
-type IPickerValueProps = Omit<IWheelItemProps, 'options'>;
+type TPickerValueProps = Omit<TWheelItemProps, 'options'>;
 
-type SlidePickerType = {
+type TSlidePickerType = {
   visible: boolean;
   wheels?: number;
-  values: IWheelItemProp[];
-  dataSource: IParallelItemsProps | ICascadeItemsProps;
+  values: TWheelItemProps[];
+  dataSource: TParallelItemsProps | TCascadeItemsProps;
 
   onMaskClick?: () => void;
 
@@ -34,7 +34,7 @@ type SlidePickerType = {
   onCancelClick?: () => void;
   confirmText?: string;
   confirmTextStyle?: TextStyle;
-  onConfirmClick?: (result: IWheelItemProps[]) => void;
+  onConfirmClick?: (result: TWheelItemProps[]) => void;
 
   HeaderComponent?: React.ReactNode;
 };

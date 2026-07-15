@@ -1,6 +1,6 @@
 {
   "name": "react-native-slidepicker",
-  "version": "2.0.2",
+  "version": "2.1.1",
   "description": "a slide picker used in react native",
   "main": "./src/index.tsx",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lexguy/react-native-slidepicker.git"
+    "url": "git+https://github.com/the-nippy/react-native-slidepicker.git"
   },
   "keywords": [
     "RN picker",
@@ -17,12 +17,12 @@
     "React Native",
     "react native"
   ],
-  "author": "xuxiaowei/lexguy",
+  "author": "the-nippy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lexguy/react-native-slidepicker/issues"
+    "url": "https://github.com/the-nippy/react-native-slidepicker/issues"
   },
-  "homepage": "https://github.com/lexguy/react-native-slidepicker#readme",
+  "homepage": "https://github.com/the-nippy/react-native-slidepicker#readme",
   "files": [
     "src/",
     "src",

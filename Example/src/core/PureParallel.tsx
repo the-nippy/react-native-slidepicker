@@ -7,19 +7,15 @@ interface IParallelState {
   checkedIndexMarks: number[];
 }
 
-class PureParallel extends Component<SlidePickerType, IParallelState> {
-  static defaultProps: SlidePickerType;
-  setMarkTimer: ReturnType<typeof setTimeout> | null;
-  // cacheMarks: number[];
+class PureParallel extends Component<TSlidePickerType, IParallelState> {
+  static defaultProps: TSlidePickerType;
   wheelRefs: any[];
 
-  constructor(props: any) {
+  constructor(props: TSlidePickerType) {
     super(props);
     const {wheels} = this.props;
     const initialCheckMarks = new Array(wheels).fill(0);
     this.state = {checkedIndexMarks: initialCheckMarks};
-    this.setMarkTimer = null;
-    // this.cacheMarks = new Array(wheels).fill(0);
     this.wheelRefs = initialCheckMarks.map(() => React.createRef());
   }
 
@@ -35,30 +31,18 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
     }
   }
 
-  componentWillUnmount(): void {
-    this.setMarkTimer && clearTimeout(this.setMarkTimer);
-  }
-
   setCheckMark = (locationMark: number, checkedIndex: number) => {
     const indexMarks = [...this.state.checkedIndexMarks];
     indexMarks[locationMark] = checkedIndex;
     this.setState({checkedIndexMarks: indexMarks});
   };
 
-  // setCheckMark = (locationMark: number, checkedIndex: number) => {
-  //   this.cacheMarks[locationMark] = checkedIndex;
-  //   this.setMarkTimer && clearTimeout(this.setMarkTimer);
-  //   this.setMarkTimer = setTimeout(() => {
-  //     this.setState({checkedIndexMarks: [...this.cacheMarks]});
-  //   }, 200);
-  // };
-
   getValuesByCheckMarks = () => {
     const {dataSource} = this.props;
     const result = [];
     for (let i = 0; i < dataSource.length; i++) {
       const checkedIndex = this.state.checkedIndexMarks[i];
-      const element = (dataSource as IParallelItemsProps)[i][checkedIndex];
+      const element = (dataSource as TParallelItemsProps)[i][checkedIndex];
       result.push(element);
     }
     return result;
@@ -69,7 +53,7 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
     const initialCheckedIndexMarks = [];
     for (let i = 0; i < values.length; i++) {
       const element = values[i];
-      const wheelItems = (dataSource as IParallelItemsProps)[i];
+      const wheelItems = (dataSource as TParallelItemsProps)[i];
       const findIndex = wheelItems.findIndex(
         ele => ele?.value === element?.value,
       );
@@ -79,30 +63,30 @@ class PureParallel extends Component<SlidePickerType, IParallelState> {
   };
 
   onConfirmClickProxy = () => {
-    const {onConfirmClick, dataSource} = this.props;
+    const {onConfirmClick} = this.props;
     const result = this.getValuesByCheckMarks();
     onConfirmClick && onConfirmClick(result);
   };
 
-  // ref
+  // ref method for parent component to get the selected values
   _getValues = () => this.getValuesByCheckMarks();
 
   render() {
-    const {wheels, dataSource} = this.props;
+    const {wheels, dataSource, ...restProps} = this.props;
 
     return (
       <View>
         <Header {...this.props} onConfirmClick={this.onConfirmClickProxy} />
         <View style={styles.lists}>
-          {new Array(wheels).fill(1).map((wheel, i) => {
+          {new Array(wheels).fill(1).map((_, i) => {
             return (
               <Wheel
                 key={i}
                 ref={this.wheelRefs[i]}
-                wheelItems={(dataSource as IParallelItemsProps)[i]}
+                wheelItems={(dataSource as TParallelItemsProps)[i] || []}
                 rowLocationMark={i}
                 setCheckMark={this.setCheckMark}
-                {...this.props}
+                {...restProps}
               />
             );
           })}
